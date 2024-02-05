@@ -15,7 +15,9 @@ export const WrapAll = styled.div`
   align-items: flex-start;
   padding: 0 30px;
   /* overflow: hidden; */
-  @media only screen and (max-width: 430px) {
+  @media only screen and (max-width: 900px) {
+    width: 95%;
+    height: auto;
   }
 `;
 

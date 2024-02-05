@@ -8,8 +8,7 @@ export const WrapAll = styled.div`
   margin: 0 auto;
   padding-top: 40px;
   /* background: ; */
-  @media only screen and (max-width: 1050px) {
-    padding-bottom: 70px;
+  @media only screen and (max-width: 900px) {
   }
   @media only screen and (max-width: 720px) {
     min-width: unset;
@@ -88,6 +87,9 @@ export const DoubleRow = styled.div`
 export const SmallBlock = styled.div`
   position: relative;
   width: 45%;
+  @media only screen and (max-width: 900px) {
+    width: 90%;
+  }
 `;
 export const StyledLabel = styled.label`
   display: block;
@@ -107,6 +109,9 @@ export const StyledInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   color: black;
+  @media only screen and (max-width: 900px) {
+    width: 90% !important;
+  }
 `;
 
 export const StyledButton = styled.button`
