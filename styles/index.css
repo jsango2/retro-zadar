@@ -1187,6 +1187,39 @@ select {
   }
 }
 @media only screen and (max-width: 900px) {
+  .nemaFotografijeOut {
+    transition: all 0.3s ease-in-out;
+    position: fixed;
+    top: 79px;
+    z-index: 2;
+    color: #793737;
+    font-size: 19px;
+    font-family: serif;
+    font-weight: 700;
+    text-shadow: 0 2px 11px #0000006e;
+    width: 400px;
+    line-height: 140%;
+    text-align: right;
+  }
+  .nemaFotografijeIn {
+    text-align: right;
+    transition: all 0.3s ease-in-out;
+
+    opacity: 0;
+    position: fixed;
+    right: -200px;
+    top: 156px;
+    z-index: 2;
+    color: white;
+    font-size: 35px;
+    font-family: serif;
+    font-weight: 700;
+    text-shadow: 0px 2px 11px #0000006e;
+
+    width: 400px;
+    text-align: center;
+    line-height: 140%;
+  }
   .imgTest img {
     border: none;
     object-fit: contain;
