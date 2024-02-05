@@ -32,7 +32,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="hr">
         <Head>
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
           ></link>
@@ -43,7 +43,7 @@ export default class MyDocument extends Document {
           <link
             href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;500;600;700;900&display=swap"
             rel="stylesheet"
-          ></link>
+          ></link> */}
         </Head>
         {/* <title>Your site title</title> */}
         {/* {this.props.styleTags} */}

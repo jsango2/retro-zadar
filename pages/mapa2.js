@@ -15,7 +15,7 @@ import styled from "styled-components";
 import { db } from "../components/firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 // import { Link } from "gatsby";
-
+import { BsLayersFill } from "react-icons/bs";
 import useWindowSize from "../components/helper/usewindowsize";
 import SliderGodina from "../components/SliderGodina";
 import Slikejson from "../components/test.json";
@@ -114,7 +114,7 @@ function Mapa({ data }) {
   const size = useWindowSize();
   const mapContainer = useRef();
 
-  const [value2, setValue2] = useState([1890, 1970]);
+  const [value2, setValue2] = useState([1850, 1970]);
   const [innerHeight, setInnerHeight] = useState(null);
   const [lng, setLng] = useState(15.2224);
   const [lat, setLat] = useState(44.1197);
@@ -219,7 +219,6 @@ function Mapa({ data }) {
   }, [geoData, value]);
 
   // -----
-  console.log(geoData);
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
@@ -356,17 +355,22 @@ function Mapa({ data }) {
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
         setFeaturesArray(features);
+        console.log("Broj fotografija:", features.length);
+
         // if (features) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
 
         RenderListings(features.slice(0, 6));
         function RenderListings(features) {
+          const featuresWithoutClusters = features.filter(
+            (feature) => feature.properties.datum_uploada
+          );
           const empty = document.createElement("p");
           // Clear any existing listings
           listingEl.innerHTML = "";
           if (features.length) {
-            for (const feature of features) {
+            for (const feature of featuresWithoutClusters) {
               const itemLink = document.createElement("figure");
               itemLink.id = "imageDiv";
               const p = document.createElement("div");
@@ -442,7 +446,7 @@ function Mapa({ data }) {
         type: "geojson",
         data: geoData2,
         cluster: true,
-        clusterMaxZoom: 11, // Max zoom to cluster points on
+        clusterMaxZoom: 13, // Max zoom to cluster points on
         clusterRadius: 42, // Radius of each cluster when clustering points (defaults to 50)
         clusterMinPoints: 2,
       });
@@ -644,14 +648,14 @@ function Mapa({ data }) {
           value={value}
           onChange={handleChange}
           getAriaValueText={valuetext}
-          min={1880}
+          min={1850}
           max={2024}
           orientation="vertical"
           valueLabelDisplay="on"
         />
       </div>
       <div className="mapToggler" onClick={() => setMapStyle(!mapStyle)}>
-        {mapStyle ? "Satelit" : "Mapa"}
+        <BsLayersFill />
       </div>
       <div className="map-overlay2">
         <div id="feature-listing" className="listing"></div>
