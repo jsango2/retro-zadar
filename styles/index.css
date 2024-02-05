@@ -1195,11 +1195,11 @@ select {
     top: 79px;
     z-index: 2;
     color: #793737;
-    font-size: 19px;
+    font-size: 16px;
     font-family: serif;
     font-weight: 700;
     text-shadow: 0 2px 11px #0000006e;
-    width: 400px;
+    width: auto;
     line-height: 140%;
     text-align: right;
   }
@@ -1213,12 +1213,12 @@ select {
     top: 79px;
     z-index: 2;
     color: white;
-    font-size: 19px;
+    font-size: 16px;
     font-family: serif;
     font-weight: 700;
     text-shadow: 0px 2px 11px #0000006e;
 
-    width: 400px;
+    width: auto;
     text-align: right;
     line-height: 140%;
   }
