@@ -130,7 +130,7 @@ function Mapa({ data }) {
   const [hoverFrame, setHoverFrame] = useState(null);
   const [popupOn, setPopupOn] = useState(false);
   const [popupPoster, setPopupPoster] = useState(false);
-  const [mapStyle, setMapStyle] = useState(false);
+  const [mapStyle, setMapStyle] = useState(true);
   const [nemaFotografije, setNemaFotografije] = useState(true);
 
   const [geoData, setGeoData] = useState([]);
