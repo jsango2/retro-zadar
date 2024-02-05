@@ -1,0 +1,518 @@
+* {
+  box-sizing: border-box;
+}
+/* body .slick-prev::before,
+body .slick-next::before {
+  display: none;
+} */
+
+body {
+  background-color: #191b26;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html {
+  font-family: "Montserrat", sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  color: #ffffff;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+/* ------FONTS------ */
+
+.H1 {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 72px;
+  line-height: 120%;
+}
+
+.H2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 120%;
+}
+h2 {
+  margin: 0;
+}
+
+.H3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 120%;
+}
+h3,
+p {
+  margin: 0;
+}
+.H4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 120%;
+}
+
+.B {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+}
+.P {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+}
+
+.M-H1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 120%;
+}
+
+.M-H2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 120%;
+}
+.M-H3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 120%;
+}
+.M-H4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+}
+.M-B {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+}
+.blast-from-the-past {
+  /* font-family: Komika Axis; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 120%;
+  /* or 60px */
+  text-align: center;
+  /* Tamno plava pozadina */
+  color: #191b26;
+  transform: rotate(-3.8deg);
+}
+/* ------------------------ */
+.headroom-wrapper {
+  display: flex;
+  height: 65px;
+  align-items: center;
+  justify-content: center;
+}
+.navBar {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  padding-left: 15px;
+}
+.navLinks {
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px 0 30px;
+}
+.navLink {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+}
+.navTitle {
+  font-weight: 900;
+  font-size: 16px;
+}
+.button-yellow {
+  background: #f9ff00;
+  box-shadow: 0px 14px 23px rgba(28, 37, 44, 0.08);
+  border-radius: 30px;
+}
+header {
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 140%;
+  text-align: center;
+  color: #ffffff;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  /* display: none; */
+  /* webkit-appearance: none; */
+  opacity: 0.3;
+  width: 15px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 10px;
+}
+
+/* .slick-dots li {
+  height: 2px !important;
+  background: #aea8b2 !important;
+} */
+
+/* .slick-dots li button:before {
+  color: #ffffff !important;
+  font-size: 26px !important;
+} */
+.Prehrana {
+  background: linear-gradient(180deg, #383691 0%, #0d0b62 100%);
+  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
+  border-radius: 16.2846px;
+}
+.Utrke {
+  background: linear-gradient(180deg, #91292f 0%, #a30707 100%);
+  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
+  border-radius: 16.2846px;
+}
+.Savjeti {
+  background: linear-gradient(180deg, #ddb225 0%, #f5c543 100%);
+  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
+  border-radius: 16.2846px;
+}
+.Trening {
+  background: linear-gradient(180deg, #057426 0%, #55ac4a 100%);
+  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
+  border-radius: 16.2846px;
+}
+.Tehnologija {
+  background: linear-gradient(180deg, #262727 0%, #4f504f 100%);
+  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
+  border-radius: 16.2846px;
+}
+.submitButton {
+  background: #f9ff00 !important;
+  /* Medium Drop */
+  box-shadow: 0px 14px 23px rgba(28, 37, 44, 0.08) !important;
+  border-radius: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  cursor: pointer;
+  /* margin: 0; */
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 120%;
+  width: 239px !important;
+  height: 61px;
+  font-weight: 700 !important;
+  color: black !important;
+}
+.videoHero {
+  position: absolute;
+  width: 135%;
+  height: 100%;
+  left: 50%;
+  top: 50%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+.HeroNaslovAnimacija {
+  width: 172%;
+}
+.NightRun {
+  object-fit: cover;
+  width: 100%;
+  z-index: 0;
+}
+.logoNightRun {
+  position: relative;
+  z-index: 2;
+  width: 406px;
+}
+.zrakeParallax {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+  left: 500px;
+  top: -450px;
+  opacity: 0.1;
+  z-index: 2;
+}
+.zarezTestimonial {
+  position: absolute;
+  right: -25px;
+  top: -25px;
+}
+.hamburgerMenu {
+  margin-right: 30px;
+}
+/* .menuWrap {
+  position: relative;
+  height: 400px;
+  transform: translate(50%, 0px);
+  top: 55px;
+  z-index: 10;
+  right: 50%;
+  width: 80%;
+  border-radius: 0 0 39px 39px;
+  background: #191b26;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+.closedMenu {
+  /* position: relative; */
+  transform: translate(50%, -500px) !important;
+
+  /* transition: all 0.3s linear; */
+  visibility: hidden;
+}
+.openMenu {
+  /* position: relative; */
+
+  transform: translate(50%, 0px) !important;
+  /* transition: all 0.3s linear; */
+  visibility: show;
+}
+.openMenu div {
+}
+.openMenu a {
+  text-decoration: none;
+}
+.menu {
+  height: 400px;
+  position: absolute;
+  transform: translateX(50%);
+  top: 55px;
+  z-index: 12;
+  right: 50%;
+  width: 80vw;
+  border-radius: 0 0 39px 39px;
+  background: #191b26;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trenerImg {
+  object-fit: cover;
+}
+.formular {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* width: 100%; */
+}
+.nightRunDiv {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobileLinks {
+  text-decoration: none;
+  color: #ffffff;
+  margin: 10px 0;
+}
+.blogCrta {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  transform: translate(-45px, 20px);
+}
+.treneriCrta {
+  position: absolute;
+  top: 70px;
+  height: 100%;
+  z-index: 2;
+  width: 130%;
+  left: -15%;
+}
+.isSubmitinig {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.lottieTrkac {
+  width: 300px !important;
+  height: 300px !important;
+}
+.poslanoForm {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  margin-top: 28px;
+  width: 400px;
+}
+.blogPostCrta {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  transform: translate(-45px, 20px);
+}
+.wrapFeaturedBlogText {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 70px;
+  padding-left: 50px;
+}
+.sliderPrijava1150 {
+  width: 106%;
+  height: 109%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -25px);
+}
+
+@media only screen and (min-width: 900px) {
+  .hamburgerMenu {
+    display: none;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .navLinks {
+    display: none;
+  }
+  .sliderPrijava900 {
+    width: 300px;
+    height: 109%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -25px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .NightRun {
+    object-fit: cover;
+    width: auto;
+    z-index: 0;
+  }
+  .nightRunDiv {
+    width: 80%;
+  }
+  .logoNightRun {
+    width: 266px;
+  }
+  .zarezTestimonial {
+    position: absolute;
+    right: -35px;
+    top: -265px;
+  }
+  /* .navBar {
+      width:100%;
+      height: 65px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 auto;
+    } */
+  .navLinks {
+    width: 330px;
+    padding: 0 30px 0 30px;
+  }
+  .navTitle {
+    font-weight: 900;
+    font-size: 12px;
+  }
+  header {
+    line-height: 111%;
+  }
+
+  .HeroNaslovAnimacija {
+    width: 90%;
+  }
+  .zrakeParallax {
+    left: 0;
+  }
+  .trenerImg {
+    width: 100%;
+  }
+  .formular {
+    width: 100%;
+  }
+  .wrapFeaturedBlogText {
+    width: 100%;
+
+    padding-bottom: 70px;
+    padding-left: 10px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .formular {
+    position: relative;
+    width: 80%;
+    right: 8px;
+  }
+  .blogCrta {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    transform: translate(-31px, 7px);
+  }
+  .blogPostCrta {
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    transform: translate(-32px, 15px);
+  }
+  .treneriCrta {
+    top: 0px;
+  }
+  /* .lokacija {
+    font-size: 10px !important  ;
+  } */
+  .isSubmitinig {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    margin-left: 0;
+    backdrop-filter: blur(6px);
+  }
+  .poslanoForm {
+    position: absolute;
+
+    margin-left: 0;
+    margin-top: 0;
+    width: 105%;
+    color: black;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .nightRunDiv {
+    width: 100%;
+  }
+}
