@@ -711,6 +711,19 @@ select {
   max-height: 478px;
   object-fit: contain;
 }
+.wrapPopup {
+  position: relative;
+}
+.newPhoto {
+  position: fixed;
+  cursor: pointer;
+  font-size: 40px;
+  color: white;
+  z-index: 20;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .popupFrameDataWrap {
   display: flex;
   align-items: center;
@@ -764,6 +777,8 @@ select {
   margin: 0 3px;
 }
 .imgTest img {
+  position: relative;
+  z-index: 2;
   border: none;
   object-fit: contain;
   height: auto;
@@ -774,6 +789,63 @@ select {
   -webkit-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
   -moz-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
   box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+}
+.imgTest {
+  transition: all 1s ease-in-out;
+  opacity: 1;
+}
+.imgNewBg {
+  transition: all 1s ease-in-out;
+  opacity: 0;
+}
+#jure {
+  color: black;
+  cursor: pointer;
+}
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0000007a;
+  z-index: 11;
+}
+.imgTest2 img {
+  position: relative;
+  left: 50px;
+  z-index: 2;
+  border: none;
+  object-fit: contain;
+  height: auto;
+  max-height: 576px;
+  max-width: 100%;
+  border-radius: 10px;
+
+  /* transform-origin: center; */
+  -webkit-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+  -moz-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+  box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+}
+.imgNewBg img {
+  transition: all 1s ease-in-out;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: none;
+  object-fit: contain;
+  height: auto;
+  max-height: 576px;
+  max-width: 100%;
+  border-radius: 10px;
+  /* transform-origin: center; */
+  -webkit-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+  -moz-box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+  box-shadow: 10px 10px 49px -28px rgba(41, 39, 41, 1);
+}
+.invisible {
+  opacity: 0;
 }
 .inViewSlides {
   left: -0;
@@ -815,6 +887,7 @@ select {
 } */
 .popupTitle {
   position: absolute;
+  z-index: 3;
   top: 20px;
   left: 20px;
   color: #f2f2f2;
@@ -859,291 +932,61 @@ select {
   margin: 12px;
   border-radius: 4px;
 }
-.naslovKalkulatora {
-  width: 650px;
-  text-align: center;
-}
-/* .wrapBoxResultCalc {
-  background-color: #0b243865;
-  border-radius: 39px;
-  padding: 30px;
-  height: 400px;
-  width: 800px;
-} */
-/* .dateclass {
-  width: 100%;
-}
 
-.dateclass.placeholderclass::before {
-  width: 100%;
-  content: attr(placeholder);
-}
-
-.dateclass.placeholderclass:hover::before {
-  width: 0%;
-  content: "";
-} */
-.xyz {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  background: rgb(85, 46, 190);
-  border-radius: 50%;
-  height: 0px;
-  width: 0px;
-  opacity: 0;
-  transition: width 0.7s, height 0.7s, opacity 1.2s;
-}
-.xyzText {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  background: rgb(85, 46, 190);
-  border-radius: 50%;
-  height: 0px;
-  width: 0px; */
-  font-size: 40px;
-  font-weight: 900;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: width 0.7s, height 0.7s, opacity 1.2s;
-  transition-delay: 0.5s;
-}
-.wrapRaspored {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-}
-
-.wrapResultCalc {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  background: red;
-  border-radius: 50%;
-  height: 350px;
-  width: 350px;
-  opacity: 1;
-  /* transition: all 0.7s ease-in-out; */
-}
-.tempoCircleIspis {
-  background-color: #91292f;
-  margin-top: 80px;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.wrapResultCalcZone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-  width: 80%;
-}
-.wrapCijeliKalkulator {
-  width: 100%;
+.reveal {
+  position: relative;
+  width: 750px;
+  height: 450px;
+  display: block;
   overflow: hidden;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-}
-.wrapFormCalc {
-  display: flex;
-  align-items: center;
-  width: 888px;
-  margin-top: 30px;
-  justify-content: space-around;
-}
-.wrapFormCalcZone {
-  display: flex;
-  align-items: center;
-  width: 600px;
-  margin-top: 30px;
-  justify-content: space-around;
-}
-.formCalcSubmit {
-  margin-top: 20px;
-}
-.ispisCalc,
-.ispisCalcZone {
-  font-size: 22px;
-  font-weight: 900;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-}
-
-.ispisCalcCircle {
-  font-size: 24px;
-  font-weight: 900;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-}
-.ispisCalcTempoBroj {
-  font-size: 62px;
-  font-weight: 900;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-}
-.blogPostCrta {
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  transform: translate(-45px, 20px);
-}
-.wrapFeaturedBlogText {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 70px;
-  padding-left: 50px;
-}
-.sliderPrijava1150 {
-  width: 106%;
-  height: 109%;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -25px);
-}
-.allKalkulatorWrap {
-  height: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  padding-bottom: 100px;
-  padding-bottom: 83px;
-  padding-top: 80px;
-  /* background-color: rgba(36, 34, 105, 0.26); */
-  width: 90%;
-  margin: 0 auto;
-  border-radius: 39px;
-}
-.projekcijaRezultata {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #701b1b;
-  border-radius: 8px;
-  padding-bottom: 38px;
-  margin-top: 11px;
-}
-.lokacija {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 145%;
-  /* or 23px */
-
-  letter-spacing: 0.5px;
-
-  /* SUNRISE / White */
-
-  color: #ffffff;
-}
-
-.allKalkulatorWrapZone {
-  height: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  padding-bottom: 100px;
-  padding-bottom: 20px;
-  padding-top: 80px;
-  /* background-color: rgba(36, 34, 105, 0.26); */
-  width: 90%;
-  margin: 0 auto 50px auto;
-  border-radius: 39px;
-}
-.resetZone {
-  margin: 10px 0;
-  position: relative;
-}
-/* .zrakeParallaxRaspored {
-  width: 100%;
-} */
-.ispisCalcZoneColor {
-  position: relative;
-  font-size: 20px;
-  font-weight: 900;
-  /* display: flex; */
-  text-align: center;
-  /* justify-content: center;
-  align-items: center; */
-  width: 50vw;
-  /* height: 58px; */
-  background-color: #91292f;
-  margin-bottom: 5px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: flex-start;
-  padding: 20px 15px;
-  align-items: center;
-  opacity: 1;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-.height58 {
-  height: 58px;
-}
-.heightAuto {
-  height: auto;
-  padding-bottom: 30px;
-}
-
-.zTag {
-  padding: 5px;
-  margin-right: 5px;
-  border: 1px solid black;
   border-radius: 5px;
-  display: none;
+}
+.reveal .img3 {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
-.ispisCalcZoneColor:nth-child(1) {
-  background-color: #b2ea70;
+.reveal .img4 {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  clip: rect(0px, 225px, 450px, 0px);
+  /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
+  /* clip-path: inset(0px, 225px, 450px, 0px); */
 }
-.ispisCalcZoneColor:nth-child(2) {
-  background-color: #fbd148;
+.reveal .activator {
+  position: absolute;
+  width: 750px;
+  height: 450px;
+
+  opacity: 0;
+  cursor: ew-resize;
 }
-.ispisCalcZoneColor:nth-child(3) {
-  background-color: #f9975d;
+.divider {
+  position: absolute;
+  z-index: 30;
+  height: 100%;
+  width: 3px;
+  background-color: black;
+  left: 225px;
+  top: 0%;
+  cursor: ew-resize;
 }
-.ispisCalcZoneColor:nth-child(4) {
-  background-color: #c85c5c;
+.circle {
+  width: 13px;
+  height: 13px;
+  background-color: black;
+  border-radius: 50%;
+  border: 1px solid white;
+  position: absolute;
+  top: 49%;
+  z-index: 31;
+  left: -5px;
 }
+
 /* .ispisCalcZoneColorAutoHeight:nth-child(1) {
   background-color: #b2ea70;
 }
@@ -1524,71 +1367,47 @@ select {
     padding-left: 10px;
   }
 }
-@media only screen and (max-width: 420px) {
-  .wrapPhototest {
-    width: 260px;
-    height: 260px;
-    position: relative;
-    top: -54px;
-    left: -39%;
-    transform: rotate(11deg);
-    transform: translate(43%, 0);
+@media only screen and (max-width: 430px) {
+  .reveal {
+    width: 95vw;
+    height: 62vw;
   }
-  .tape {
+  .reveal .img4 {
     position: absolute;
-    top: 0;
-    left: -64px;
-    transform: rotate(319deg);
-    width: 170px;
-    height: 40px;
-  }
-  .crteBlogFront {
+    object-fit: cover;
     width: 100%;
-    top: 76px;
+    height: 100%;
+    clip: rect(0px, 40vw, 450px, 0px);
+    /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
+    /* clip-path: inset(0px, 225px, 450px, 0px); */
   }
-  .formular {
-    position: relative;
-    width: 80%;
-    right: 8px;
-  }
-  .blogCrta {
-    height: 30px;
-    width: 30px;
+  .reveal .activator {
     position: absolute;
-    transform: translate(-31px, 7px);
-  }
-  .blogPostCrta {
-    height: 35px;
-    width: 35px;
-    position: absolute;
-    transform: translate(-32px, 15px);
-  }
-  .treneriCrta {
-    top: 0px;
-  }
+    width: 95vw;
+    height: 62vw;
 
-  .isSubmitinig {
-    color: black;
-    display: flex;
-    flex-direction: column;
-    font-size: 22px;
-    margin-left: 0;
-    backdrop-filter: blur(6px);
+    opacity: 0;
+    cursor: ew-resize;
   }
-  .poslanoForm {
+  .divider {
     position: absolute;
-
-    margin-left: 0;
-    margin-top: 0;
-    width: 105%;
-    color: black;
-    font-size: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    z-index: 30;
+    height: 100%;
+    width: 3px;
+    background-color: black;
+    left: 40vw;
+    top: 0%;
+    cursor: ew-resize;
   }
-  .nightRunDiv {
-    width: 100%;
+  .circle {
+    width: 13px;
+    height: 13px;
+    background-color: black;
+    border-radius: 50%;
+    border: 1px solid white;
+    position: absolute;
+    top: 49%;
+    z-index: 31;
+    left: -5px;
   }
 }

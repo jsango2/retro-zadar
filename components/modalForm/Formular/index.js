@@ -26,11 +26,13 @@ function Formular({ lng, lat, toggleModal }) {
   const [godina, setGodina] = useState("");
   const [poruka, setPoruka] = useState("");
   const [file, setFile] = useState(null);
+  const [fileNewPhoto, setFileNewPhoto] = useState(null);
   // const [image, setImage] = useState(null);
   const [fileThumb, setFileThumb] = useState(null);
   const [percent, setPercent] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [URLs, setURLs] = useState([]);
+  const [newPhotoURL, setNewPhotoURL] = useState(null);
   const [lastURLs, setlastURLs] = useState([]);
   const [enabled, setEnabled] = useState(false);
   const [image, setImage] = useState(null);
@@ -71,11 +73,37 @@ function Formular({ lng, lat, toggleModal }) {
           imageLinks.push(res.url);
           console.log(imageLinks);
           setURLs((oldArray) => [...oldArray, res.url]);
+          uploadNewPhoto(fileNewPhoto);
         })
         .catch((err) => setLoading(false));
     }
   };
-  console.log("SSSSSSS", URLs);
+  const uploadNewPhoto = (file) => {
+    let image = file;
+    const data = new FormData();
+    data.append("file", image);
+    data.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+    data.append("folder", "Cloudinary-React");
+
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.url);
+
+        setNewPhotoURL(res.url);
+      });
+  };
+
   // const uploadToFirebase = () => {
   //   const docRef = addDoc(collection(db, "cities"), {
   //     Title: mjesto,
@@ -142,9 +170,9 @@ function Formular({ lng, lat, toggleModal }) {
   // } catch (error) {
   //   setLoading(false);
   // }
-
+  console.log(URLs.length, newPhotoURL);
   useEffect(() => {
-    if (URLs.length > 1) {
+    if (URLs.length > 1 && newPhotoURL !== null) {
       console.log("USE EFFE");
       const docRef = addDoc(collection(db, "cities"), {
         Title: mjesto,
@@ -153,14 +181,16 @@ function Formular({ lng, lat, toggleModal }) {
         GPSLongitude: lng,
         Photo1000px: URLs[0],
         Photo200px: URLs[1],
+        newPhoto: newPhotoURL,
       });
       console.log("Document written with ID: ", docRef.id);
       setGodina("");
       setMjesto("");
       setFile(null);
+      setFileNewPhoto(null);
       toggleModal();
     }
-  }, [URLs]);
+  }, [URLs, newPhotoURL]);
 
   // const handleUpload = () => {
   //   uploadFiles(images);
@@ -222,7 +252,16 @@ function Formular({ lng, lat, toggleModal }) {
       console.log(err);
     }
   };
-  console.log(selectedImages);
+  const handleChangeNewPhoto = async (event) => {
+    try {
+      const image1000px = await resizeFile3(event.target.files[0]);
+
+      setFileNewPhoto(image1000px);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // function handleChange(event) {
   //   setFile(event.target.files[0]);
   // }
@@ -338,28 +377,28 @@ function Formular({ lng, lat, toggleModal }) {
               onChange={(e) => handleGodina(e)}
             />
           </SmallBlock>
-
-          <StyledButton type="submit">Spremi</StyledButton>
+          <WrapUpload>
+            <StyledLabel>Upload foto</StyledLabel>
+            <UploadBlock type="file" onChange={handleChange} accept="image/*" />
+            {file !== null && (
+              <div style={{ color: "black", marginTop: "20px" }}>
+                {file.name}
+              </div>
+            )}
+            <StyledLabel>Upload new foto</StyledLabel>
+            <UploadBlock
+              type="file"
+              onChange={handleChangeNewPhoto}
+              accept="image/*"
+            />
+            {fileNewPhoto !== null && (
+              <div style={{ color: "black", marginTop: "20px" }}>
+                {fileNewPhoto.name}
+              </div>
+            )}
+          </WrapUpload>
         </WrapData>
-        <WrapUpload>
-          <StyledLabel>Upload</StyledLabel>
-
-          {/* <UploadBlock
-            multiple={false}
-            accept="application/pdf"
-            type="file"
-            onChange={(e) => handleFile(e)}
-          ></UploadBlock> */}
-
-          <UploadBlock type="file" onChange={handleChange} accept="image/*" />
-          {file !== null && (
-            <div style={{ color: "black", marginTop: "20px" }}>{file.name}</div>
-          )}
-
-          {/* <button onClick={handleUpload}>Upload to Firebase</button> */}
-
-          <UploadBlockTopLayer />
-        </WrapUpload>
+        <StyledButton type="submit">Spremi</StyledButton>
         <StyledButtonMob type="submit">Spremi</StyledButtonMob>
       </StyledForm>
     </WrapAll>

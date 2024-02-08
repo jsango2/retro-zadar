@@ -7,6 +7,7 @@ export const WrapAll = styled.div`
   width: 80%;
   margin: 0 auto;
   padding-top: 40px;
+  padding-bottom: 40px;
   /* background: ; */
   @media only screen and (max-width: 900px) {
   }
@@ -22,43 +23,28 @@ export const StyledForm = styled.form`
   justify-content: space-between;
   max-width: 1080px;
   margin: 0 auto;
+  flex-direction: column;
   @media only screen and (max-width: 900px) {
-    flex-direction: column;
   }
 `;
 export const WrapData = styled.div`
   position: relative;
-  width: 30%;
   @media only screen and (max-width: 720px) {
     width: 95%;
   }
 `;
 export const WrapUpload = styled.div`
   position: relative;
-  width: 30%;
 `;
 export const UploadBlock = styled.input`
   position: relative;
   z-index: 5;
-  width: 134px;
-  height: 134px;
-  display: flex;
-  justify-content: center;
-  align-items: cente;
-  border-radius: 6px;
-  border: 1px solid #dbe2ea;
-
-  background: #fff;
-
-  opacity: 0;
-  box-shadow: 0px 4px 8px 0px rgba(44, 39, 56, 0.04);
-  cursor: pointer;
 `;
 export const UploadBlockTopLayer = styled.div`
   position: absolute;
   z-index: 4;
-  width: 134px;
-  height: 134px;
+  /* width: 134px;
+  height: 134px; */
   display: flex;
   justify-content: center;
   align-items: cente;
@@ -100,7 +86,7 @@ export const StyledLabel = styled.label`
   font-weight: 400;
   line-height: 140%; /* 22.4px */
   color: #1c2640;
-  width: 300px;
+  width: auto;
 `;
 
 export const StyledInput = styled.input`

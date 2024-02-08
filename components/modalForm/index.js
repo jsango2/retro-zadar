@@ -15,8 +15,6 @@ function FormModal({ toggleModal, lngLat }) {
     <WrapAll>
       <CloseButton onClick={() => toggleModal()}>x</CloseButton>
       <Container>
-        <Text>Lng: {lngLat.lng}</Text>
-        <Text>Lat: {lngLat.lat}</Text>
         <Formular lng={lngLat.lng} lat={lngLat.lat} toggleModal={toggleModal} />
       </Container>
     </WrapAll>

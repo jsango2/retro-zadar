@@ -12,8 +12,14 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import styled from "styled-components";
 // import firebase from "gatsby-plugin-firebase";
-import { db } from "../components/firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { db, auth } from "../components/firebase/firebase";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  deleteField,
+} from "firebase/firestore";
 // import { Link } from "gatsby";
 import { BsLayersFill } from "react-icons/bs";
 import useWindowSize from "../components/helper/usewindowsize";
@@ -21,6 +27,8 @@ import SliderGodina from "../components/SliderGodina";
 import Slikejson from "../components/test.json";
 import FormModal from "../components/modalForm";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -113,6 +121,7 @@ function Mapa({ data }) {
   //   const { t } = useTranslation();
   const size = useWindowSize();
   const mapContainer = useRef();
+  const router = useRouter();
 
   const [value2, setValue2] = useState([1850, 1970]);
   const [innerHeight, setInnerHeight] = useState(null);
@@ -128,10 +137,14 @@ function Mapa({ data }) {
   const [show, setShow] = useState(false);
   const [popupFrame, setPopupFrame] = useState(null);
   const [hoverFrame, setHoverFrame] = useState(null);
+  const [idKliknuteFotke, setIdKliknuteFotke] = useState(null);
   const [popupOn, setPopupOn] = useState(false);
   const [popupPoster, setPopupPoster] = useState(false);
   const [mapStyle, setMapStyle] = useState(true);
+  const [hasNewPhoto, setHasNewPhoto] = useState(false);
   const [nemaFotografije, setNemaFotografije] = useState(true);
+  const [logedIn, setlogedIn] = useState(null);
+  const [emailError, setEmailError] = useState("");
 
   const [geoData, setGeoData] = useState([]);
   const [geoData2, setGeoData2] = useState([]);
@@ -154,6 +167,19 @@ function Mapa({ data }) {
   function valuetext(value) {
     return `${Number(value[0])} godina do ${Number(value[1])} `;
   }
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setlogedIn(true);
+        setEmailError("");
+        router.push("/mapa2");
+        console.log("OnAuthStateChanged: Logged in");
+      } else {
+        setlogedIn(false);
+        console.log("OnAuthStateChanged: Logged out");
+      }
+    });
+  }, []);
 
   //   const [lang, setLang] = useState(i18next.language);
   const dataJson = Slikejson;
@@ -166,9 +192,12 @@ function Mapa({ data }) {
           image_url_thumb: doc.data().Photo50px,
           image_url_1000px: doc.data().Photo1000px,
           image_url_200px: doc.data().Photo200px,
+          newPhoto: doc.data().newPhoto,
           title_naslov: doc.data().Title,
           longitude: doc.data().GPSLongitude,
           latitude: doc.data().GPSLatitude,
+
+          id: doc.id,
           icon: {
             // iconUrl: doc.data().Photo50px,
             iconSize: [50, 50], // size of the icon
@@ -184,13 +213,13 @@ function Mapa({ data }) {
         // ...doc.data(),
         id: doc.id,
       }));
+
       setGeoData({
         type: "FeatureCollection",
         features: newData,
       });
     });
   };
-
   useEffect(() => {
     fetchPost();
   }, []);
@@ -229,7 +258,7 @@ function Mapa({ data }) {
       pitch: 40,
       zoom: zoom,
       minZoom: 13, // note the camel-case
-      maxZoom: 19,
+      maxZoom: 21,
       maxBounds: maxBounds,
     });
     const popup = new mapboxgl.Popup({
@@ -239,6 +268,12 @@ function Mapa({ data }) {
       // maxWidth: "100%",
     });
     const popup2 = new mapboxgl.Popup({
+      closeButton: true,
+      anchor: "center",
+      className: "moj-popupMapbox",
+      maxWidth: "100%",
+    });
+    const popup3 = new mapboxgl.Popup({
       closeButton: true,
       anchor: "center",
       className: "moj-popupMapbox",
@@ -535,41 +570,146 @@ function Mapa({ data }) {
 
       map.on("render", function () {
         var features = map.queryRenderedFeatures({ layers: ["city"] });
-
         setFeaturesArr(features);
       });
       map.on("dblclick", (e) => {
-        setIsModalOpen(true);
-        setLngLat(e.lngLat.wrap());
+        if (logedIn) {
+          setIsModalOpen(true);
+          setLngLat(e.lngLat.wrap());
+        }
       });
-
       map.doubleClickZoom.disable();
+
       map.on("click", "city", function (e) {
         var coordinates = e.features[0].geometry.coordinates.slice();
         var feature = e.features[0];
+        console.log(feature);
+        setIdKliknuteFotke(e.features[0].properties.id);
+        if (e.features[0].properties.newPhoto) {
+          setHasNewPhoto(true);
+        } else {
+          setHasNewPhoto(false);
+        }
+
+        // var foo = document.getElementById("imageDiv");
+        // itemLink.appendChild(node);
+        setPopupOn(true);
         setShow(false);
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
-        if (feature.properties.title_naslov !== undefined) {
+        if (feature.properties.newPhoto) {
+          popup2
+            .setLngLat(feature.geometry.coordinates)
+            .setText(feature.properties.title_naslov)
+            .setHTML(
+              `<div class='reveal'>
+
+                       <div class='popupTitle'>
+                          <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                          ${feature.properties.datum_uploada}
+                        </div>
+                 <img class="img3" src=${feature.properties.image_url_200px} ></img>
+                   <img id="img4" class="img4" src=${feature.properties.newPhoto} ></img>
+                <div id="activator" class="activator"></div>
+                <div id="divider" class="divider"><div class="circle"></div></div>
+             
+              </div>
+
+              `
+            )
+
+            .addTo(map);
+          if (size.width > 430) {
+            document
+              .getElementById("activator")
+              .addEventListener(
+                size.width < 430 ? "touchmove" : "mousemove",
+                (event) => {
+                  console.log(event);
+                  const divider = document.getElementById("divider");
+                  divider.style.left = event.offsetX + "px";
+                  event.target.previousElementSibling.style.clip =
+                    "rect(0px, " + event.offsetX + "px,450px,0px)";
+                }
+              );
+          } else {
+            document
+              .getElementById("activator")
+              .addEventListener(
+                size.width < 430 ? "touchmove" : "mousemove",
+                (event) => {
+                  console.log(event);
+                  const divider = document.getElementById("divider");
+                  divider.style.left = event.touches[0].clientX + "px";
+                  event.target.previousElementSibling.style.clip =
+                    "rect(0px, " + event.touches[0].clientX + "px,450px,0px)";
+                }
+              );
+          }
+
+          // document
+          //   .getElementById("activator")
+          //   .addEventListener("mousemove", (event) => {
+          //     console.log(event);
+          //     event.target.previousElementSibling.style.clipPath =
+          //       "inset(0px  " + event.offsetX + ") calc(100% - 450px) 0px)";
+          //   });
+
+          // clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px);
+          // popup2
+          //   .setLngLat(feature.geometry.coordinates)
+          //   .setText(feature.properties.title_naslov)
+          //   .setHTML(
+          //     `<div class='wrapPopup'>
+
+          //         <div class='popupTitle'>
+          //           <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+          //            ${feature.properties.datum_uploada}
+          //         </div>
+          //         <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+          //         <div  class="imgNewBg" ><img src=${feature.properties.newPhoto} ></img></div>
+          //         <div id="jure">...i danas</div>
+          //       </div>
+
+          //       `
+          //   )
+
+          //   .addTo(map);
+
+          // document.getElementById("jure").addEventListener("click", fld);
+          // function fld() {
+          //   document.getElementsByClassName("imgTest")[0].style.opacity = "0";
+          //   document.getElementsByClassName("imgNewBg")[0].style.opacity = "1";
+          // }
+        } else {
           popup2
             .setLngLat(feature.geometry.coordinates)
             .setText(feature.properties.title_naslov)
             .setHTML(
               `<div class='wrapPopup'>
-                  <div class='popupTitle'>
-                    <span style="font-weight: bold">${feature.properties.title_naslov},</span>
-                     ${feature.properties.datum_uploada}.
-                  </div>
 
-                  <div class="imgTest"><img src=${feature.properties.image_url_200px} ></img></div>
+                <div class='popupTitle'>
+                  <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                   ${feature.properties.datum_uploada}
                 </div>
+                <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+          
+     
+              </div>
 
-                `
+              `
             )
 
             .addTo(map);
         }
+      });
+
+      popup2.on("close", () => {
+        setIdKliknuteFotke(null);
+        setPopupOn(false);
+
+        // document.getElementById("overlay").classList.remove("overlay");
       });
 
       map.on("mouseleave", "city", function () {
@@ -580,28 +720,28 @@ function Mapa({ data }) {
         map.getCanvas().style.cursor = "pointer";
         // popup.remove();
       });
-      map.flyTo({
-        // These options control the ending camera position: centered at
-        // the target, at zoom level 9, and north up.
-        center: [lng, lat],
-        zoom: size.width < 750 ? 5.9 : 13.2,
-        bearing: 0,
+      // map.flyTo({
+      //   // These options control the ending camera position: centered at
+      //   // the target, at zoom level 9, and north up.
+      //   center: [lng, lat],
+      //   zoom: size.width < 750 ? 5.9 : 13.2,
+      //   bearing: 0,
 
-        // These options control the flight curve, making it move
-        // slowly and zoom out almost completely before starting
-        // to pan.
-        speed: 0.3, // make the flying slow
-        curve: 1, // change the speed at which it zooms out
+      //   // These options control the flight curve, making it move
+      //   // slowly and zoom out almost completely before starting
+      //   // to pan.
+      //   speed: 0.3, // make the flying slow
+      //   curve: 1, // change the speed at which it zooms out
 
-        // This can be any easing function: it takes a number between
-        // 0 and 1 and returns another number between 0 and 1.
-        easing: function (t) {
-          return 1 - Math.pow(1 - t, 5);
-        },
+      //   // This can be any easing function: it takes a number between
+      //   // 0 and 1 and returns another number between 0 and 1.
+      //   easing: function (t) {
+      //     return 1 - Math.pow(1 - t, 5);
+      //   },
 
-        // this animation is considered essential with respect to prefers-reduced-motion
-        essential: true,
-      });
+      //   // this animation is considered essential with respect to prefers-reduced-motion
+      //   essential: true,
+      // });
       // Call this function on initialization
       // passing an empty array to render an empty state
       //   renderListings([]);
@@ -625,11 +765,47 @@ function Mapa({ data }) {
     setIsModalOpen(false);
     setHasPoints(true);
   };
+  const handleClick = () => {
+    console.log("Clicked photo");
+  };
+  const handleLogOut = (e) => {
+    e.preventDefault();
+
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("odlogiralo");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "cities", id));
+    await console.log("obrisano u bazi");
+  };
+
+  useEffect(() => {
+    if (popupOn) {
+      document.getElementById("overlay").classList.add("overlay");
+    } else {
+      document.getElementById("overlay").classList.remove("overlay");
+    }
+  }, [popupOn]);
+
+  // const reveal = (event) => {
+  //   event.target.previousElementSibling.style.clip =
+  //     "rect(0px, " +
+  //     (event.clientX - event.target.offsetLeft) +
+  //     "px,450px,0px)";
+  // };
 
   return (
     <>
       {" "}
       <div id="map"></div>
+      <div id="overlay"></div>
       {isModalOpen && <FormModal toggleModal={toggleModal} lngLat={lngLat} />}
       <Naslov>RETRO ZADAR</Naslov>
       <PodNaslov>
@@ -657,6 +833,16 @@ function Mapa({ data }) {
       <div className="mapToggler" onClick={() => setMapStyle(!mapStyle)}>
         <BsLayersFill />
       </div>
+      {logedIn && (
+        <div className="admin" onClick={handleLogOut}>
+          Logout Admin
+        </div>
+      )}
+      {logedIn && idKliknuteFotke !== null && (
+        <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
+          Obriši
+        </div>
+      )}
       <div className="map-overlay2">
         <div id="feature-listing" className="listing"></div>
       </div>

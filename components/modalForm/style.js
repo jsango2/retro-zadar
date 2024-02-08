@@ -6,8 +6,8 @@ export const WrapAll = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
-  width: 600px;
-  height: 400px;
+  width: auto;
+  height: auto;
   border-radius: 20px;
   background: #f2f2f2;
   display: flex;
@@ -28,7 +28,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 40px;
+  padding: 0px;
   @media only screen and (max-width: 770px) {
   }
   @media only screen and (max-width: 574px) {
