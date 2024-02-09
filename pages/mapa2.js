@@ -270,13 +270,15 @@ function Mapa({ data }) {
     });
     const popup2 = new mapboxgl.Popup({
       closeButton: true,
+      closeOnClick: true,
+
       anchor: "center",
       className: "moj-popupMapbox",
       maxWidth: "100%",
     });
-    const popup3 = new mapboxgl.Popup({
-      closeButton: false,
-    });
+    // const popup3 = new mapboxgl.Popup({
+    //   closeButton: false,
+    // });
 
     // popup.on("open", function () {
     //   setPopupOn(true);
@@ -385,6 +387,32 @@ function Mapa({ data }) {
         }
         return uniqueFeatures;
       }
+      // if (zoom > 19) {
+      //   const features = map.queryRenderedFeatures({ layers: ["city"] });
+
+      //   features.forEach((feature) => {
+      //     const popup4 = new mapboxgl.Popup({
+      //       closeButton: false,
+      //     })
+      //       .setLngLat([
+      //         feature.properties.longitude,
+      //         feature.properties.latitude,
+      //       ])
+      //       .setHTML(
+      //         `<div >
+      // <div class=${feature.properties.newPhoto ? "hasNewPhoto" : ""}>
+
+      //         </div>
+      //         <div class="imgThumb"><img class="imgPopup" src=${
+      //           feature.properties.image_url_1000px
+      //         } ></img></div>
+      //       </div>
+
+      //       `
+      //       )
+      //       .addTo(map);
+      //   });
+      // }
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
         setFeaturesArray(features);
@@ -394,11 +422,14 @@ function Mapa({ data }) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
 
-        RenderListings(features.slice(0, 6));
+        RenderListings(features.slice(0, 10));
+
         function RenderListings(features) {
           const featuresWithoutClusters = features.filter(
             (feature) => feature.properties.datum_uploada
           );
+          // funkcija za dodavanje popupa sa thumbnailom kad je zoom veci od 19
+
           const empty = document.createElement("p");
           // Clear any existing listings
           listingEl.innerHTML = "";
@@ -428,6 +459,7 @@ function Mapa({ data }) {
               // itemLink.href = feature.properties.wikipedia;
               // itemLink.target = "_blank";
               // itemLink.style.backgroundImage = `url(${feature.properties.image_url})`;
+
               itemLink.addEventListener("mouseover", () => {
                 // Highlight corresponding feature on the map
                 popup
@@ -452,6 +484,84 @@ function Mapa({ data }) {
                   )
 
                   .addTo(map);
+              });
+              itemLink.addEventListener("click", (e) => {
+                var coordinates = feature.geometry.coordinates.slice();
+
+                setIdKliknuteFotke(feature.properties.id);
+                if (feature.properties.newPhoto) {
+                  setHasNewPhoto(true);
+                } else {
+                  setHasNewPhoto(false);
+                }
+                setPopupOn(true);
+                setShow(false);
+                // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                // }
+                if (feature.properties.newPhoto) {
+                  popup2
+                    .setLngLat(feature.geometry.coordinates)
+                    .setText(feature.properties.title_naslov)
+                    .setHTML(
+                      `<div class='reveal'>
+                               <div class='popupTitle'>
+                                  <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                                  ${feature.properties.datum_uploada}
+                                </div>
+                         <img class="img3" src=${feature.properties.image_url_200px} ></img>
+                           <img id="img4" class="img4" src=${feature.properties.newPhoto} ></img>
+                        <div id="activator" class="activator"></div>
+                        <div id="divider" class="divider"><div class="circle"></div></div>
+                      </div>
+                      `
+                    )
+                    .addTo(map);
+                  if (size.width > 430) {
+                    document
+                      .getElementById("activator")
+                      .addEventListener(
+                        size.width < 430 ? "touchmove" : "mousemove",
+                        (event) => {
+                          console.log(event);
+                          const divider = document.getElementById("divider");
+                          divider.style.left = event.offsetX + "px";
+                          event.target.previousElementSibling.style.clip =
+                            "rect(0px, " + event.offsetX + "px,450px,0px)";
+                        }
+                      );
+                  } else {
+                    document
+                      .getElementById("activator")
+                      .addEventListener(
+                        size.width < 430 ? "touchmove" : "mousemove",
+                        (event) => {
+                          console.log(event);
+                          const divider = document.getElementById("divider");
+                          divider.style.left = event.touches[0].clientX + "px";
+                          event.target.previousElementSibling.style.clip =
+                            "rect(0px, " +
+                            event.touches[0].clientX +
+                            "px,450px,0px)";
+                        }
+                      );
+                  }
+                } else {
+                  popup2
+                    .setLngLat(feature.geometry.coordinates)
+                    .setText(feature.properties.title_naslov)
+                    .setHTML(
+                      `<div class='wrapPopup'>
+                        <div class='popupTitle'>
+                          <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                           ${feature.properties.datum_uploada}
+                        </div>
+                        <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+                      </div>
+                      `
+                    )
+                    .addTo(map);
+                }
               });
               // if (feature.properties.newPhoto) {
               //   itemLink.addEventListener("mouseover", () => {
@@ -622,8 +732,6 @@ function Mapa({ data }) {
           setHasNewPhoto(false);
         }
 
-        // var foo = document.getElementById("imageDiv");
-        // itemLink.appendChild(node);
         setPopupOn(true);
         setShow(false);
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -678,41 +786,6 @@ function Mapa({ data }) {
                 }
               );
           }
-
-          // document
-          //   .getElementById("activator")
-          //   .addEventListener("mousemove", (event) => {
-          //     console.log(event);
-          //     event.target.previousElementSibling.style.clipPath =
-          //       "inset(0px  " + event.offsetX + ") calc(100% - 450px) 0px)";
-          //   });
-
-          // clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px);
-          // popup2
-          //   .setLngLat(feature.geometry.coordinates)
-          //   .setText(feature.properties.title_naslov)
-          //   .setHTML(
-          //     `<div class='wrapPopup'>
-
-          //         <div class='popupTitle'>
-          //           <span style="font-weight: bold">${feature.properties.title_naslov},</span>
-          //            ${feature.properties.datum_uploada}
-          //         </div>
-          //         <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
-          //         <div  class="imgNewBg" ><img src=${feature.properties.newPhoto} ></img></div>
-          //         <div id="jure">...i danas</div>
-          //       </div>
-
-          //       `
-          //   )
-
-          //   .addTo(map);
-
-          // document.getElementById("jure").addEventListener("click", fld);
-          // function fld() {
-          //   document.getElementsByClassName("imgTest")[0].style.opacity = "0";
-          //   document.getElementsByClassName("imgNewBg")[0].style.opacity = "1";
-          // }
         } else {
           popup2
             .setLngLat(feature.geometry.coordinates)
@@ -849,13 +922,13 @@ function Mapa({ data }) {
       <PodNaslov>
         {value[0]}-{value[1]}
       </PodNaslov>
-      <NemaFotografije
+      {/* <NemaFotografije
         className={`${
           nemaFotografije ? "nemaFotografijeOut" : "nemaFotografijeIn"
         }`}
       >
         Na ovom dijelu karte nema fotografija
-      </NemaFotografije>
+      </NemaFotografije> */}
       <div className="slider">
         <Slider
           getAriaLabel={() => "Raspon godina"}
@@ -873,7 +946,7 @@ function Mapa({ data }) {
       </div>
       {logedIn && (
         <div className="admin" onClick={handleLogOut}>
-          Logout Admin
+          Logout Admin {zoom}
         </div>
       )}
       {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
