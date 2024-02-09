@@ -142,6 +142,7 @@ function Mapa({ data }) {
   const [popupPoster, setPopupPoster] = useState(false);
   const [mapStyle, setMapStyle] = useState(true);
   const [hasNewPhoto, setHasNewPhoto] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const [nemaFotografije, setNemaFotografije] = useState(true);
   const [logedIn, setlogedIn] = useState(null);
   const [emailError, setEmailError] = useState("");
@@ -274,10 +275,7 @@ function Mapa({ data }) {
       maxWidth: "100%",
     });
     const popup3 = new mapboxgl.Popup({
-      closeButton: true,
-      anchor: "center",
-      className: "moj-popupMapbox",
-      maxWidth: "100%",
+      closeButton: false,
     });
 
     // popup.on("open", function () {
@@ -409,7 +407,7 @@ function Mapa({ data }) {
               const itemLink = document.createElement("figure");
               itemLink.id = "imageDiv";
               const p = document.createElement("div");
-
+              console.log("Feature", feature);
               // var foo = document.getElementById("imageDiv");
               // itemLink.appendChild(node);
 
@@ -418,6 +416,11 @@ function Mapa({ data }) {
               itemLink.appendChild(p);
               p.textContent = label;
               var DOM_img = document.createElement("img");
+              if (feature.properties.newPhoto) {
+                var hasNewPhotoDiv = document.createElement("area");
+                hasNewPhotoDiv.id = "hasNewPhotoDiv";
+                itemLink.appendChild(hasNewPhotoDiv);
+              }
               DOM_img.src = feature.properties.image_url_1000px;
               DOM_img.id = "imgComp";
               DOM_img.setAttribute("loading", "lazy");
@@ -435,7 +438,14 @@ function Mapa({ data }) {
                   .setText(label)
                   .setHTML(
                     `<div >
-                            <div class="imgThumb"><img class="imgPopup" src=${feature.properties.image_url_1000px} ></img></div>
+                    <div class=${
+                      feature.properties.newPhoto ? "hasNewPhoto" : ""
+                    }>
+
+                            </div>
+                            <div class="imgThumb"><img class="imgPopup" src=${
+                              feature.properties.image_url_1000px
+                            } ></img></div>
                           </div>
           
                           `
@@ -443,6 +453,27 @@ function Mapa({ data }) {
 
                   .addTo(map);
               });
+              // if (feature.properties.newPhoto) {
+              //   itemLink.addEventListener("mouseover", () => {
+              //     // Highlight corresponding feature on the map
+              //     popup3
+              //       .setLngLat([
+              //         feature.properties.longitude,
+              //         feature.properties.latitude,
+              //       ])
+              //       .setText(label)
+              //       .setHTML(
+              //         `<div class="hasNewPhoto">
+
+              //               </div>
+
+              //               `
+              //       )
+
+              //       .addTo(map);
+              //   });
+              // }
+
               listingEl.appendChild(itemLink);
             }
 
@@ -782,8 +813,15 @@ function Mapa({ data }) {
   };
 
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "cities", id));
-    await console.log("obrisano u bazi");
+    try {
+      await deleteDoc(doc(db, "cities", id));
+      setDeleted(true);
+      setTimeout(() => {
+        setDeleted(false);
+      }, 2000);
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   useEffect(() => {
@@ -838,6 +876,7 @@ function Mapa({ data }) {
           Logout Admin
         </div>
       )}
+      {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
       {logedIn && idKliknuteFotke !== null && (
         <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
           Obriši

@@ -32,7 +32,7 @@ function Formular({ lng, lat, toggleModal }) {
   const [percent, setPercent] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [URLs, setURLs] = useState([]);
-  const [newPhotoURL, setNewPhotoURL] = useState(null);
+  const [newPhotoURL, setNewPhotoURL] = useState("");
   const [lastURLs, setlastURLs] = useState([]);
   const [enabled, setEnabled] = useState(false);
   const [image, setImage] = useState(null);
@@ -73,7 +73,9 @@ function Formular({ lng, lat, toggleModal }) {
           imageLinks.push(res.url);
           console.log(imageLinks);
           setURLs((oldArray) => [...oldArray, res.url]);
-          uploadNewPhoto(fileNewPhoto);
+          if (fileNewPhoto !== null) {
+            uploadNewPhoto(fileNewPhoto);
+          }
         })
         .catch((err) => setLoading(false));
     }
@@ -98,7 +100,7 @@ function Formular({ lng, lat, toggleModal }) {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.url);
+        console.log("new photo url:", res.url);
 
         setNewPhotoURL(res.url);
       });
@@ -172,7 +174,7 @@ function Formular({ lng, lat, toggleModal }) {
   // }
   console.log(URLs.length, newPhotoURL);
   useEffect(() => {
-    if (URLs.length > 1 && newPhotoURL !== null) {
+    if (URLs.length > 1 && newPhotoURL !== "") {
       console.log("USE EFFE");
       const docRef = addDoc(collection(db, "cities"), {
         Title: mjesto,

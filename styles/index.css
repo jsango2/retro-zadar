@@ -909,6 +909,7 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 4px;
 }
 /* .mapboxgl-canvas {
   width: 100vw !important;
@@ -969,7 +970,7 @@ select {
   position: absolute;
   z-index: 30;
   height: 100%;
-  width: 3px;
+  width: 2px;
   background-color: black;
   left: 225px;
   top: 0%;
@@ -987,6 +988,28 @@ select {
   left: -5px;
 }
 
+.hasNewPhoto {
+  position: absolute;
+  z-index: 10;
+  top: 15px;
+  right: 55px;
+  width: 1px;
+  height: 58%;
+  background-color: #fefefe;
+}
+#hasNewPhotoDiv {
+  position: absolute;
+  z-index: 100;
+  top: 16px;
+  right: 0;
+  padding: 0;
+  left: unset !important;
+  width: 25px;
+  height: 24px;
+  background-size: contain;
+  /* border-radius: 50%; */
+  background-image: url(/dividerImage.png);
+}
 /* .ispisCalcZoneColorAutoHeight:nth-child(1) {
   background-color: #b2ea70;
 }
