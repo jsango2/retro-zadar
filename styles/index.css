@@ -1007,6 +1007,7 @@ select {
   width: 25px;
   height: 24px;
   background-size: contain;
+  background-repeat: no-repeat;
   /* border-radius: 50%; */
   background-image: url(/dividerImage.png);
 }
@@ -1305,6 +1306,17 @@ select {
   }
 }
 @media only screen and (max-width: 600px) {
+  #hasNewPhotoDiv {
+    position: absolute;
+    z-index: 100;
+    top: 12px;
+    right: -6px;
+    padding: 0;
+    left: unset !important;
+    width: 17px;
+    height: 24px;
+    background-size: contain;
+  }
   .wrapRaspored {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
