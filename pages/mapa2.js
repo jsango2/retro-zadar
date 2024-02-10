@@ -66,7 +66,7 @@ const Naslov = styled.div`
 `;
 export const WrapSlider = styled.div`
   position: fixed;
-  z-index: 10;
+  z-index: 12;
   width: 600px;
   height: 600px;
   top: 50%;
@@ -74,6 +74,7 @@ export const WrapSlider = styled.div`
   transform: translate(-50%, -50%);
 
   @media only screen and (max-width: 600px) {
+    width: 95vw;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -86,10 +87,12 @@ export const CloseSlider = styled.div`
   top: 20px;
   right: 20px;
   color: black;
-  font-weight: 900;
+  font-weight: 500;
   font-size: 20px;
   cursor: pointer;
   @media only screen and (max-width: 600px) {
+    top: 10px;
+    right: 10px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -126,7 +129,7 @@ const FirstScreen = styled.div`
   height: 600px;
   background-color: white;
   border-radius: 10px;
-  border: 2px solid darkblue;
+  border: 1px solid #9b9b9b;
 
   padding: 40px;
   text-align: center;
@@ -160,7 +163,7 @@ const settings = {
   dots: true,
   fade: true,
   infinite: true,
-  speed: 500,
+  speed: 10,
   slidesToShow: 1,
   slidesToScroll: 1,
   waitForAnimate: false,

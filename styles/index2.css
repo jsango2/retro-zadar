@@ -237,12 +237,23 @@
   }
   #map {
     position: absolute;
-    bottom: 150px;
+    bottom: 0;
     left: 0;
     right: 0;
-    height: calc(100% - 135px);
+    height: 100%;
     width: 100%;
   }
+
+  .map {
+    position: absolute;
+    left: 250px;
+    top: 0;
+    bottom: 140;
+    height: calc(100% - 135px);
+
+    width: 100%;
+  }
+
   .map-overlay2 {
     position: absolute;
     height: 135px;
