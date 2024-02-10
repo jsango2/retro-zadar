@@ -66,7 +66,7 @@ const Naslov = styled.div`
 `;
 export const WrapSlider = styled.div`
   position: fixed;
-  z-index: 12;
+  z-index: 13;
   width: 600px;
   height: 600px;
   top: 50%;

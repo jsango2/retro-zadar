@@ -1,19 +1,13 @@
 #map {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
-.map {
-  position: absolute;
   left: 250px;
   top: 0;
   bottom: 0;
   width: calc(100% - 250px);
+  touch-action: none;
 }
 .map-overlay2 {
-  position: absolute;
+  position: fixed;
   width: 250px;
   top: 0;
   bottom: 0;
@@ -23,6 +17,7 @@
   max-height: 100%;
   overflow: hidden;
   padding: 5px;
+  z-index: 20;
 }
 .MuiSlider-root {
   color: #545454 !important;
@@ -154,16 +149,14 @@
 }
 .map-overlay2 .listing figure div {
   box-sizing: border-box;
-  top: 3px;
-  left: 4px;
+  top: 5px;
+  left: 10px;
   position: relative;
   z-index: 10;
   margin-top: 5px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   height: auto;
-  padding: 3px 9px;
+  padding: 5px 14px;
   background-color: #00000059;
   border-radius: 8px;
   display: flex;
@@ -237,25 +230,14 @@
   }
   #map {
     position: absolute;
-    bottom: 0;
+    bottom: 150px;
     left: 0;
     right: 0;
-    height: 100%;
-    width: 100%;
-  }
-
-  .map {
-    position: absolute;
-    left: 250px;
-    top: 0;
-    bottom: 140;
     height: calc(100% - 135px);
-
     width: 100%;
   }
-
   .map-overlay2 {
-    position: absolute;
+    position: fixed;
     height: 135px;
     width: 100%;
     top: unset;
@@ -268,7 +250,7 @@
     padding: 1px;
   }
   #imageDiv {
-    margin: 0 2px;
+    margin: 1px;
   }
 
   .map-overlay2 fieldset {
@@ -319,7 +301,7 @@
 
   .map-overlay2 .listing figure {
     min-height: 124px;
-    min-width: 170px;
+    min-width: 130px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     /* color: rgb(58, 48, 38); */
     font-weight: 700;
