@@ -1095,8 +1095,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   #hasNewPhotoDiv {
     position: absolute;
 
-    top: 12px;
-    right: 6px;
+    top: 6px;
+    right: 8px;
     padding: 0;
     left: unset !important;
     width: 17px;
