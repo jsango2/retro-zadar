@@ -1,5 +1,12 @@
 #map {
   position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.map {
+  position: absolute;
   left: 250px;
   top: 0;
   bottom: 0;
@@ -132,7 +139,7 @@
   position: relative;
   min-height: 170px;
   height: auto;
-  width: 94%;
+  width: 96%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: rgb(243, 241, 243);
   font-weight: 700;
@@ -140,21 +147,23 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  margin: 3px;
+  margin: 1px;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
 }
 .map-overlay2 .listing figure div {
   box-sizing: border-box;
-  top: 5px;
-  left: 10px;
+  top: 3px;
+  left: 4px;
   position: relative;
   z-index: 10;
   margin-top: 5px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   height: auto;
-  padding: 5px 14px;
+  padding: 3px 9px;
   background-color: #00000059;
   border-radius: 8px;
   display: flex;
@@ -231,12 +240,12 @@
     bottom: 150px;
     left: 0;
     right: 0;
-    height: calc(100% - 150px);
+    height: calc(100% - 135px);
     width: 100%;
   }
   .map-overlay2 {
     position: absolute;
-    height: 150px;
+    height: 135px;
     width: 100%;
     top: unset;
     bottom: 0;
@@ -245,7 +254,10 @@
     background-color: #f5f5f533;
     max-height: 150px;
     overflow: hidden;
-    padding: 5px;
+    padding: 1px;
+  }
+  #imageDiv {
+    margin: 0 2px;
   }
 
   .map-overlay2 fieldset {
@@ -290,13 +302,13 @@
 
   .map-overlay2 .listing > * {
     display: block;
-    padding: 5px 10px;
+    padding: 0;
     margin: 0;
   }
 
   .map-overlay2 .listing figure {
     min-height: 124px;
-    min-width: 130px;
+    min-width: 170px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     /* color: rgb(58, 48, 38); */
     font-weight: 700;

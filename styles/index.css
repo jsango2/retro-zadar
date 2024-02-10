@@ -201,6 +201,41 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin: 0px;
   margin-top: 10px;
 }
+.testimonialSlider {
+  position: absolute !important;
+  width: 90vw;
+  padding-top: 8px;
+  height: 235px;
+  margin: 0px auto 0 auto;
+  /* background-color: #9dc36e; */
+  border-radius: 10px;
+}
+/* .slick-list {
+  height: 220px;
+  padding-top: 20px;
+}
+.slick-slide {
+  width: 540px;
+} */
+.slick-prev {
+  right: 59px !important;
+  z-index: 10 !important;
+  top: unset !important;
+  bottom: 20px !important;
+  left: unset !important;
+  right: 60px !important;
+}
+.slick-next {
+  right: 29px !important;
+  z-index: 10 !important;
+  top: unset !important;
+  bottom: 20px !important;
+}
+.slick-dots {
+  position: absolute !important;
+  bottom: 8px !important;
+}
+
 .nemaFotografijeOut {
   transition: all 0.3s ease-in-out;
   position: fixed;
@@ -253,92 +288,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .slick-dots li.slick-active button:before {
   color: white;
 }
-.Prehrana {
-  background: linear-gradient(180deg, #383691 0%, #0d0b62 100%);
-  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
-  border-radius: 16.2846px;
-}
-.Utrke {
-  background: linear-gradient(180deg, #91292f 0%, #a30707 100%);
-  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
-  border-radius: 16.2846px;
-}
-.Savjeti {
-  background: linear-gradient(180deg, #ddb225 0%, #f5c543 100%);
-  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
-  border-radius: 16.2846px;
-}
-.Trening {
-  background: linear-gradient(180deg, #057426 0%, #55ac4a 100%);
-  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
-  border-radius: 16.2846px;
-}
-.Tehnologija {
-  background: linear-gradient(180deg, #262727 0%, #4f504f 100%);
-  box-shadow: 0px 2.7141px 5.42821px rgba(28, 37, 44, 0.08);
-  border-radius: 16.2846px;
-}
-.submitButton {
-  background: #f9ff00 !important;
-  /* Medium Drop */
-  box-shadow: 0px 14px 23px rgba(28, 37, 44, 0.08) !important;
-  border-radius: 30px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  cursor: pointer;
-  /* margin: 0; */
-  font-style: normal;
-  font-weight: 700;
-  font-size: 21px;
-  line-height: 120%;
-  width: 239px !important;
-  height: 61px;
-  font-weight: 700 !important;
-  color: black !important;
-}
-.trenerCard {
-  position: relative;
-  top: 110px;
-  opacity: 0;
-}
-.datePicker {
-  height: 500px;
-  width: 500px;
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-}
-.trenerCardSlideUp {
-  position: relative;
-  top: 0;
-  opacity: 1;
-}
-.videoHero {
-  position: absolute;
-  width: 135%;
-  height: 100%;
-  left: 50%;
-  top: 50%;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-}
-.HeroNaslovAnimacija {
-  width: 100%;
-}
-.NightRun {
-  object-fit: cover;
-  width: 100%;
-  z-index: 0;
-}
-.logoNightRun {
-  position: relative;
-  z-index: 2;
-  width: 406px;
-}
+
 .wrapPhototest {
   width: 300px;
   height: 300px;
@@ -347,120 +297,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: -10px;
   transform: rotate(11deg);
 }
-.stipe {
-  border: 15px solid rgb(255, 255, 255) !important;
-  border-bottom: 66px solid white !important;
-}
-.tape {
-  position: absolute;
-  top: 0;
-  left: -64px;
-  transform: rotate(319deg);
-  width: 200px;
-  height: 50px;
-  opacity: 0.9;
-}
-.formWrappFlex {
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.wrapSuccess {
-  width: 400px;
-  height: 600px;
-  margin: 50px auto 60px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.zrakeParallax {
-  /* position: relative; */
-  /* width: 800px;
-  height: 800px;
-  left: 500px !important;
-  top: -750px !important; */
-  opacity: 0.1;
-  z-index: 2;
-}
-.zrakeParallaxCalc {
-  position: absolute;
-  left: -100px !important;
-  opacity: 0.04;
-  transform: rotate(-23deg);
-}
-.custom-bg {
-  position: relative;
-  top: -315px;
-}
-.zarezTestimonial {
-  position: absolute;
-  right: -25px;
-  top: -50px;
-}
-.hamburgerMenu {
-  margin-right: 30px;
-}
-/* .menuWrap {
-  position: relative;
-  height: 400px;
-  transform: translate(50%, 0px);
-  top: 55px;
-  z-index: 10;
-  right: 50%;
-  width: 80%;
-  border-radius: 0 0 39px 39px;
-  background: #191b26;
-  transition: all 0.5s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-} */
-.closedMenu {
-  /* transform: translateY(-100%); */
-  transition: all 0.3s ease-in-out;
-}
-.openMenu {
-  transform: translate(50%, 0%) !important;
 
-  visibility: show;
-  transition: all 0.3s ease-in-out;
-}
-
-.menu {
-  height: 400px;
-  position: absolute;
-  /* transform: translateY(-100%); */
-  transform: translate(50%, -100%);
-  top: 55px;
-  z-index: 1;
-  right: 50%;
-  width: 80vw;
-  border-radius: 0 0 39px 39px;
-  background: #191b26;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease-in-out;
-}
-.menu a {
-  color: white;
-  margin-top: 20px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.trenerImg {
-  width: 100%;
-  height: 282px;
-  min-height: 282px;
-  position: relative;
-}
 .formular {
   display: flex;
   flex-direction: column;
@@ -549,71 +386,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 56%;
   width: 100%;
 }
-.blogCrta {
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  transform: translate(-48px, 0px);
-}
-.treneriCrta {
-  position: absolute;
-  top: 70px;
-  height: 100%;
-  z-index: 2;
-  width: 130%;
-  left: -15%;
-}
-.isSubmitinig {
-  position: absolute;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  font-size: 22px;
-  margin-left: 0;
-  backdrop-filter: blur(6px);
-  width: 100%;
-  align-items: center;
-}
-.lottieTrkac {
-  width: 300px !important;
-  height: 300px !important;
-}
-/* .formCalc input {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  width: 230px;
-} */
-.formCalc {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px auto 0 auto;
-  /* background-color: #1d1d2e8f; */
 
-  /* padding: 40px; */
-  border-radius: 39px;
-}
-.formCalc input,
-select {
-  background: #ffffff;
-  border: 1px solid #aea8b3;
-  box-shadow: 0px 4px 8px rgba(28, 37, 44, 0.08);
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  width: 260px;
-  height: 47px;
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 145%;
-  padding-left: 20px;
-  padding-right: 20px;
-  letter-spacing: 0.5px;
-  color: #aea8b3;
-  margin: 14px 0;
-}
 .mapToggler {
   position: fixed;
   z-index: 20;
@@ -909,8 +682,11 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 4px;
+  padding-bottom: 7px;
+  border: none !important;
+  outline: none !important;
 }
+
 /* .mapboxgl-canvas {
   width: 100vw !important;
   height: 100vh !important;

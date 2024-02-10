@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 // import { GoInfo } from "react-icons/go";
 // import mapboxgl from "mapbox-gl/dist/mapbox-gl-csp"
 import mapboxgl from "!mapbox-gl";
-import Slider from "@mui/material/Slider";
+import Sliderx from "@mui/material/Slider";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -29,6 +29,11 @@ import FormModal from "../components/modalForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { GrFormNext, GrFormUpload } from "react-icons/gr";
+import { GrFormPrevious } from "react-icons/gr";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -59,6 +64,36 @@ const Naslov = styled.div`
     font-size: 24px;
   }
 `;
+export const WrapSlider = styled.div`
+  position: fixed;
+  z-index: 10;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media only screen and (max-width: 600px) {
+  }
+  @media only screen and (max-width: 420px) {
+  }
+`;
+export const CloseSlider = styled.div`
+  position: absolute;
+  z-index: 12;
+  width: 20px;
+  height: 20px;
+  top: 20px;
+  right: 20px;
+  color: black;
+  font-weight: 900;
+  font-size: 20px;
+  cursor: pointer;
+  @media only screen and (max-width: 600px) {
+  }
+  @media only screen and (max-width: 420px) {
+  }
+`;
 const PodNaslov = styled.div`
   position: fixed;
   right: 70px;
@@ -78,44 +113,60 @@ const PodNaslov = styled.div`
     font-size: 18px;
   }
 `;
-const PodNaslov2 = styled.div`
-  position: fixed;
-  right: 70px;
-  top: 145px;
-  z-index: 2;
-  color: white;
-  font-size: 35px;
+
+const FirstScreen = styled.div`
+  position: relative;
+
+  z-index: 1000;
+  color: black;
+  font-size: 16px;
   font-family: serif;
-  font-style: bold;
-  font-weight: 700;
-  text-shadow: 0px 2px 11px #0000006e;
-  @media screen and (max-width: 630px) {
-    right: 26px;
-    top: 102px;
-    left: unset;
-  }
-`;
-const NemaFotografije = styled.div`
-  /* position: fixed;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  color: white;
-  font-size: 35px;
-  font-family: serif;
-  font-style: bold;
-  font-weight: 700;
-  text-shadow: 0px 2px 11px #0000006e;
-  transform: translate(-50%, -50%);
-  width: 400px;
+  font-weight: 400;
+  width: 600px;
+  height: 600px;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid darkblue;
+
+  padding: 40px;
   text-align: center;
-  line-height: 140%; */
   @media screen and (max-width: 630px) {
-    /* right: 26px;
-    top: 102px;
-    left: unset; */
   }
 `;
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <GrFormNext
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <GrFormPrevious
+      className={className}
+      style={{ ...style, display: "block" }}
+      onClick={onClick}
+    />
+  );
+}
+
+const settings = {
+  dots: true,
+  fade: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  waitForAnimate: false,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />,
+};
 
 function Mapa({ data }) {
   //   const { t } = useTranslation();
@@ -125,10 +176,10 @@ function Mapa({ data }) {
 
   const [value2, setValue2] = useState([1850, 1970]);
   const [innerHeight, setInnerHeight] = useState(null);
-  const [lng, setLng] = useState(15.2224);
-  const [lat, setLat] = useState(44.1197);
+  const [lng, setLng] = useState(15.2264);
+  const [lat, setLat] = useState(44.1137);
   const [lngLat, setLngLat] = useState(null);
-  const [zoom, setZoom] = useState(13.4);
+  const [zoom, setZoom] = useState(13.7);
   const [hasPoints, setHasPoints] = useState(false);
 
   const [item, setItem] = useState([]);
@@ -136,7 +187,7 @@ function Mapa({ data }) {
   const [featuresArr, setFeaturesArr] = useState([]);
   const [show, setShow] = useState(false);
   const [popupFrame, setPopupFrame] = useState(null);
-  const [hoverFrame, setHoverFrame] = useState(null);
+  const [firstScreen, setFirstScreen] = useState(true);
   const [idKliknuteFotke, setIdKliknuteFotke] = useState(null);
   const [popupOn, setPopupOn] = useState(false);
   const [popupPoster, setPopupPoster] = useState(false);
@@ -152,11 +203,12 @@ function Mapa({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = React.useState([1890, 1980]);
+
   const bounds = {
-    n: 44.2097,
-    s: 44.0597,
-    e: 15.3424,
-    w: 15.0124,
+    n: 44.1597,
+    s: 44.0797,
+    e: 15.2924,
+    w: 15.1524,
   };
   const maxBounds = [
     [bounds.w, bounds.s],
@@ -305,75 +357,9 @@ function Mapa({ data }) {
 
       map.resize();
 
-      // map.addSource("airports", {
-      //   type: "vector",
-      //   url: "mapbox://mapbox.04w69w5j",
-      // });
-      // map.addLayer({
-      //   id: "airport",
-      //   source: "airports",
-      //   "source-layer": "ne_10m_airports",
-      //   type: "circle",
-      //   paint: {
-      //     "circle-color": "#4264fb",
-      //     "circle-radius": 4,
-      //     "circle-stroke-width": 2,
-      //     "circle-stroke-color": "#ffffff",
-      //   },
-      // });
       let airports = [];
       // const filterEl = document.getElementById("feature-filter");
       const listingEl = document.getElementById("feature-listing");
-
-      // function renderListings(features) {
-      //   const empty = document.createElement("p");
-      //   // Clear any existing listings
-      //   listingEl.innerHTML = "";
-      //   if (features.length) {
-      //     for (const feature of features) {
-      //       const itemLink = document.createElement("div");
-      //       const label = `${feature.properties.title_naslov} `;
-      //       // itemLink.href = feature.properties.wikipedia;
-      //       // itemLink.target = "_blank";
-      //       itemLink.textContent = label;
-      //       itemLink.style.backgroundImage = `url(${feature.properties.image_url})`;
-      //       itemLink.addEventListener("mouseover", () => {
-      //         // Highlight corresponding feature on the map
-      //         popup
-      //           .setLngLat([
-      //             feature.properties.longitude,
-      //             feature.properties.latitude,
-      //           ])
-      //           .setText(label)
-      //           .setHTML(
-      //             `<div >
-      //                   <div class="imgThumb"><img class="imgPopup" src=${feature.properties.image_url} ></img></div>
-      //                 </div>
-
-      //                 `
-      //           )
-
-      //           .addTo(map);
-      //       });
-      //       listingEl.appendChild(itemLink);
-      //     }
-
-      //     //   // Show the filter input
-      //     //   filterEl.parentNode.style.display = "block";
-      //     // } else if (features.length === 0 && filterEl.value !== "") {
-      //     //   empty.textContent = "No results found";
-      //     //   listingEl.appendChild(empty);
-      //     // } else {
-      //     //   empty.textContent = "Drag the map to populate results";
-      //     //   listingEl.appendChild(empty);
-
-      //     //   // Hide the filter input
-      //     //   filterEl.parentNode.style.display = "none";
-
-      //     // remove features filter
-      //     map.setFilter("airport", ["has", "abbrev"]);
-      //   }
-      // }
 
       function getUniqueFeatures(features, comparatorProperty) {
         const uniqueIds = new Set();
@@ -387,32 +373,7 @@ function Mapa({ data }) {
         }
         return uniqueFeatures;
       }
-      // if (zoom > 19) {
-      //   const features = map.queryRenderedFeatures({ layers: ["city"] });
 
-      //   features.forEach((feature) => {
-      //     const popup4 = new mapboxgl.Popup({
-      //       closeButton: false,
-      //     })
-      //       .setLngLat([
-      //         feature.properties.longitude,
-      //         feature.properties.latitude,
-      //       ])
-      //       .setHTML(
-      //         `<div >
-      // <div class=${feature.properties.newPhoto ? "hasNewPhoto" : ""}>
-
-      //         </div>
-      //         <div class="imgThumb"><img class="imgPopup" src=${
-      //           feature.properties.image_url_1000px
-      //         } ></img></div>
-      //       </div>
-
-      //       `
-      //       )
-      //       .addTo(map);
-      //   });
-      // }
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
         setFeaturesArray(features);
@@ -563,44 +524,9 @@ function Mapa({ data }) {
                     .addTo(map);
                 }
               });
-              // if (feature.properties.newPhoto) {
-              //   itemLink.addEventListener("mouseover", () => {
-              //     // Highlight corresponding feature on the map
-              //     popup3
-              //       .setLngLat([
-              //         feature.properties.longitude,
-              //         feature.properties.latitude,
-              //       ])
-              //       .setText(label)
-              //       .setHTML(
-              //         `<div class="hasNewPhoto">
-
-              //               </div>
-
-              //               `
-              //       )
-
-              //       .addTo(map);
-              //   });
-              // }
 
               listingEl.appendChild(itemLink);
             }
-
-            //   // Show the filter input
-            //   filterEl.parentNode.style.display = "block";
-            // } else if (features.length === 0 && filterEl.value !== "") {
-            //   empty.textContent = "No results found";
-            //   listingEl.appendChild(empty);
-            // } else {
-            //   empty.textContent = "Drag the map to populate results";
-            //   listingEl.appendChild(empty);
-
-            //   // Hide the filter input
-            //   filterEl.parentNode.style.display = "none";
-
-            // remove features filter
-            // map.setFilter("airport", ["has", "abbrev"]);
           }
           if (features.length === 0) {
             setNemaFotografije(true);
@@ -609,11 +535,6 @@ function Mapa({ data }) {
           }
         }
 
-        // Clear the input container
-        // filterEl.value = "";
-
-        // Store the current features in sn `airports` variable to
-        // later use for filtering on `keyup`.
         airports = features;
         // }
       });
@@ -622,7 +543,7 @@ function Mapa({ data }) {
         type: "geojson",
         data: geoData2,
         cluster: true,
-        clusterMaxZoom: 13, // Max zoom to cluster points on
+        clusterMaxZoom: 11, // Max zoom to cluster points on
         clusterRadius: 42, // Radius of each cluster when clustering points (defaults to 50)
         clusterMinPoints: 2,
       });
@@ -705,14 +626,14 @@ function Mapa({ data }) {
             });
           });
       });
-      map.on("idle", function () {
-        setPopupPoster(true);
-      });
+      // map.on("idle", function () {
+      //   setPopupPoster(true);
+      // });
 
-      map.on("render", function () {
-        var features = map.queryRenderedFeatures({ layers: ["city"] });
-        setFeaturesArr(features);
-      });
+      // map.on("load", function () {
+      //   var features = map.queryRenderedFeatures({ layers: ["city"] });
+      //   setFeaturesArr(features);
+      // });
       map.on("dblclick", (e) => {
         if (logedIn) {
           setIsModalOpen(true);
@@ -915,9 +836,36 @@ function Mapa({ data }) {
   return (
     <>
       {" "}
-      <div id="map"></div>
+      <div
+        id="map"
+        className={` ${featuresArray.length > 0 ? "map" : ""}`}
+      ></div>
       <div id="overlay"></div>
       {isModalOpen && <FormModal toggleModal={toggleModal} lngLat={lngLat} />}
+      {firstScreen && (
+        <WrapSlider>
+          <CloseSlider onClick={() => setFirstScreen(false)}>X</CloseSlider>
+          <Slider {...settings}>
+            <FirstScreen>
+              {" "}
+              Dragi ljubitelji starih fotografija Zadra!
+              <br />
+              <br />
+              Dobrodošli na Retro Zadar, stranicu posvećenu Zadru i svim onim
+              ljepotama koje su vezane uz naš prekrasan grad! Ovaj projekt je
+              izradila i održava grupa entuzijasta, kojima je želja da se ne
+              zaboravi povijest grada Zadra kroz fotografije koje su izradili i
+              prikupljali vrsni fotografi sa ovog područja. Ovaj projekt nije
+              komercijalan niti to nema namjeru biti. Sve fotografije na ovoj
+              karti prikupljene su preko socijalnih mreža i ostalih izvora na
+              internetu. Zahvaljujemo se svima koji su se potrudili da se ove
+              fotografije ne zaborave. Nove fotografije grada izradili su autori
+              ove stranice.
+            </FirstScreen>
+            <FirstScreen> Upute za korištenje</FirstScreen>
+          </Slider>
+        </WrapSlider>
+      )}
       <Naslov>RETRO ZADAR</Naslov>
       <PodNaslov>
         {value[0]}-{value[1]}
@@ -930,7 +878,7 @@ function Mapa({ data }) {
         Na ovom dijelu karte nema fotografija
       </NemaFotografije> */}
       <div className="slider">
-        <Slider
+        <Sliderx
           getAriaLabel={() => "Raspon godina"}
           value={value}
           onChange={handleChange}
@@ -955,7 +903,7 @@ function Mapa({ data }) {
           Obriši
         </div>
       )}
-      <div className="map-overlay2">
+      <div className={` ${featuresArray.length > 0 ? "map-overlay2" : ""}`}>
         <div id="feature-listing" className="listing"></div>
       </div>
     </>
