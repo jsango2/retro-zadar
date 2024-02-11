@@ -149,6 +149,9 @@ const FirstScreen = styled.p`
     margin: 0 3px;
   }
   @media screen and (max-width: 630px) {
+    font-size: 14px;
+
+    padding: 70px 20px 0 20px;
   }
 `;
 
@@ -483,13 +486,23 @@ function Mapa({ data }) {
                     .setLngLat(feature.geometry.coordinates)
                     .setText(feature.properties.title_naslov)
                     .setHTML(
-                      `<div class='reveal'>
+                      `<div class='${
+                        feature.properties.fotoLayout === "portrait"
+                          ? "revealPortrait"
+                          : "reveal"
+                      }'>
                                <div class='popupTitle'>
-                                  <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                                  <span style="font-weight: bold">${
+                                    feature.properties.title_naslov
+                                  },</span>
                                   ${feature.properties.datum_uploada}
                                 </div>
-                         <img class="img3" src=${feature.properties.image_url_200px} ></img>
-                           <img id="img4" class="img4" src=${feature.properties.newPhoto} ></img>
+                         <img class="img3" src=${
+                           feature.properties.image_url_200px
+                         } ></img>
+                           <img id="img4" class="img4" src=${
+                             feature.properties.newPhoto
+                           } ></img>
                         <div id="activator" class="activator"></div>
                         <div id="divider" class="divider"><div class="circle"></div></div>
                       </div>
@@ -505,8 +518,13 @@ function Mapa({ data }) {
                           console.log(event);
                           const divider = document.getElementById("divider");
                           divider.style.left = event.offsetX + "px";
-                          event.target.previousElementSibling.style.clip =
-                            "rect(0px, " + event.offsetX + "px,450px,0px)";
+                          if (feature.properties.fotoLayout === "portrait") {
+                            event.target.previousElementSibling.style.clip =
+                              "rect(0px, " + event.offsetX + "px,720px,0px)";
+                          } else {
+                            event.target.previousElementSibling.style.clip =
+                              "rect(0px, " + event.offsetX + "px,450px,0px)";
+                          }
                         }
                       );
                   } else {
@@ -681,14 +699,24 @@ function Mapa({ data }) {
             .setLngLat(feature.geometry.coordinates)
             .setText(feature.properties.title_naslov)
             .setHTML(
-              `<div class='reveal'>
+              `<div class='${
+                feature.properties.fotoLayout === "portrait"
+                  ? "revealPortrait"
+                  : "reveal"
+              }'>
 
                        <div class='popupTitle'>
-                          <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                          <span style="font-weight: bold">${
+                            feature.properties.title_naslov
+                          },</span>
                           ${feature.properties.datum_uploada}
                         </div>
-                 <img class="img3" src=${feature.properties.image_url_200px} ></img>
-                   <img id="img4" class="img4" src=${feature.properties.newPhoto} ></img>
+                 <img class="img3" src=${
+                   feature.properties.image_url_200px
+                 } ></img>
+                   <img id="img4" class="img4" src=${
+                     feature.properties.newPhoto
+                   } ></img>
                 <div id="activator" class="activator"></div>
                 <div id="divider" class="divider"><div class="circle"></div></div>
              
@@ -707,8 +735,13 @@ function Mapa({ data }) {
                   console.log(event);
                   const divider = document.getElementById("divider");
                   divider.style.left = event.offsetX + "px";
-                  event.target.previousElementSibling.style.clip =
-                    "rect(0px, " + event.offsetX + "px,450px,0px)";
+                  if (feature.properties.fotoLayout === "portrait") {
+                    event.target.previousElementSibling.style.clip =
+                      "rect(0px, " + event.offsetX + "px,720px,0px)";
+                  } else {
+                    event.target.previousElementSibling.style.clip =
+                      "rect(0px, " + event.offsetX + "px,450px,0px)";
+                  }
                 }
               );
           } else {
