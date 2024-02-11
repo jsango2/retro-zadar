@@ -60,6 +60,7 @@
   width: auto;
   height: 30px;
   top: 30px;
+  float: left;
   left: 320px;
   padding: 0 10px;
   background-color: #0000003d;
@@ -93,7 +94,7 @@
 }
 .delete {
   position: fixed;
-  z-index: 20;
+  z-index: 30;
   width: auto;
   height: 30px;
   top: 70px;
@@ -134,7 +135,7 @@
   position: relative;
   min-height: 170px;
   height: auto;
-  width: 96%;
+  width: 95%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: rgb(243, 241, 243);
   font-weight: 700;
@@ -214,7 +215,7 @@
   }
   .delete {
     position: fixed;
-    z-index: 20;
+    z-index: 30;
     width: auto;
     height: 30px;
     top: 95px;
@@ -235,12 +236,12 @@
     bottom: 150px;
     left: 0;
     right: 0;
-    height: calc(100% - 135px);
+    height: calc(100% - 115px);
     width: 100%;
   }
   .map-overlay2 {
     position: fixed;
-    height: 135px;
+    height: 115px;
     width: 100%;
     top: unset;
     bottom: 0;
@@ -265,7 +266,7 @@
   .mapToggler {
     position: fixed;
     z-index: 20;
-    width: 80px;
+    width: 40px;
     height: 30px;
     top: 24px;
     left: 19px;
@@ -302,7 +303,7 @@
   }
 
   .map-overlay2 .listing figure {
-    min-height: 124px;
+    min-height: 110px;
     min-width: 170px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     /* color: rgb(58, 48, 38); */

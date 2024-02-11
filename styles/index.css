@@ -773,11 +773,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .hasNewPhoto {
   position: absolute;
   z-index: 10;
-  top: 15px;
-  right: 55px;
-  width: 1px;
-  height: 58%;
-  background-color: #fefefe;
+  top: 12px;
+  right: 30px;
+  width: 19px;
+  height: 19px;
+  background-size: contain;
+  background-image: url(/imgIcon.png);
 }
 #hasNewPhotoDiv {
   position: absolute;
@@ -791,7 +792,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-size: contain;
   background-repeat: no-repeat;
   /* border-radius: 50%; */
-  background-image: url(/dividerImage.png);
+  background-image: url(/imgIcon.png);
 }
 /* .ispisCalcZoneColorAutoHeight:nth-child(1) {
   background-color: #b2ea70;
@@ -1097,10 +1098,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     top: 6px;
     right: 8px;
-    padding: 0;
+    background-image: url("/imgIcon.png");
     left: unset !important;
     width: 17px;
-    height: 24px;
+    height: 17px;
     background-size: contain;
   }
   .wrapRaspored {

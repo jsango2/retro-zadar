@@ -7,7 +7,6 @@ export const WrapAll = styled.div`
   width: 80%;
   margin: 0 auto;
   padding-top: 40px;
-  padding-bottom: 40px;
   /* background: ; */
   @media only screen and (max-width: 900px) {
   }
@@ -39,6 +38,7 @@ export const WrapUpload = styled.div`
 export const UploadBlock = styled.input`
   position: relative;
   z-index: 5;
+  color: black;
 `;
 export const UploadBlockTopLayer = styled.div`
   position: absolute;
@@ -87,11 +87,14 @@ export const StyledLabel = styled.label`
   line-height: 140%; /* 22.4px */
   color: #1c2640;
   width: auto;
+  input {
+    margin-right: 5px;
+  }
 `;
 
 export const StyledInput = styled.input`
   width: 300px !important;
-  padding: 10px;
+  padding: 3px;
   border: 1px solid #ccc;
   border-radius: 5px;
   color: black;

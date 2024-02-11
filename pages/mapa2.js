@@ -34,6 +34,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { GrFormNext, GrFormUpload } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
+import { FaImages } from "react-icons/fa";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -72,6 +73,14 @@ export const WrapSlider = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  &.firstScreen {
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+  }
+  &.noFirstScreen {
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+  }
 
   @media only screen and (max-width: 600px) {
     width: 95vw;
@@ -117,7 +126,7 @@ const PodNaslov = styled.div`
   }
 `;
 
-const FirstScreen = styled.div`
+const FirstScreen = styled.p`
   position: relative;
 
   z-index: 1000;
@@ -131,8 +140,14 @@ const FirstScreen = styled.div`
   border-radius: 10px;
   border: 1px solid #9b9b9b;
 
-  padding: 40px;
+  padding: 70px;
   text-align: center;
+  display: inline;
+
+  img {
+    display: inline-block;
+    margin: 0 3px;
+  }
   @media screen and (max-width: 630px) {
   }
 `;
@@ -174,38 +189,36 @@ const settings = {
 function Mapa({ data }) {
   //   const { t } = useTranslation();
   const size = useWindowSize();
-  const mapContainer = useRef();
   const router = useRouter();
 
-  const [value2, setValue2] = useState([1850, 1970]);
-  const [innerHeight, setInnerHeight] = useState(null);
   const [lng, setLng] = useState(15.2264);
   const [lat, setLat] = useState(44.1137);
   const [lngLat, setLngLat] = useState(null);
   const [zoom, setZoom] = useState(13.7);
   const [hasPoints, setHasPoints] = useState(false);
 
-  const [item, setItem] = useState([]);
   const [featuresArray, setFeaturesArray] = useState([]);
   const [featuresArr, setFeaturesArr] = useState([]);
-  const [show, setShow] = useState(false);
-  const [popupFrame, setPopupFrame] = useState(null);
-  const [firstScreen, setFirstScreen] = useState(true);
+  const [firstScreen, setFirstScreen] = useState(false);
+  const [firstScreen2, setFirstScreen2] = useState(false);
   const [idKliknuteFotke, setIdKliknuteFotke] = useState(null);
   const [popupOn, setPopupOn] = useState(false);
-  const [popupPoster, setPopupPoster] = useState(false);
   const [mapStyle, setMapStyle] = useState(true);
-  const [hasNewPhoto, setHasNewPhoto] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const [nemaFotografije, setNemaFotografije] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [logedIn, setlogedIn] = useState(null);
-  const [emailError, setEmailError] = useState("");
 
   const [geoData, setGeoData] = useState([]);
   const [geoData2, setGeoData2] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = React.useState([1890, 1980]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFirstScreen(true);
+      setFirstScreen2(true);
+    }, 3000);
+  }, []);
 
   const bounds = {
     n: 44.1597,
@@ -227,7 +240,6 @@ function Mapa({ data }) {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setlogedIn(true);
-        setEmailError("");
         router.push("/mapa2");
         console.log("OnAuthStateChanged: Logged in");
       } else {
@@ -252,6 +264,9 @@ function Mapa({ data }) {
           title_naslov: doc.data().Title,
           longitude: doc.data().GPSLongitude,
           latitude: doc.data().GPSLatitude,
+          procjenaGodine: doc.data().procjenaGodine,
+          autor: doc.data().autor,
+          fotoLayout: doc.data().fotoLayout,
 
           id: doc.id,
           icon: {
@@ -380,7 +395,7 @@ function Mapa({ data }) {
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
         setFeaturesArray(features);
-        console.log("Broj fotografija:", features.length);
+        console.log("Broj fotografija:", features);
 
         // if (features) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
@@ -453,13 +468,13 @@ function Mapa({ data }) {
                 var coordinates = feature.geometry.coordinates.slice();
 
                 setIdKliknuteFotke(feature.properties.id);
-                if (feature.properties.newPhoto) {
-                  setHasNewPhoto(true);
-                } else {
-                  setHasNewPhoto(false);
-                }
+                // if (feature.properties.newPhoto) {
+                //   setHasNewPhoto(true);
+                // } else {
+                //   setHasNewPhoto(false);
+                // }
                 setPopupOn(true);
-                setShow(false);
+                // setShow(false);
                 // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
                 //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
                 // }
@@ -531,11 +546,11 @@ function Mapa({ data }) {
               listingEl.appendChild(itemLink);
             }
           }
-          if (features.length === 0) {
-            setNemaFotografije(true);
-          } else {
-            setNemaFotografije(false);
-          }
+          // if (features.length === 0) {
+          //   setNemaFotografije(true);
+          // } else {
+          //   setNemaFotografije(false);
+          // }
         }
 
         airports = features;
@@ -650,14 +665,14 @@ function Mapa({ data }) {
         var feature = e.features[0];
         console.log(feature);
         setIdKliknuteFotke(e.features[0].properties.id);
-        if (e.features[0].properties.newPhoto) {
-          setHasNewPhoto(true);
-        } else {
-          setHasNewPhoto(false);
-        }
+        // if (e.features[0].properties.newPhoto) {
+        //   setHasNewPhoto(true);
+        // } else {
+        //   setHasNewPhoto(false);
+        // }
 
         setPopupOn(true);
-        setShow(false);
+        // setShow(false);
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
@@ -808,14 +823,26 @@ function Mapa({ data }) {
         // An error happened.
       });
   };
+  const handleCloseFirstScreen = () => {
+    setFirstScreen2(false);
+
+    setTimeout(() => {
+      setFirstScreen(false);
+    }, 1000);
+  };
 
   const handleDelete = async (id) => {
+    setIsDeleting(true);
     try {
       await deleteDoc(doc(db, "cities", id));
-      setDeleted(true);
+      setTimeout(() => {
+        setIsDeleting(false);
+        setDeleted(true);
+      }, 1500);
+
       setTimeout(() => {
         setDeleted(false);
-      }, 2000);
+      }, 3000);
     } catch (ex) {
       console.log(ex);
     }
@@ -846,26 +873,48 @@ function Mapa({ data }) {
       <div id="overlay"></div>
       {isModalOpen && <FormModal toggleModal={toggleModal} lngLat={lngLat} />}
       {firstScreen && (
-        <WrapSlider>
-          <CloseSlider onClick={() => setFirstScreen(false)}>X</CloseSlider>
+        <WrapSlider
+          className={` ${firstScreen2 ? "firstScreen" : "noFirstScreen"}`}
+        >
+          <CloseSlider onClick={() => handleCloseFirstScreen()}>X</CloseSlider>
           <Slider {...settings}>
             <FirstScreen>
               {" "}
-              Dragi ljubitelji starih fotografija Zadra!
+              <strong>Dragi ljubitelji starih fotografija Zadra!</strong>
               <br />
               <br />
-              Dobrodošli na Retro Zadar, stranicu posvećenu Zadru i svim onim
-              ljepotama koje su vezane uz naš prekrasan grad! Ovaj projekt je
-              izradila i održava grupa entuzijasta, kojima je želja da se ne
-              zaboravi povijest grada Zadra kroz fotografije koje su izradili i
-              prikupljali vrsni fotografi sa ovog područja. Ovaj projekt nije
-              komercijalan niti to nema namjeru biti. Sve fotografije na ovoj
-              karti prikupljene su preko socijalnih mreža i ostalih izvora na
-              internetu. Zahvaljujemo se svima koji su se potrudili da se ove
-              fotografije ne zaborave. Nove fotografije grada izradili su autori
-              ove stranice.
+              Dobrodošli na <strong>Retro Zadar</strong>, stranicu posvećenu
+              Zadru i svim onim ljepotama koje su vezane uz naš prekrasan grad!
+              Ovaj projekt je izradila i održava grupa entuzijasta, kojima je
+              želja da se ne zaboravi povijest grada Zadra kroz fotografije koje
+              su izradili i prikupljali vrsni fotografi sa ovog područja.
+              Projekt nije komercijalan i to nikada neće biti. Sve fotografije
+              na ovoj karti prikupljene su preko socijalnih mreža i ostalih
+              izvora na internetu. <br />
+              Zahvaljujemo se svima koji su se potrudili da se ove fotografije
+              ne zaborave. Nove fotografije grada izradili su autori ove
+              stranice.
             </FirstScreen>
-            <FirstScreen> Upute za korištenje</FirstScreen>
+            <FirstScreen>
+              {" "}
+              Retro Zadar se sastoji od nekoliko djelova: <br />
+              Nakon zumiranja karte pojavljuje se traka sa dijelom fotografija
+              sa karte. Prelaskom preko fotografije, označiti će se pozicija te
+              fotografije na karti. Na fotografiju na traci se može kliknuti za
+              pregled fotografije u većem formatu. Fotografiju zatvarate klikom
+              na X oznaku na fotografiji (gornji desni kut). Fotografiju možete
+              otvoriti i zumiranjem karte te klikom na kružić koji označava
+              geografsku poziciju fotografije. Na desnoj strani karte nalazi se
+              klizni odabir intervala godina u kojem želite pogledati karte.
+              Primjerice da želite vidjeti samo fotografije netom poslije
+              bombardiranja grada, odaberite interval od 1943- 1945 godine.
+              <br />
+              Poneke fotografije na traci za pregled imaju žutu oznaku
+              <img src="/imgIcon.png" width="20" height="20"></img>. Ove
+              fotografije prikazuju i današnji izgled na uslikanoj poziciji
+              preklapanjem dviju fotografija. Pomicanjem klizača lijevo-desno,
+              usporedite prošlost i sadašnjost Zadra!
+            </FirstScreen>
           </Slider>
         </WrapSlider>
       )}
@@ -897,9 +946,10 @@ function Mapa({ data }) {
       </div>
       {logedIn && (
         <div className="admin" onClick={handleLogOut}>
-          Logout Admin {zoom}
+          Logout Admin
         </div>
       )}
+      {isDeleting && <div className="deleted">Brišem....</div>}
       {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
       {logedIn && idKliknuteFotke !== null && (
         <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>

@@ -22,15 +22,22 @@ import { storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 function Formular({ lng, lat, toggleModal }) {
   const [mjesto, setMjesto] = useState("");
+  const [autor, setAutor] = useState("");
   const [email, setEmail] = useState("");
   const [godina, setGodina] = useState("");
   const [poruka, setPoruka] = useState("");
   const [file, setFile] = useState(null);
   const [fileNewPhoto, setFileNewPhoto] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [fotoLayout, setFotoLayout] = useState("landscape");
   // const [image, setImage] = useState(null);
   const [fileThumb, setFileThumb] = useState(null);
   const [percent, setPercent] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
+  const [largeImage, setLargeImage] = useState(null);
+  const [largeImageurl, setLargeImageUrl] = useState("");
+  const [thumbImage, setThumbImage] = useState(null);
+  const [thumbImageUrl, setThumbImageURL] = useState("");
   const [URLs, setURLs] = useState([]);
   const [newPhotoURL, setNewPhotoURL] = useState("");
   const [lastURLs, setlastURLs] = useState([]);
@@ -40,46 +47,83 @@ function Formular({ lng, lat, toggleModal }) {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 
+  const handleCheckbox = () => {
+    setChecked(!checked);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // uploadFiles(selectedImages);
 
-    uploadFiles(selectedImages);
+    uploadlargeImage(largeImage);
   };
-  const uploadFiles = (files) => {
+  // const uploadlargeImage = (files) => {
+  //   setLoading(true);
+  //   const imageLinks = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     let image = files[i];
+  //     const data = new FormData();
+  //     data.append("file", image);
+  //     data.append(
+  //       "upload_preset",
+  //       process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+  //     );
+  //     data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+  //     data.append("folder", "Cloudinary-React");
+
+  //     fetch(
+  //       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+  //       {
+  //         method: "POST",
+  //         body: data,
+  //       }
+  //     )
+  //       .then((res) => res.json())
+  //       .then((res) => {
+  //         imageLinks.push(res.url);
+  //         console.log(imageLinks);
+  //         setURLs((oldArray) => [...oldArray, res.url]);
+  //         if (fileNewPhoto !== null) {
+  //           uploadNewPhoto(fileNewPhoto);
+  //         }
+  //       })
+  //       .catch((err) => setLoading(false));
+  //   }
+  // };
+
+  const uploadlargeImage = (files) => {
     setLoading(true);
     const imageLinks = [];
-    for (let i = 0; i < files.length; i++) {
-      let image = files[i];
-      const data = new FormData();
-      data.append("file", image);
-      data.append(
-        "upload_preset",
-        process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-      );
-      data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-      data.append("folder", "Cloudinary-React");
 
-      fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: data,
+    let image = files;
+    const data = new FormData();
+    data.append("file", image);
+    data.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+    data.append("folder", "Cloudinary-React");
+
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(imageLinks);
+        setLargeImageUrl(res.url);
+        if (fileNewPhoto !== null) {
+          uploadNewPhoto(fileNewPhoto);
         }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          imageLinks.push(res.url);
-          console.log(imageLinks);
-          setURLs((oldArray) => [...oldArray, res.url]);
-          if (fileNewPhoto !== null) {
-            uploadNewPhoto(fileNewPhoto);
-          }
-        })
-        .catch((err) => setLoading(false));
-    }
+      })
+      .catch((err) => setLoading(false));
   };
+
   const uploadNewPhoto = (file) => {
     let image = file;
     const data = new FormData();
@@ -103,9 +147,35 @@ function Formular({ lng, lat, toggleModal }) {
         console.log("new photo url:", res.url);
 
         setNewPhotoURL(res.url);
+        uploadThumbPhoto(thumbImage);
       });
   };
 
+  const uploadThumbPhoto = (file) => {
+    let image = file;
+    const data = new FormData();
+    data.append("file", image);
+    data.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
+    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+    data.append("folder", "Cloudinary-React");
+
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: data,
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("new photo url:", res.url);
+
+        setThumbImageURL(res.url);
+      });
+  };
   // const uploadToFirebase = () => {
   //   const docRef = addDoc(collection(db, "cities"), {
   //     Title: mjesto,
@@ -174,31 +244,37 @@ function Formular({ lng, lat, toggleModal }) {
   // }
   console.log(URLs.length, newPhotoURL);
   useEffect(() => {
-    if (URLs.length > 1 && newPhotoURL !== "") {
+    if (thumbImageUrl !== "" && newPhotoURL !== "" && largeImageurl !== "") {
       console.log("USE EFFE");
       const docRef = addDoc(collection(db, "cities"), {
         Title: mjesto,
         DateCreated: godina,
         GPSLatitude: lat,
         GPSLongitude: lng,
-        Photo1000px: URLs[0],
-        Photo200px: URLs[1],
+        Photo1000px: thumbImageUrl,
+        Photo200px: largeImageurl,
         newPhoto: newPhotoURL,
+        procjenaGodine: checked,
+        autor: autor,
+        fotoLayout: fotoLayout,
       });
-      console.log("Document written with ID: ", docRef.id);
       setGodina("");
       setMjesto("");
+      setAutor("");
       setFile(null);
       setFileNewPhoto(null);
       toggleModal();
     }
-  }, [URLs, newPhotoURL]);
+  }, [thumbImageUrl, newPhotoURL, largeImageurl]);
 
   // const handleUpload = () => {
   //   uploadFiles(images);
   // };
   const handleMjesto = (e) => {
     setMjesto(e.target.value);
+  };
+  const handleAutor = (e) => {
+    setAutor(e.target.value);
   };
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -250,6 +326,8 @@ function Formular({ lng, lat, toggleModal }) {
       const image1000px = await resizeFile3(event.target.files[0]);
 
       setSelectedImages([image250px, image1000px]);
+      setLargeImage(image1000px);
+      setThumbImage(image250px);
     } catch (err) {
       console.log(err);
     }
@@ -358,7 +436,10 @@ function Formular({ lng, lat, toggleModal }) {
   //     setEnabled(false);
   //   }
   // };
-
+  const handleRadioChange = (value) => {
+    setFotoLayout(value);
+  };
+  console.log(fotoLayout);
   return (
     <WrapAll>
       <StyledForm onSubmit={handleSubmit}>
@@ -378,26 +459,60 @@ function Formular({ lng, lat, toggleModal }) {
               required
               onChange={(e) => handleGodina(e)}
             />
+            <StyledLabel>Autor fotografije</StyledLabel>
+            <StyledInput
+              type="text"
+              value={autor}
+              onChange={(e) => handleAutor(e)}
+            />
           </SmallBlock>
+          <StyledLabel>
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleCheckbox}
+            />
+            Godina je procjenjena
+          </StyledLabel>
           <WrapUpload>
             <StyledLabel>Upload foto</StyledLabel>
             <UploadBlock type="file" onChange={handleChange} accept="image/*" />
-            {file !== null && (
+            {/* {file !== null && (
               <div style={{ color: "black", marginTop: "20px" }}>
                 {file.name}
               </div>
-            )}
+            )} */}
             <StyledLabel>Upload new foto</StyledLabel>
             <UploadBlock
               type="file"
               onChange={handleChangeNewPhoto}
               accept="image/*"
             />
-            {fileNewPhoto !== null && (
+            <StyledLabel>
+              <input
+                type="radio"
+                name="fotoLayout"
+                value="landscape"
+                onChange={(e) => handleRadioChange(e.target.value)}
+                defaultChecked={fotoLayout === "landscape"}
+              />
+              Landscape
+            </StyledLabel>
+            <StyledLabel>
+              <input
+                type="radio"
+                name="fotoLayout"
+                value="portrait"
+                onChange={(e) => handleRadioChange(e.target.value)}
+                defaultChecked={fotoLayout === "portrait"}
+              />
+              Portrait
+            </StyledLabel>
+            {/* {fileNewPhoto !== null && (
               <div style={{ color: "black", marginTop: "20px" }}>
                 {fileNewPhoto.name}
               </div>
-            )}
+            )} */}
           </WrapUpload>
         </WrapData>
         <StyledButton type="submit">Spremi</StyledButton>
