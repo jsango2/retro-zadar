@@ -554,10 +554,15 @@ function Mapa({ data }) {
                           console.log(event);
                           const divider = document.getElementById("divider");
                           divider.style.left = event.touches[0].clientX + "px";
-                          event.target.previousElementSibling.style.clip =
-                            "rect(0px, " +
-                            event.touches[0].clientX +
-                            "px,450px,0px)";
+                          if (event.touches) {
+                            event.target.previousElementSibling.style.clip =
+                              "rect(0px, " +
+                              event.touches[0].clientX +
+                              "px,450px,0px)";
+                          } else {
+                            event.target.previousElementSibling.style.clip =
+                              "rect(0px, " + event.offsetX + "px,450px,0px)";
+                          }
                         }
                       );
                   }
@@ -776,9 +781,18 @@ function Mapa({ data }) {
                 (event) => {
                   console.log(event);
                   const divider = document.getElementById("divider");
-                  divider.style.left = event.touches[0].clientX + "px";
-                  event.target.previousElementSibling.style.clip =
-                    "rect(0px, " + event.touches[0].clientX + "px,450px,0px)";
+                  if (event.touches) {
+                    divider.style.left = event.touches[0].clientX + "px";
+                  } else {
+                    divider.style.left = event.offsetX + "px";
+                  }
+                  if (event.touches) {
+                    event.target.previousElementSibling.style.clip =
+                      "rect(0px, " + event.touches[0].clientX + "px,450px,0px)";
+                  } else {
+                    event.target.previousElementSibling.style.clip =
+                      "rect(0px, " + event.offsetX + "px,450px,0px)";
+                  }
                 }
               );
           }
