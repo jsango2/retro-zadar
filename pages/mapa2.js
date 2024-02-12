@@ -443,7 +443,7 @@ function Mapa({ data }) {
               p.textContent = label;
               var DOM_img = document.createElement("img");
               if (feature.properties.newPhoto) {
-                var hasNewPhotoDiv = document.createElement("area");
+                var hasNewPhotoDiv = document.createElement("div");
                 hasNewPhotoDiv.id = "hasNewPhotoDiv";
                 itemLink.appendChild(hasNewPhotoDiv);
               }

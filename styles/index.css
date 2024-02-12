@@ -832,6 +832,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: unset !important;
   width: 25px;
   height: 24px;
+  background-color: unset !important;
   background-size: contain;
   background-repeat: no-repeat;
   /* border-radius: 50%; */
