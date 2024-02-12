@@ -522,7 +522,7 @@ function Mapa({ data }) {
                              feature.properties.newPhoto
                            } ></img>
                         <div id="activator" class="activator"></div>
-                        <div id="divider" class="divider"><div class="circle"></div></div>
+                        <div id="divider" class="divider"></div>
                       </div>
                       `
                     )
@@ -742,7 +742,7 @@ function Mapa({ data }) {
                      feature.properties.newPhoto
                    } ></img>
                 <div id="activator" class="activator"></div>
-                <div id="divider" class="divider"><div class="circle"></div></div>
+                <div id="divider" class="divider"></div>
              
               </div>
 
