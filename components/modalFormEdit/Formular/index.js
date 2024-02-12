@@ -15,31 +15,31 @@ import {
 } from "./style.js";
 import { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase.js";
 import Image from "next/image.js";
 import Resizer from "react-image-file-resizer";
 import { storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-function Formular({ lng, lat, toggleModal }) {
-  const [mjesto, setMjesto] = useState("");
-  const [autor, setAutor] = useState("");
+function Formular({ toggleModal, id, data }) {
+  const [mjesto, setMjesto] = useState(data.title_naslov);
+  const [autor, setAutor] = useState(data.autor);
   const [email, setEmail] = useState("");
-  const [godina, setGodina] = useState("");
+  const [godina, setGodina] = useState(data.datum_uploada);
   const [poruka, setPoruka] = useState("");
   const [file, setFile] = useState(null);
   const [fileNewPhoto, setFileNewPhoto] = useState(null);
-  const [checked, setChecked] = useState(false);
-  const [fotoLayout, setFotoLayout] = useState("landscape");
+  const [checked, setChecked] = useState(data.procjenaGodine);
+  const [fotoLayout, setFotoLayout] = useState(data.fotoLayout);
   // const [image, setImage] = useState(null);
   const [fileThumb, setFileThumb] = useState(null);
   const [percent, setPercent] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
   const [largeImage, setLargeImage] = useState(null);
-  const [largeImageurl, setLargeImageUrl] = useState("");
+  const [largeImageurl, setLargeImageUrl] = useState(data.image_url_200px);
   const [thumbImage, setThumbImage] = useState(null);
-  const [thumbImageUrl, setThumbImageURL] = useState("");
+  const [thumbImageUrl, setThumbImageURL] = useState(data.image_url_1000px);
   const [URLs, setURLs] = useState([]);
-  const [newPhotoURL, setNewPhotoURL] = useState("");
+  const [newPhotoURL, setNewPhotoURL] = useState(data.newPhoto);
   const [lastURLs, setlastURLs] = useState([]);
   const [enabled, setEnabled] = useState(false);
   const [image, setImage] = useState(null);
@@ -47,6 +47,7 @@ function Formular({ lng, lat, toggleModal }) {
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 
+  console.log("Features kliknute fotke za edit", data);
   const handleCheckbox = () => {
     setChecked(!checked);
   };
@@ -92,181 +93,115 @@ function Formular({ lng, lat, toggleModal }) {
   //   }
   // };
 
-  const uploadlargeImage = (files) => {
-    setLoading(true);
-    const imageLinks = [];
+  // const uploadlargeImage = (files) => {
+  //   setLoading(true);
+  //   const imageLinks = [];
 
-    let image = files;
-    const data = new FormData();
-    data.append("file", image);
-    data.append(
-      "upload_preset",
-      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-    data.append("folder", "Cloudinary-React");
-
-    fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: data,
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(imageLinks);
-        setLargeImageUrl(res.url);
-        if (fileNewPhoto !== null) {
-          uploadNewPhoto(fileNewPhoto);
-        }
-        uploadThumbPhoto(thumbImage);
-      })
-      .catch((err) => setLoading(false));
-  };
-
-  const uploadNewPhoto = (file) => {
-    let image = file;
-    const data = new FormData();
-    data.append("file", image);
-    data.append(
-      "upload_preset",
-      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-    data.append("folder", "Cloudinary-React");
-
-    fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: data,
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("new photo url:", res.url);
-
-        setNewPhotoURL(res.url);
-        // uploadThumbPhoto(thumbImage);
-      });
-  };
-
-  const uploadThumbPhoto = (file) => {
-    let image = file;
-    const data = new FormData();
-    data.append("file", image);
-    data.append(
-      "upload_preset",
-      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-    );
-    data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-    data.append("folder", "Cloudinary-React");
-
-    fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: data,
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("new photo url:", res.url);
-
-        setThumbImageURL(res.url);
-      });
-  };
-  // const uploadToFirebase = () => {
-  //   const docRef = addDoc(collection(db, "cities"), {
-  //     Title: mjesto,
-  //     DateCreated: godina,
-  //     GPSLatitude: lat,
-  //     GPSLongitude: lng,
-  //     Photo1000px: URLs[0],
-  //     Photo200px: URLs[2],
-  //     Photo50px: URLs[1],
-  //   });
-  //   console.log("Document written with ID: ", docRef.id);
-  //   setGodina("");
-  //   setMjesto("");
-  //   setFile(null);
-  // };
-
-  // console.log("UUURRRLLLSSSS", URLs);
-  // let array = new Array;
-  // var fetches = [];
-  // for (let i = 0; i < url.length; i++) {
-  //   console.log(url[i]);
-  //   fetches.push(
-  //     fetch(url[i])
-  //     .then(res => {return res.text(); })
-  //     .then(res => {
-  //           let reg = /\<meta name="description" content\=\"(.+?)\"/;
-  //           res = res.match(reg);
-  //           array.push(res);
-  //           console.log(res);
-  //         }
-  //     )
-  //     .catch(status, err => {return console.log(status, err);})
+  //   let image = files;
+  //   const data = new FormData();
+  //   data.append("file", image);
+  //   data.append(
+  //     "upload_preset",
+  //     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
   //   );
-  // }
-  // Promise.all(fetches).then(function() {
-  //   console.log (array.length);
-  // });
+  //   data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+  //   data.append("folder", "Cloudinary-React");
 
-  // let image = files[i];
-  // const data = new FormData();
-  // data.append("file", image);
-  // data.append(
-  //   "upload_preset",
-  //   process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-  // );
-  // data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-  // data.append("folder", "Cloudinary-React");
-
-  // try {
-  //   const response = await fetch(
+  //   fetch(
   //     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
   //     {
   //       method: "POST",
   //       body: data,
   //     }
-  //   );
-  //   const res = await response.json();
-  //   imageLinks.push(res.url);
-  //   // setUrl(imageLinks);
-  //   setLoading(false);
-  //   setUrl(imageLinks);
-  //   console.log("IMG LINKS LENGTH", imageLinks.length);
-  //   imageLinks.length === 3 && uploadToFirebase();
-  // } catch (error) {
-  //   setLoading(false);
-  // }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(imageLinks);
+  //       setLargeImageUrl(res.url);
+  //       if (fileNewPhoto !== null) {
+  //         uploadNewPhoto(fileNewPhoto);
+  //       }
+  //       uploadThumbPhoto(thumbImage);
+  //     })
+  //     .catch((err) => setLoading(false));
+  // };
 
-  useEffect(() => {
-    if (thumbImageUrl !== "" && largeImageurl !== "") {
-      console.log("USE EFFE");
-      const docRef = addDoc(collection(db, "cities"), {
-        Title: mjesto,
-        DateCreated: godina,
-        GPSLatitude: lat,
-        GPSLongitude: lng,
-        Photo1000px: thumbImageUrl,
-        Photo200px: largeImageurl,
-        newPhoto: newPhotoURL,
-        procjenaGodine: checked,
-        autor: autor,
-        fotoLayout: fotoLayout,
-      });
-      setGodina("");
-      setMjesto("");
-      setAutor("");
-      setFile(null);
-      setFileNewPhoto(null);
-      toggleModal();
-    }
-  }, [thumbImageUrl, newPhotoURL, largeImageurl]);
+  // const uploadNewPhoto = (file) => {
+  //   let image = file;
+  //   const data = new FormData();
+  //   data.append("file", image);
+  //   data.append(
+  //     "upload_preset",
+  //     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+  //   );
+  //   data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+  //   data.append("folder", "Cloudinary-React");
+
+  //   fetch(
+  //     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+  //     {
+  //       method: "POST",
+  //       body: data,
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("new photo url:", res.url);
+
+  //       setNewPhotoURL(res.url);
+  //       // uploadThumbPhoto(thumbImage);
+  //     });
+  // };
+
+  // const uploadThumbPhoto = (file) => {
+  //   let image = file;
+  //   const data = new FormData();
+  //   data.append("file", image);
+  //   data.append(
+  //     "upload_preset",
+  //     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+  //   );
+  //   data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+  //   data.append("folder", "Cloudinary-React");
+
+  //   fetch(
+  //     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+  //     {
+  //       method: "POST",
+  //       body: data,
+  //     }
+  //   )
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log("new photo url:", res.url);
+
+  //       setThumbImageURL(res.url);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   if (thumbImageUrl !== "" && largeImageurl !== "") {
+  //     console.log("USE EFFE");
+  //     const docRef = addDoc(collection(db, "cities"), {
+  //       Title: mjesto,
+  //       DateCreated: godina,
+  //       GPSLatitude: lat,
+  //       GPSLongitude: lng,
+  //       Photo1000px: thumbImageUrl,
+  //       Photo200px: largeImageurl,
+  //       newPhoto: newPhotoURL,
+  //       procjenaGodine: checked,
+  //       autor: autor,
+  //       fotoLayout: fotoLayout,
+  //     });
+  //     setGodina("");
+  //     setMjesto("");
+  //     setAutor("");
+  //     setFile(null);
+  //     setFileNewPhoto(null);
+  //     toggleModal();
+  //   }
+  // }, [thumbImageUrl, newPhotoURL, largeImageurl]);
 
   // const handleUpload = () => {
   //   uploadFiles(images);
@@ -477,6 +412,10 @@ function Formular({ lng, lat, toggleModal }) {
           </StyledLabel>
           <WrapUpload>
             <StyledLabel>Upload foto</StyledLabel>
+            <input type="text" value={largeImageurl} />
+            <br />
+            <input type="text" value={thumbImageUrl} />
+
             <UploadBlock type="file" onChange={handleChange} accept="image/*" />
             {/* {file !== null && (
               <div style={{ color: "black", marginTop: "20px" }}>
@@ -484,6 +423,8 @@ function Formular({ lng, lat, toggleModal }) {
               </div>
             )} */}
             <StyledLabel>Upload new foto</StyledLabel>
+            <input type="text" value={newPhotoURL} />
+
             <UploadBlock
               type="file"
               onChange={handleChangeNewPhoto}

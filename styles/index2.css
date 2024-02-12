@@ -110,6 +110,24 @@
   align-items: center;
   cursor: pointer;
 }
+.edit {
+  position: fixed;
+  z-index: 30;
+  width: auto;
+  height: 30px;
+  top: 110px;
+  left: 320px;
+  padding: 0 10px;
+  background-color: #0000003d;
+  border-radius: 20px;
+  overflow: hidden;
+  color: rgb(251, 251, 251);
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 .map-overlay2 input {
   display: block;
   border: none;

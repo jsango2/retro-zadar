@@ -35,6 +35,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { GrFormNext, GrFormUpload } from "react-icons/gr";
 import { GrFormPrevious } from "react-icons/gr";
 import { FaImages } from "react-icons/fa";
+import EditFormModal from "../components/modalFormEdit";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -63,6 +64,15 @@ const Naslov = styled.div`
     top: 25px;
 
     font-size: 24px;
+  }
+`;
+const Overlay = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0000007a;
+  z-index: 21;
+  @media screen and (max-width: 800px) {
   }
 `;
 export const WrapSlider = styled.div`
@@ -199,12 +209,14 @@ function Mapa({ data }) {
   const [lngLat, setLngLat] = useState(null);
   const [zoom, setZoom] = useState(13.7);
   const [hasPoints, setHasPoints] = useState(false);
+  const [clickedOutside, setClickedOutside] = useState(false);
 
   const [featuresArray, setFeaturesArray] = useState([]);
   const [featuresArr, setFeaturesArr] = useState([]);
   const [firstScreen, setFirstScreen] = useState(false);
   const [firstScreen2, setFirstScreen2] = useState(false);
   const [idKliknuteFotke, setIdKliknuteFotke] = useState(null);
+  const [featuresKliknuteFotke, setFeaturesKliknuteFotke] = useState([]);
   const [popupOn, setPopupOn] = useState(false);
   const [mapStyle, setMapStyle] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -214,6 +226,7 @@ function Mapa({ data }) {
   const [geoData, setGeoData] = useState([]);
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [value, setValue] = React.useState([1890, 1980]);
 
   useEffect(() => {
@@ -452,14 +465,18 @@ function Mapa({ data }) {
                   .setText(label)
                   .setHTML(
                     `<div >
-                    <div class=${
-                      feature.properties.newPhoto ? "hasNewPhoto" : ""
-                    }>
+                    <div 
+                    class=${feature.properties.newPhoto ? "" : ""}
+                    >
 
                             </div>
-                            <div class="imgThumb"><img class="imgPopup" src=${
-                              feature.properties.image_url_1000px
-                            } ></img></div>
+                            <div  class=${
+                              feature.properties.newPhoto
+                                ? "imgThumbNew"
+                                : "imgThumb"
+                            }><img class="imgPopup" src=${
+                      feature.properties.image_url_1000px
+                    } ></img></div>
                           </div>
           
                           `
@@ -471,6 +488,7 @@ function Mapa({ data }) {
                 var coordinates = feature.geometry.coordinates.slice();
 
                 setIdKliknuteFotke(feature.properties.id);
+                setFeaturesKliknuteFotke(feature.properties);
                 // if (feature.properties.newPhoto) {
                 //   setHasNewPhoto(true);
                 // } else {
@@ -677,12 +695,18 @@ function Mapa({ data }) {
         }
       });
       map.doubleClickZoom.disable();
+      // map.on("click", function (e) {
+      //   if (e.defaultPrevented === false) {
+      //     setPopupOn(false);
+      //   }
+      // });
 
       map.on("click", "city", function (e) {
         var coordinates = e.features[0].geometry.coordinates.slice();
         var feature = e.features[0];
         console.log(feature);
         setIdKliknuteFotke(e.features[0].properties.id);
+        setFeaturesKliknuteFotke(e.features[0].properties);
         // if (e.features[0].properties.newPhoto) {
         //   setHasNewPhoto(true);
         // } else {
@@ -779,10 +803,17 @@ function Mapa({ data }) {
 
             .addTo(map);
         }
+        document
+          .getElementById("overlay")
+          .addEventListener("click", (event) => {
+            setPopupOn(false);
+            popup2.remove();
+          });
       });
 
       popup2.on("close", () => {
         setIdKliknuteFotke(null);
+        setFeaturesKliknuteFotke([]);
         setPopupOn(false);
 
         // document.getElementById("overlay").classList.remove("overlay");
@@ -841,6 +872,9 @@ function Mapa({ data }) {
     setIsModalOpen(false);
     setHasPoints(true);
   };
+  const toggleEditModal = () => {
+    setIsEditModalOpen(false);
+  };
   const handleClick = () => {
     console.log("Clicked photo");
   };
@@ -880,6 +914,13 @@ function Mapa({ data }) {
       console.log(ex);
     }
   };
+  const handleEdit = async (id) => {
+    setIsEditModalOpen(true);
+  };
+  const handleClickOutsidePopup = () => {
+    setPopupOn(false);
+    setClickedOutside(true);
+  };
 
   useEffect(() => {
     if (popupOn) {
@@ -903,8 +944,16 @@ function Mapa({ data }) {
         id="map"
         className={` ${featuresArray.length > 0 ? "map" : ""}`}
       ></div>
+      {/* {popupOn && <Overlay onClick={() => handleClickOutsidePopup()} />} */}
       <div id="overlay"></div>
       {isModalOpen && <FormModal toggleModal={toggleModal} lngLat={lngLat} />}
+      {isEditModalOpen && (
+        <EditFormModal
+          toggleModal={toggleEditModal}
+          id={idKliknuteFotke}
+          data={featuresKliknuteFotke}
+        />
+      )}
       {firstScreen && (
         <WrapSlider
           className={` ${firstScreen2 ? "firstScreen" : "noFirstScreen"}`}
@@ -985,9 +1034,14 @@ function Mapa({ data }) {
       {isDeleting && <div className="deleted">Brišem....</div>}
       {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
       {logedIn && idKliknuteFotke !== null && (
-        <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
-          Obriši
-        </div>
+        <>
+          <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
+            Obriši
+          </div>
+          <div className="edit" onClick={() => handleEdit(idKliknuteFotke)}>
+            Uredi
+          </div>
+        </>
       )}
       <div className={` ${featuresArray.length > 0 ? "map-overlay2" : ""}`}>
         <div id="feature-listing" className="listing"></div>
