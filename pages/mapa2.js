@@ -210,6 +210,7 @@ function Mapa({ data }) {
   const [zoom, setZoom] = useState(13.7);
   const [hasPoints, setHasPoints] = useState(false);
   const [clickedOutside, setClickedOutside] = useState(false);
+  const [isTouchDevice, setisTouchDevice] = useState(false);
 
   const [featuresArray, setFeaturesArray] = useState([]);
   const [featuresArr, setFeaturesArr] = useState([]);
@@ -263,6 +264,12 @@ function Mapa({ data }) {
         console.log("OnAuthStateChanged: Logged out");
       }
     });
+
+    if ("ontouchstart" in document.documentElement) {
+      setisTouchDevice(true);
+    } else {
+      setisTouchDevice(false);
+    }
   }, []);
 
   //   const [lang, setLang] = useState(i18next.language);
@@ -527,14 +534,15 @@ function Mapa({ data }) {
                       `
                     )
                     .addTo(map);
-                  if (size.width > 430) {
+                  if (size.width > 450) {
                     document
                       .getElementById("activator")
                       .addEventListener(
-                        size.width < 430 ? "touchmove" : "mousemove",
+                        isTouchDevice ? "touchmove" : "mousemove",
                         (event) => {
                           console.log(event);
                           const divider = document.getElementById("divider");
+
                           divider.style.left = event.offsetX + "px";
                           if (feature.properties.fotoLayout === "portrait") {
                             event.target.previousElementSibling.style.clip =
@@ -549,7 +557,7 @@ function Mapa({ data }) {
                     document
                       .getElementById("activator")
                       .addEventListener(
-                        size.width < 430 ? "touchmove" : "mousemove",
+                        isTouchDevice ? "touchmove" : "mousemove",
                         (event) => {
                           console.log(event);
                           const divider = document.getElementById("divider");
@@ -562,10 +570,9 @@ function Mapa({ data }) {
                               event.touches[0].clientX +
                               "px,450px,0px)";
                           } else {
-                            divider.style.left = event.offsetX + "px";
-
+                            divider.style.left = event.clientX + "px";
                             event.target.previousElementSibling.style.clip =
-                              "rect(0px, " + event.offsetX + "px,450px,0px)";
+                              "rect(0px, " + event.clientX + "px,450px,0px)";
                           }
                         }
                       );
@@ -759,11 +766,11 @@ function Mapa({ data }) {
             )
 
             .addTo(map);
-          if (size.width > 430) {
+          if (size.width > 450) {
             document
               .getElementById("activator")
               .addEventListener(
-                size.width < 430 ? "touchmove" : "mousemove",
+                isTouchDevice ? "touchmove" : "mousemove",
                 (event) => {
                   console.log(event);
                   const divider = document.getElementById("divider");
@@ -781,19 +788,18 @@ function Mapa({ data }) {
             document
               .getElementById("activator")
               .addEventListener(
-                size.width < 430 ? "touchmove" : "mousemove",
+                isTouchDevice ? "touchmove" : "mousemove",
                 (event) => {
                   console.log(event);
                   const divider = document.getElementById("divider");
+
                   if (event.touches) {
                     divider.style.left = event.touches[0].clientX + "px";
-                  } else {
-                    divider.style.left = event.offsetX + "px";
-                  }
-                  if (event.touches) {
                     event.target.previousElementSibling.style.clip =
                       "rect(0px, " + event.touches[0].clientX + "px,450px,0px)";
                   } else {
+                    divider.style.left = event.offsetX + "px";
+
                     event.target.previousElementSibling.style.clip =
                       "rect(0px, " + event.offsetX + "px,450px,0px)";
                   }
@@ -1051,6 +1057,7 @@ function Mapa({ data }) {
       )}
       {isDeleting && <div className="deleted">Brišem....</div>}
       {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
+      {isTouchDevice && <div className="touch">TOUCH</div>}
       {logedIn && idKliknuteFotke !== null && (
         <>
           <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
