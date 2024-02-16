@@ -14,13 +14,21 @@ import {
   UploadBlock,
 } from "./style.js";
 import { useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase/firebase.js";
 import Image from "next/image.js";
 import Resizer from "react-image-file-resizer";
 import { storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-function Formular({ toggleModal, id, data }) {
+
+function Formular({ toggleModal, id, data, allData }) {
   const [mjesto, setMjesto] = useState(data.title_naslov);
   const [autor, setAutor] = useState(data.autor);
   const [email, setEmail] = useState("");
@@ -54,11 +62,88 @@ function Formular({ toggleModal, id, data }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const objIndex = allData.findIndex((obj) => obj.id == data.id);
 
-    // uploadFiles(selectedImages);
+    const editedData = {
+      Title: mjesto,
+      DateCreated: godina,
+      GPSLatitude: data.latitude,
+      GPSLongitude: data.longitude,
+      Photo1000px: thumbImageUrl,
+      Photo200px: largeImageurl,
+      newPhoto: newPhotoURL,
+      procjenaGodine: checked,
+      autor: autor,
+      fotoLayout: data.fotoLayout,
+      timestamp: Date.now(),
+      id: data.id,
+    };
+    (allData[objIndex].Title = mjesto),
+      (allData[objIndex].DateCreated = godina),
+      (allData[objIndex].autor = autor),
+      (allData[objIndex].procjenaGodine = autor);
 
-    uploadlargeImage(largeImage);
+    // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+    const docRef = doc(db, "retroData5", "test");
+
+    setDoc(docRef, { allData });
   };
+
+  // useEffect(() => {
+  //   if (thumbImageUrl !== "" && largeImageurl && fileNewPhoto === null) {
+  //     const newEntry = {
+  //       Title: mjesto,
+  //       DateCreated: godina,
+  //       GPSLatitude: lat,
+  //       GPSLongitude: lng,
+  //       Photo1000px: thumbImageUrl,
+  //       Photo200px: largeImageurl,
+  //       newPhoto: "",
+  //       procjenaGodine: checked,
+  //       autor: autor,
+  //       fotoLayout: fotoLayout,
+  //       timestamp: Date.now(),
+  //       id: uuid(),
+  //     };
+  //     allData.push(newEntry);
+  //     const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+  //     setDoc(docRef, { allData });
+  //     console.log("WRITTEN NO NEW PHOTO");
+  //     setGodina("");
+  //     setMjesto("");
+  //     setAutor("");
+  //     setFile(null);
+  //     setFileNewPhoto(null);
+  //     toggleModal();
+  //   }
+  //   if (thumbImageUrl !== "" && largeImageurl && newPhotoURL !== "") {
+  //     const newEntry = {
+  //       Title: mjesto,
+  //       DateCreated: godina,
+  //       GPSLatitude: lat,
+  //       GPSLongitude: lng,
+  //       Photo1000px: thumbImageUrl,
+  //       Photo200px: largeImageurl,
+  //       newPhoto: newPhotoURL,
+  //       procjenaGodine: checked,
+  //       autor: autor,
+  //       fotoLayout: fotoLayout,
+  //       timestamp: Date.now(),
+  //       id: uuid(),
+  //     };
+  //     allData.push(newEntry);
+  //     const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+  //     setDoc(docRef, { allData });
+  //     console.log("WRITTEN WITH NEW PHOTO");
+
+  //     setGodina("");
+  //     setMjesto("");
+  //     setAutor("");
+  //     setFile(null);
+  //     setFileNewPhoto(null);
+  //     toggleModal();
+  //   }
+  // }, [thumbImageUrl, newPhotoURL, largeImageurl]);
   // const uploadlargeImage = (files) => {
   //   setLoading(true);
   //   const imageLinks = [];
@@ -375,7 +460,7 @@ function Formular({ toggleModal, id, data }) {
   const handleRadioChange = (value) => {
     setFotoLayout(value);
   };
-  console.log(fotoLayout);
+
   return (
     <WrapAll>
       <StyledForm onSubmit={handleSubmit}>
@@ -410,18 +495,13 @@ function Formular({ toggleModal, id, data }) {
             />
             Godina je procjenjena
           </StyledLabel>
-          <WrapUpload>
+          {/* <WrapUpload>
             <StyledLabel>Upload foto</StyledLabel>
             <input type="text" value={largeImageurl} />
             <br />
             <input type="text" value={thumbImageUrl} />
 
             <UploadBlock type="file" onChange={handleChange} accept="image/*" />
-            {/* {file !== null && (
-              <div style={{ color: "black", marginTop: "20px" }}>
-                {file.name}
-              </div>
-            )} */}
             <StyledLabel>Upload new foto</StyledLabel>
             <input type="text" value={newPhotoURL} />
 
@@ -450,12 +530,7 @@ function Formular({ toggleModal, id, data }) {
               />
               Portrait
             </StyledLabel>
-            {/* {fileNewPhoto !== null && (
-              <div style={{ color: "black", marginTop: "20px" }}>
-                {fileNewPhoto.name}
-              </div>
-            )} */}
-          </WrapUpload>
+          </WrapUpload> */}
         </WrapData>
         <StyledButton type="submit">Spremi</StyledButton>
         <StyledButtonMob type="submit">Spremi</StyledButtonMob>

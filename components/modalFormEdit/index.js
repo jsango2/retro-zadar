@@ -4,7 +4,7 @@ import { WrapAll, Container, CloseButton, Text } from "./style.js";
 import Link from "next/link.js";
 import Image from "next/image.js";
 import Formular from "./Formular/index.js";
-function EditFormModal({ toggleModal, id, data }) {
+function EditFormModal({ toggleModal, id, data, allData }) {
   // const { ref, inView, entry } = useInView({
 
   //   threshold: 0,
@@ -16,7 +16,12 @@ function EditFormModal({ toggleModal, id, data }) {
     <WrapAll>
       <CloseButton onClick={() => toggleModal()}>x</CloseButton>
       <Container>
-        <Formular toggleModal={toggleModal} id={id} data={data} />
+        <Formular
+          toggleModal={toggleModal}
+          id={id}
+          data={data}
+          allData={allData}
+        />
       </Container>
     </WrapAll>
   );

@@ -1,4 +1,5 @@
 import { UploadBlockTop, UploadBlockTopLayer, WrapAll } from "./style.js";
+import uuid from "react-uuid";
 
 import {
   StyledForm,
@@ -12,15 +13,27 @@ import {
   SmallBlock,
   WrapUpload,
   UploadBlock,
+  WrapLottie,
 } from "./style.js";
 import { useEffect, useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import Script from "next/script";
+
 import { db } from "../../firebase/firebase";
 import Image from "next/image.js";
 import Resizer from "react-image-file-resizer";
 import { storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-function Formular({ lng, lat, toggleModal }) {
+import { dataBackup } from "../../../dataBackup.js";
+
+function Formular({ lng, lat, toggleModal, allData }) {
   const [mjesto, setMjesto] = useState("");
   const [autor, setAutor] = useState("");
   const [email, setEmail] = useState("");
@@ -46,7 +59,6 @@ function Formular({ lng, lat, toggleModal }) {
   const [url, setUrl] = useState([]);
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
-
   const handleCheckbox = () => {
     setChecked(!checked);
   };
@@ -57,7 +69,11 @@ function Formular({ lng, lat, toggleModal }) {
     // uploadFiles(selectedImages);
 
     uploadlargeImage(largeImage);
+    if (fileNewPhoto !== null) {
+      uploadNewPhoto(fileNewPhoto);
+    }
   };
+
   // const uploadlargeImage = (files) => {
   //   setLoading(true);
   //   const imageLinks = [];
@@ -117,9 +133,6 @@ function Formular({ lng, lat, toggleModal }) {
       .then((res) => {
         console.log(imageLinks);
         setLargeImageUrl(res.url);
-        if (fileNewPhoto !== null) {
-          uploadNewPhoto(fileNewPhoto);
-        }
         uploadThumbPhoto(thumbImage);
       })
       .catch((err) => setLoading(false));
@@ -177,77 +190,41 @@ function Formular({ lng, lat, toggleModal }) {
         setThumbImageURL(res.url);
       });
   };
-  // const uploadToFirebase = () => {
-  //   const docRef = addDoc(collection(db, "cities"), {
-  //     Title: mjesto,
-  //     DateCreated: godina,
-  //     GPSLatitude: lat,
-  //     GPSLongitude: lng,
-  //     Photo1000px: URLs[0],
-  //     Photo200px: URLs[2],
-  //     Photo50px: URLs[1],
-  //   });
-  //   console.log("Document written with ID: ", docRef.id);
-  //   setGodina("");
-  //   setMjesto("");
-  //   setFile(null);
-  // };
-
-  // console.log("UUURRRLLLSSSS", URLs);
-  // let array = new Array;
-  // var fetches = [];
-  // for (let i = 0; i < url.length; i++) {
-  //   console.log(url[i]);
-  //   fetches.push(
-  //     fetch(url[i])
-  //     .then(res => {return res.text(); })
-  //     .then(res => {
-  //           let reg = /\<meta name="description" content\=\"(.+?)\"/;
-  //           res = res.match(reg);
-  //           array.push(res);
-  //           console.log(res);
-  //         }
-  //     )
-  //     .catch(status, err => {return console.log(status, err);})
-  //   );
-  // }
-  // Promise.all(fetches).then(function() {
-  //   console.log (array.length);
-  // });
-
-  // let image = files[i];
-  // const data = new FormData();
-  // data.append("file", image);
-  // data.append(
-  //   "upload_preset",
-  //   process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-  // );
-  // data.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
-  // data.append("folder", "Cloudinary-React");
-
-  // try {
-  //   const response = await fetch(
-  //     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-  //     {
-  //       method: "POST",
-  //       body: data,
-  //     }
-  //   );
-  //   const res = await response.json();
-  //   imageLinks.push(res.url);
-  //   // setUrl(imageLinks);
-  //   setLoading(false);
-  //   setUrl(imageLinks);
-  //   console.log("IMG LINKS LENGTH", imageLinks.length);
-  //   imageLinks.length === 3 && uploadToFirebase();
-  // } catch (error) {
-  //   setLoading(false);
-  // }
-
   useEffect(() => {
-    if (thumbImageUrl !== "" && largeImageurl !== "") {
-      console.log("USE EFFE");
-      const docRef = addDoc(collection(db, "cities"), {
+    if (thumbImageUrl !== "" && largeImageurl && fileNewPhoto === null) {
+      const newEntry = {
+        Title: mjesto,
+        DateCreated: godina,
+        GPSLatitude: lat,
+        GPSLongitude: lng,
+        Photo1000px: thumbImageUrl,
+        Photo200px: largeImageurl,
+        newPhoto: "",
+        procjenaGodine: checked,
+        autor: autor,
+        fotoLayout: fotoLayout,
+        timestamp: Date.now(),
+        id: uuid(),
+      };
+      allData.push(newEntry);
+      // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+      const docRef = doc(db, "retroData5", "test");
+
+      setDoc(docRef, { allData });
+      console.log("WRITTEN NO NEW PHOTO");
+      setGodina("");
+      setMjesto("");
+      setAutor("");
+      setFile(null);
+      setFileNewPhoto(null);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        toggleModal();
+      }, 2000);
+    }
+    if (thumbImageUrl !== "" && largeImageurl && newPhotoURL !== "") {
+      const newEntry = {
         Title: mjesto,
         DateCreated: godina,
         GPSLatitude: lat,
@@ -258,19 +235,90 @@ function Formular({ lng, lat, toggleModal }) {
         procjenaGodine: checked,
         autor: autor,
         fotoLayout: fotoLayout,
-      });
+        timestamp: Date.now(),
+        id: uuid(),
+      };
+      allData.push(newEntry);
+      // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+      const docRef = doc(db, "retroData5", "test");
+
+      setDoc(docRef, { allData });
+      console.log("WRITTEN WITH NEW PHOTO");
+
       setGodina("");
       setMjesto("");
       setAutor("");
       setFile(null);
       setFileNewPhoto(null);
-      toggleModal();
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        toggleModal();
+      }, 2000);
     }
   }, [thumbImageUrl, newPhotoURL, largeImageurl]);
 
-  // const handleUpload = () => {
-  //   uploadFiles(images);
-  // };
+  console.log(allData);
+  // useEffect(() => {
+  //   if (thumbImageUrl !== "" && largeImageurl && fileNewPhoto === null) {
+  //     console.log("USE EFFE");
+  //     const docRef = setDoc(doc(db, "retroData5", "test"), {
+  //       Title: mjesto,
+  //       DateCreated: godina,
+  //       GPSLatitude: lat,
+  //       GPSLongitude: lng,
+  //       Photo1000px: thumbImageUrl,
+  //       Photo200px: largeImageurl,
+  //       newPhoto: "",
+  //       procjenaGodine: checked,
+  //       autor: autor,
+  //       fotoLayout: fotoLayout,
+  //       timestamp: Date.now(),
+  //       id: uuid(),
+  //     });
+  //     setGodina("");
+  //     setMjesto("");
+  //     setAutor("");
+  //     setFile(null);
+  //     setFileNewPhoto(null);
+  //     toggleModal();
+  //   }
+  //   if (thumbImageUrl !== "" && largeImageurl && newPhotoURL !== "") {
+  //     console.log("USE EFFE ELSE");
+  //     const docRef = setDoc(doc(db, "retroZdTest", "4wdXGIUvEFX2QKeMvQ2K"), {
+  //       Title: mjesto,
+  //       DateCreated: godina,
+  //       GPSLatitude: lat,
+  //       GPSLongitude: lng,
+  //       Photo1000px: thumbImageUrl,
+  //       Photo200px: largeImageurl,
+  //       newPhoto: newPhotoURL,
+  //       procjenaGodine: checked,
+  //       autor: autor,
+  //       fotoLayout: fotoLayout,
+  //       timestamp: Date.now(),
+  //       id: uuid(),
+  //     });
+  //     setGodina("");
+  //     setMjesto("");
+  //     setAutor("");
+  //     setFile(null);
+  //     setFileNewPhoto(null);
+  //     toggleModal();
+  //   }
+  // }, [thumbImageUrl, newPhotoURL, largeImageurl]);
+  // console.log("ALL DATA", allData);
+
+  // useEffect(() => {
+  //   console.log("USE EFFE dodan u fb");
+
+  //   const docRef = doc(db, "retroData5", "test");
+  //   setDoc(docRef, { allData });
+  // }, []);
+
+  const handleUpload = () => {
+    uploadFiles(images);
+  };
   const handleMjesto = (e) => {
     setMjesto(e.target.value);
   };
@@ -443,6 +491,18 @@ function Formular({ lng, lat, toggleModal }) {
   console.log(fotoLayout);
   return (
     <WrapAll>
+      {loading && (
+        <WrapLottie>
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+          <lottie-player
+            src="https://assets8.lottiefiles.com/private_files/lf30_nsqfzxxx.json"
+            background="transparent"
+            speed="1"
+            style={{ width: "300px", height: "300px" }}
+            autoplay
+          ></lottie-player>
+        </WrapLottie>
+      )}
       <StyledForm onSubmit={handleSubmit}>
         <WrapData>
           <SmallBlock>

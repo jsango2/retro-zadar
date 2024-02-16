@@ -61,6 +61,7 @@
     "react-slick": "^0.28.1",
     "react-transition-group": "^4.4.2",
     "react-use-precision-timer": "^1.0.7",
+    "react-uuid": "^2.0.0",
     "react-video-scroll": "^1.0.1",
     "react-youtube": "^10.0.0",
     "simple-react-lightbox": "^3.6.9-0",

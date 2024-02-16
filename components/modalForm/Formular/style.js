@@ -14,6 +14,18 @@ export const WrapAll = styled.div`
     min-width: unset;
   }
 `;
+export const WrapLottie = styled.div`
+  position: absolute;
+  z-index: 12;
+  height: 100%;
+  width: 100%;
+
+  /* background: ; */
+  @media only screen and (max-width: 900px) {
+  }
+  @media only screen and (max-width: 720px) {
+  }
+`;
 
 export const StyledForm = styled.form`
   padding: 20px;

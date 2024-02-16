@@ -24,19 +24,19 @@ const Login = (props) => {
   const [passwordError, setPasswordError] = useState("");
   const [fetching, setFetching] = useState(true);
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setlogedIn(true);
-        setEmailError("");
-        router.push("/mapa2");
-        console.log("OnAuthStateChanged: Logged in");
-      } else {
-        setlogedIn(false);
-        console.log("OnAuthStateChanged: Logged out");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setlogedIn(true);
+  //       setEmailError("");
+  //       router.push("/mapa2");
+  //       console.log("OnAuthStateChanged: Logged in");
+  //     } else {
+  //       setlogedIn(false);
+  //       console.log("OnAuthStateChanged: Logged out");
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     logedIn && router.push("/mapa2");
@@ -46,25 +46,22 @@ const Login = (props) => {
     const auth = getAuth();
 
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      // Handle Errors here.
-      if (error) {
-        setEmailError(error.code);
-        setTimeout(() => {
-          setEmailError("");
-        }, 3000);
-      }
-      // setProcess(true);
-      // setlogedIn(true);
-    });
-    setlogedIn(true);
-    setFetching(true);
-    setEmail("");
-    setPassword("");
-
-    // if (logedIn === false) {
-    // 	return <Redirect to='/' />;
-    // }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        setlogedIn(true);
+        setFetching(true);
+        setEmail("");
+        setPassword("");
+        router.push("/mapa3");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   console.log("Error:", emailError);

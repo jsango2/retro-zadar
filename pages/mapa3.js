@@ -11,15 +11,10 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import styled from "styled-components";
+import uuid from "react-uuid";
 // import firebase from "gatsby-plugin-firebase";
 import { db, auth } from "../components/firebase/firebase";
-import {
-  collection,
-  getDocs,
-  doc,
-  deleteDoc,
-  deleteField,
-} from "firebase/firestore";
+import { doc, getDoc, collection, setDoc } from "firebase/firestore";
 // import { Link } from "gatsby";
 import { BsLayersFill } from "react-icons/bs";
 import useWindowSize from "../components/helper/usewindowsize";
@@ -37,6 +32,8 @@ import { GrFormPrevious } from "react-icons/gr";
 import { FaImages } from "react-icons/fa";
 import EditFormModal from "../components/modalFormEdit";
 import Upute from "../components/Upute";
+import { dataBackup } from "../dataBackup";
+import Script from "next/script";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -141,6 +138,20 @@ export const Featured = styled.div`
   @media only screen and (max-width: 420px) {
   }
 `;
+export const WrapLottie = styled.div`
+  position: absolute;
+  z-index: 23;
+  height: auto;
+  width: auto;
+  left: 58%;
+  top: 45%;
+  transform: translate(-50%, 0%);
+  /* background: ; */
+  @media only screen and (max-width: 900px) {
+  }
+  @media only screen and (max-width: 720px) {
+  }
+`;
 const PodNaslov = styled.div`
   position: fixed;
   right: 70px;
@@ -238,6 +249,7 @@ function Mapa({ data }) {
   const [isTouchDevice, setisTouchDevice] = useState(false);
 
   const [featuresArray, setFeaturesArray] = useState([]);
+  const [allDataFromDB, setAllDataFromDB] = useState([]);
   const [featuresArr, setFeaturesArr] = useState([]);
   const [firstScreen, setFirstScreen] = useState(false);
   const [firstScreen2, setFirstScreen2] = useState(false);
@@ -255,7 +267,6 @@ function Mapa({ data }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [value, setValue] = React.useState([1890, 1980]);
-
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -281,56 +292,68 @@ function Mapa({ data }) {
   }
 
   //   const [lang, setLang] = useState(i18next.language);
-  const dataJson = Slikejson;
+  // dataBackup.forEach((data) => (data.id = uuid()));
+  // console.log("SAUID", dataBackup);
+
   const fetchPost = async () => {
     console.log("FETCHED FROM FIREBASE");
-    await getDocs(collection(db, "cities")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        type: "Feature",
-        properties: {
-          datum_uploada: parseInt(doc.data().DateCreated),
-          image_url_thumb: doc.data().Photo50px,
-          image_url_1000px: doc.data().Photo1000px,
-          image_url_200px: doc.data().Photo200px,
-          newPhoto: doc.data().newPhoto,
-          title_naslov: doc.data().Title,
-          longitude: doc.data().GPSLongitude,
-          latitude: doc.data().GPSLatitude,
-          procjenaGodine: doc.data().procjenaGodine,
-          autor: doc.data().autor,
-          fotoLayout: doc.data().fotoLayout,
-          timeStamp: doc.data().timestamp,
+    // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+    const docRef = doc(db, "retroData5", "test");
+    const docSnap = await getDoc(docRef);
 
-          id: doc.id,
-          icon: {
-            // iconUrl: doc.data().Photo50px,
-            iconSize: [50, 50], // size of the icon
-            iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
-            popupAnchor: [0, -25], // point from which the popup should open relative to the iconAnchor
-            className: "dot",
-          },
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [doc.data().GPSLongitude, doc.data().GPSLatitude],
-        },
-        // ...doc.data(),
+    const allData = docSnap.data().allData;
+    console.log(allData);
+    setAllDataFromDB(allData);
+    const dataWithDetails = allData.map((doc) => ({
+      type: "Feature",
+      properties: {
+        datum_uploada: parseInt(doc.DateCreated),
+        image_url_thumb: doc.Photo50px,
+        image_url_1000px: doc.Photo1000px,
+        image_url_200px: doc.Photo200px,
+        newPhoto: doc.newPhoto,
+        title_naslov: doc.Title,
+        longitude: doc.GPSLongitude,
+        latitude: doc.GPSLatitude,
+        procjenaGodine: doc.procjenaGodine,
+        autor: doc.autor,
+        fotoLayout: doc.fotoLayout,
+        timeStamp: doc.timestamp,
+
         id: doc.id,
-      }));
-      setGeoData({
-        type: "FeatureCollection",
-        features: newData,
-      });
+        icon: {
+          // iconUrl: doc.data().Photo50px,
+          iconSize: [50, 50], // size of the icon
+          iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
+          popupAnchor: [0, -25], // point from which the popup should open relative to the iconAnchor
+          className: "dot",
+        },
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [doc.GPSLongitude, doc.GPSLatitude],
+      },
+      id: doc.id,
+    }));
+    setGeoData({
+      type: "FeatureCollection",
+      features: dataWithDetails,
     });
   };
-  console.log(geoData);
+  // const fetchPost = async () => {
+  //   console.log("FETCHED FROM FIREBASE");
+  //   await getDocs(collection(db, "cities")).then((querySnapshot) => {
+  //     const newData = querySnapshot.docs.map((doc) => doc.data());
+  //     setGeoData(newData);
+  //   });
+  // };
+
   useEffect(() => {
     fetchPost();
     console.log("auth");
     auth.onAuthStateChanged((user) => {
       if (user) {
         setlogedIn(true);
-        router.push("/mapa2");
         console.log("OnAuthStateChanged: Logged in");
       } else {
         setlogedIn(false);
@@ -747,7 +770,7 @@ function Mapa({ data }) {
         let timestamp = feature.properties.timeStamp;
         let now = Date.now();
         const razlika = now - timestamp;
-        console.log(razlika);
+        console.log(feature);
         setIdKliknuteFotke(e.features[0].properties.id);
         setFeaturesKliknuteFotke(e.features[0].properties);
         // if (e.features[0].properties.newPhoto) {
@@ -947,19 +970,36 @@ function Mapa({ data }) {
       setFirstScreen(false);
     }, 1000);
   };
-
+  console.log("DBDATA", allDataFromDB);
   const handleDelete = async (id) => {
+    // const objIndex = allDataFromDB.findIndex((obj) => obj.id == id);
+    // console.log("DELETING", id);
+    // console.log("objIndex", objIndex);
+    // console.log(allDataFromDB[objIndex].Title);
+    const allData = allDataFromDB.filter((item) => item.id !== id);
+    console.log("ARRAY WITHOUT DELETED", allData);
+    // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
+    const docRef = doc(db, "retroData5", "test");
+    setIsDeleting(true);
+
+    await setDoc(docRef, { allData });
+    setTimeout(() => {
+      setIsDeleting(false);
+      setDeleted(true);
+    }, 1500);
+
+    setTimeout(() => {
+      setDeleted(false);
+    }, 3000);
     setIsDeleting(true);
     try {
       await deleteDoc(doc(db, "cities", id));
-      setTimeout(() => {
-        setIsDeleting(false);
-        setDeleted(true);
-      }, 1500);
+      setDeleted(true);
+      setIsDeleting(false);
 
       setTimeout(() => {
         setDeleted(false);
-      }, 3000);
+      }, 5000);
     } catch (ex) {
       console.log(ex);
     }
@@ -998,60 +1038,45 @@ function Mapa({ data }) {
       ></div>
       {/* {popupOn && <Overlay onClick={() => handleClickOutsidePopup()} />} */}
       <div id="overlay"></div>
-      {isModalOpen && <FormModal toggleModal={toggleModal} lngLat={lngLat} />}
+      {deleted && (
+        <WrapLottie>
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+          <lottie-player
+            src="https://lottie.host/3df28e7d-6695-41a3-99ef-7315d530a9c0/Aiy03FOFVN.json"
+            background="transparent"
+            speed="1"
+            style={{ width: "100px", height: "100px" }}
+            autoplay
+          ></lottie-player>
+        </WrapLottie>
+      )}
+      {isDeleting && (
+        <WrapLottie>
+          <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+          <lottie-player
+            src="https://lottie.host/950d13f5-5a28-4fd7-a894-a954f1af82f3/ozM0HC2SPx.json"
+            background="transparent"
+            speed="1"
+            style={{ width: "100px", height: "100px" }}
+            autoplay
+          ></lottie-player>
+        </WrapLottie>
+      )}
+      {isModalOpen && (
+        <FormModal
+          toggleModal={toggleModal}
+          lngLat={lngLat}
+          allData={allDataFromDB}
+        />
+      )}
       {isEditModalOpen && (
         <EditFormModal
           toggleModal={toggleEditModal}
           id={idKliknuteFotke}
           data={featuresKliknuteFotke}
+          allData={allDataFromDB}
         />
       )}
-      {/* {firstScreen && (
-        <WrapSlider
-          className={` ${firstScreen2 ? "firstScreen" : "noFirstScreen"}`}
-        >
-          <CloseSlider onClick={() => handleCloseFirstScreen()}>X</CloseSlider>
-          <Slider {...settings}>
-            <FirstScreen>
-              {" "}
-              <strong>Dragi ljubitelji starih fotografija Zadra!</strong>
-              <br />
-              <br />
-              Dobrodošli na <strong>Retro Zadar</strong>, stranicu posvećenu
-              Zadru i svim onim ljepotama koje su vezane uz naš prekrasan grad!
-              Ovaj projekt je izradila i održava grupa entuzijasta, kojima je
-              želja da se ne zaboravi povijest grada Zadra kroz fotografije koje
-              su izradili i prikupljali vrsni fotografi sa ovog područja.
-              Projekt nije komercijalan i to nikada neće biti. Sve fotografije
-              na ovoj karti prikupljene su preko socijalnih mreža i ostalih
-              izvora na internetu. <br />
-              Zahvaljujemo se svima koji su se potrudili da se ove fotografije
-              ne zaborave. Nove fotografije grada izradili su autori ove
-              stranice.
-            </FirstScreen>
-            <FirstScreen>
-              {" "}
-              Retro Zadar se sastoji od nekoliko djelova: <br />
-              Nakon zumiranja karte pojavljuje se traka sa dijelom fotografija
-              sa karte. Prelaskom preko fotografije, označiti će se pozicija te
-              fotografije na karti. Na fotografiju na traci se može kliknuti za
-              pregled fotografije u većem formatu. Fotografiju zatvarate klikom
-              na X oznaku na fotografiji (gornji desni kut). Fotografiju možete
-              otvoriti i zumiranjem karte te klikom na kružić koji označava
-              geografsku poziciju fotografije. Na desnoj strani karte nalazi se
-              klizni odabir intervala godina u kojem želite pogledati karte.
-              Primjerice da želite vidjeti samo fotografije netom poslije
-              bombardiranja grada, odaberite interval od 1943- 1945 godine.
-              <br />
-              Poneke fotografije na traci za pregled imaju žutu oznaku
-              <img src="/imgIcon.png" width="20" height="20"></img>. Ove
-              fotografije prikazuju i današnji izgled na uslikanoj poziciji
-              preklapanjem dviju fotografija. Pomicanjem klizača lijevo-desno,
-              usporedite prošlost i sadašnjost Zadra!
-            </FirstScreen>
-          </Slider>
-        </WrapSlider>
-      )} */}
       <Naslov>RETRO ZADAR</Naslov>
       <PodNaslov>
         {value[0]}-{value[1]}
@@ -1093,8 +1118,8 @@ function Mapa({ data }) {
           Logout Admin
         </div>
       )}
-      {isDeleting && <div className="deleted">Brišem....</div>}
-      {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>}
+      {/* {isDeleting && <div className="deleted">Brišem....</div>}
+      {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>} */}
       {logedIn && idKliknuteFotke !== null && (
         <>
           <div className="delete" onClick={() => handleDelete(idKliknuteFotke)}>
