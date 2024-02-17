@@ -12,7 +12,7 @@ export const WrapAll = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-top: 12px;
+  padding-top: 4px;
   padding-left: 0px;
   font-weight: 400;
   overflow: hidden;
@@ -35,11 +35,22 @@ export const WrapAll = styled.div`
     transition: all 0.3s ease-in-out;
     bottom: 40px;
     right: -35px;
-    height: 50px;
-    width: 240px;
+    height: 33px;
+    width: 135px;
   }
   /* background: ; */
-  @media only screen and (max-width: 900px) {
+  @media only screen and (max-width: 600px) {
+    &.open {
+      transition: all 0.3s ease-in-out;
+      height: 600px;
+      width: 90vw;
+      bottom: 50%;
+      right: 50%;
+      transform: translate(50%, 45%);
+    }
+    &.closed {
+      bottom: 120px;
+    }
   }
   @media only screen and (max-width: 720px) {
     min-width: unset;
@@ -72,6 +83,7 @@ export const WrapSlider = styled.div`
   opacity: ${(props) => (props.uputeOpen ? "1" : "0")};
 
   @media only screen and (max-width: 600px) {
+    min-width: unset;
     width: 95vw;
   }
   @media only screen and (max-width: 420px) {
@@ -97,9 +109,11 @@ export const FirstScreen = styled.p`
     display: inline-block;
     margin: 0 3px;
   }
-  @media screen and (max-width: 630px) {
+  @media screen and (max-width: 600px) {
+    margin-left: 0px;
+
     font-size: 14px;
 
-    padding: 70px 20px 0 20px;
+    padding: 70px 30px 0 3%;
   }
 `;

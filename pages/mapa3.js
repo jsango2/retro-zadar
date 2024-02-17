@@ -134,6 +134,10 @@ export const Featured = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
+    left: unset;
+    top: unset;
+    bottom: 155px;
+    left: 10px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -472,7 +476,7 @@ function Mapa({ data }) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
 
-        // RenderListings(features.slice(0, 10));
+        RenderListings(features.slice(0, 10));
 
         function RenderListings(features) {
           const featuresWithoutClusters = features.filter(

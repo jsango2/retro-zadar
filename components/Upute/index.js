@@ -75,7 +75,7 @@ function Upute({ lng, lat, toggleModal }) {
   return (
     <WrapAll ref={wrapperRef} className={` ${uputeOpen ? "open" : "closed"}`}>
       <Title onClick={() => setUputeOpen(!uputeOpen)} open={uputeOpen}>
-        Upute za korištenje
+        Upute
       </Title>
 
       <WrapSlider uputeOpen={uputeOpen}>
