@@ -48,8 +48,8 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 const Naslov = styled.div`
   position: fixed;
-  right: 66px;
-  top: 45px;
+  left: 273px;
+  top: 23px;
   z-index: 2;
   color: #5e5b5b;
   font-size: 55px;
@@ -58,7 +58,7 @@ const Naslov = styled.div`
   font-weight: 700;
   text-shadow: 0px 2px 11px #0000006e;
   @media screen and (max-width: 800px) {
-    right: 26px;
+    left: 10px;
     top: 25px;
 
     font-size: 24px;
@@ -119,14 +119,14 @@ export const Featured = styled.div`
   z-index: 20;
   width: auto;
   height: 20px;
-  left: 274px;
-  top: 77px;
+  right: 20px;
+  top: 84px;
   color: #5e5b5b;
   display: flex;
   justify-content: center;
   align-items: center;
   label {
-    margin-left: 5px;
+    margin-right: 5px;
   }
   input {
     cursor: pointer;
@@ -135,9 +135,9 @@ export const Featured = styled.div`
 
   @media only screen and (max-width: 600px) {
     left: unset;
-    top: unset;
-    bottom: 155px;
-    left: 10px;
+    top: 110px;
+
+    right: 10px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -158,8 +158,8 @@ export const WrapLottie = styled.div`
 `;
 const PodNaslov = styled.div`
   position: fixed;
-  right: 70px;
-  top: 105px;
+  left: 275px;
+  top: 91px;
   z-index: 2;
   color: #5e5b5b;
   font-size: 24px;
@@ -168,7 +168,7 @@ const PodNaslov = styled.div`
   font-weight: 700;
   text-shadow: 0px 2px 11px #0000006e;
   @media screen and (max-width: 800px) {
-    right: 26px;
+    left: 10px;
 
     top: 55px;
 
@@ -1101,13 +1101,13 @@ function Mapa({ data }) {
         {value[0]}-{value[1]}
       </PodNaslov>
       <Featured>
+        <label for="featured">Zadar nekad i sad</label>
         <input
           type="checkbox"
           id="featured"
           checked={isChecked}
           onChange={handleCheckbox}
         ></input>
-        <label for="featured">Zadar nekad i sad</label>
       </Featured>
       <Upute />
       {/* <NemaFotografije

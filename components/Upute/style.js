@@ -5,14 +5,14 @@ export const WrapAll = styled.div`
   position: fixed;
   z-index: 22;
 
-  background-color: white;
-  border: 1px solid #bdbcba;
-  border-radius: 20px;
-  color: #5e5b5b;
+  background-color: rgb(255 255 255);
+  border: 2px solid #dcd9d9;
+  border-radius: 4px;
+  color: rgb(26, 25, 25);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-top: 4px;
+  padding-top: 2px;
   padding-left: 0px;
   font-weight: 400;
   overflow: hidden;
@@ -60,7 +60,8 @@ export const WrapAll = styled.div`
 export const Title = styled.div`
   position: relative;
   cursor: pointer;
-  color: #bf7575;
+  color: rgb(26, 25, 25);
+
   z-index: 30;
   margin-left: 30px;
   justify-self: flex-start;
