@@ -270,7 +270,7 @@ function Mapa({ data }) {
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [value, setValue] = React.useState([1890, 1980]);
+  const [value, setValue] = React.useState([1839, 2024]);
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -370,7 +370,7 @@ function Mapa({ data }) {
     } else {
       setisTouchDevice(false);
     }
-  }, []);
+  }, [isModalOpen]);
 
   // const Render = () => {
   //   return <div style={{ color: "black" }}>Jure</div>;
@@ -670,6 +670,17 @@ function Mapa({ data }) {
       });
 
       //DODAVANJE POSTCARD IKONA:
+      map.addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          // When active the map will receive updates to the device's location as it changes.
+          trackUserLocation: true,
+          // Draw an arrow next to the location dot to indicate which direction the device is heading.
+          showUserHeading: true,
+        })
+      );
 
       map.addLayer({
         id: "city",
@@ -1108,7 +1119,7 @@ function Mapa({ data }) {
           value={value}
           onChange={handleChange}
           getAriaValueText={valuetext}
-          min={1850}
+          min={1839}
           max={2024}
           orientation="vertical"
           valueLabelDisplay="on"
