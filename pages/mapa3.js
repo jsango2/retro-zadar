@@ -443,7 +443,7 @@ function Mapa({ data }) {
     // });
 
     // console.log(map)
-    map.on("move", () => {
+    map.on("moveend", () => {
       setLng(map.getCenter().lng.toFixed(4));
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
@@ -542,6 +542,10 @@ function Mapa({ data }) {
                   )
 
                   .addTo(map);
+              });
+              itemLink.addEventListener("mouseleave", () => {
+                // Highlight corresponding feature on the map
+                popup.remove();
               });
               itemLink.addEventListener("click", (e) => {
                 var coordinates = feature.geometry.coordinates.slice();
@@ -696,7 +700,7 @@ function Mapa({ data }) {
         // },
         layout: {
           "icon-image": "cat",
-          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.2, 15, 0.2],
+          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.1, 15, 0.15],
           "icon-padding": 0,
           "icon-allow-overlap": true,
           //   "icon-translate": [0, 0],

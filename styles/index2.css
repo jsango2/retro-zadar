@@ -5,6 +5,7 @@
   bottom: 0;
   width: calc(100% - 250px);
   touch-action: none;
+  overflow: hidden;
 }
 .map-overlay2 {
   position: fixed;
