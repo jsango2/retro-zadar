@@ -51,7 +51,8 @@ const Naslov = styled.div`
   left: 273px;
   top: 23px;
   z-index: 2;
-  color: #5e5b5b;
+  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+
   font-size: 55px;
   font-family: serif;
   font-style: bold;
@@ -121,12 +122,14 @@ export const Featured = styled.div`
   height: 20px;
   right: 20px;
   top: 84px;
-  color: #5e5b5b;
+
   display: flex;
   justify-content: center;
   align-items: center;
   label {
     margin-right: 5px;
+    font-weight: 600;
+    color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
   }
   input {
     cursor: pointer;
@@ -161,7 +164,8 @@ const PodNaslov = styled.div`
   left: 275px;
   top: 91px;
   z-index: 2;
-  color: #5e5b5b;
+  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+
   font-size: 24px;
   font-family: serif;
   font-style: bold;
@@ -377,7 +381,6 @@ function Mapa({ data }) {
   // };
 
   //---
-
   useEffect(() => {
     if (geoData.length !== 0) {
       var filtrirano = geoData.features.filter(
@@ -683,6 +686,7 @@ function Mapa({ data }) {
           trackUserLocation: true,
           // Draw an arrow next to the location dot to indicate which direction the device is heading.
           showUserHeading: true,
+          showAccuracyCircle: false,
         })
       );
 
@@ -989,7 +993,6 @@ function Mapa({ data }) {
       setFirstScreen(false);
     }, 1000);
   };
-  console.log("DBDATA", allDataFromDB);
   const handleDelete = async (id) => {
     // const objIndex = allDataFromDB.findIndex((obj) => obj.id == id);
     // console.log("DELETING", id);
@@ -1096,11 +1099,11 @@ function Mapa({ data }) {
           allData={allDataFromDB}
         />
       )}
-      <Naslov>RETRO ZADAR</Naslov>
-      <PodNaslov>
+      <Naslov mapStyle={mapStyle}>RETRO ZADAR</Naslov>
+      <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
-      <Featured>
+      <Featured mapStyle={mapStyle}>
         <label for="featured">Zadar nekad i sad</label>
         <input
           type="checkbox"
@@ -1117,7 +1120,7 @@ function Mapa({ data }) {
       >
         Na ovom dijelu karte nema fotografija
       </NemaFotografije> */}
-      <div className="slider">
+      <div className={`slider ${mapStyle ? "darkSlider" : "lightSlider"}`}>
         <Sliderx
           getAriaLabel={() => "Raspon godina"}
           value={value}
@@ -1134,7 +1137,7 @@ function Mapa({ data }) {
       </div>
       {logedIn && (
         <div className="admin" onClick={handleLogOut}>
-          Logout Admin
+          Logout
         </div>
       )}
       {/* {isDeleting && <div className="deleted">Brišem....</div>}

@@ -26,6 +26,19 @@
 }
 .MuiSlider-root {
   color: #545454 !important;
+  animation: myAnim 4s ease 0s infinite normal forwards;
+}
+@keyframes myAnim {
+  0%,
+  50%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 0.4;
+  }
 }
 #imgComp {
   position: absolute;
@@ -50,7 +63,7 @@
   top: 46px;
   right: 17px;
   background-color: rgb(255 255 255);
-  border: 2px solid #dcd9d9;
+  border: 2px solid #dbdcda;
   border-radius: 4px;
   overflow: hidden;
   color: rgb(26, 25, 25);
@@ -70,7 +83,7 @@
   right: 57px;
   padding: 0 10px;
   background-color: rgb(255 255 255);
-  border: 2px solid #dcd9d9;
+  border: 2px solid #dbdcda;
   border-radius: 4px;
   overflow: hidden;
   color: rgb(26, 25, 25);
@@ -130,7 +143,7 @@
 
   overflow: hidden;
   background-color: rgb(255 255 255);
-  border: 2px solid #dcd9d9;
+  border: 2px solid #dbdcda;
   border-radius: 4px;
   color: rgb(26, 25, 25);
   font-weight: 500;
@@ -197,6 +210,9 @@
   display: flex;
   flex-direction: column;
 }
+.lightSlider span {
+  color: white;
+}
 .map-overlay2 .listing figure div {
   box-sizing: border-box;
   top: 5px;
@@ -236,7 +252,7 @@
 
     overflow: hidden;
     background-color: rgb(255 255 255);
-    border: 2px solid #dcd9d9;
+    /* border: 2px solid #dcd9d9; */
     border-radius: 4px;
     color: rgb(26, 25, 25);
     font-weight: 500;
@@ -281,7 +297,7 @@
     right: 47px;
     padding: 0 10px;
     background-color: rgb(255 255 255);
-    border: 2px solid #dcd9d9;
+    /* border: 2px solid #dcd9d9; */
     border-radius: 4px;
     overflow: hidden;
     color: rgb(26, 25, 25);
@@ -295,7 +311,7 @@
     left: 20px;
     padding: 0 10px;
     background-color: rgb(255 255 255);
-    border: 2px solid #dcd9d9;
+    /* border: 2px solid #dcd9d9; */
     border-radius: 4px;
     color: rgb(26, 25, 25);
     overflow: hidden;
@@ -353,7 +369,7 @@
     height: 33px;
     top: 67px;
     right: 7px;
-    border: 2px solid #dcd9d9;
+    /* border: 2px solid #dcd9d9; */
     border-radius: 4px;
     color: rgb(26, 25, 25);
   }

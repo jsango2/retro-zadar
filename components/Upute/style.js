@@ -66,7 +66,7 @@ export const Title = styled.div`
   margin-left: 30px;
   justify-self: flex-start;
   margin-top: ${(props) => (props.open ? "10px" : "0")};
-
+  font-weight: 500;
   @media only screen and (max-width: 900px) {
   }
   @media only screen and (max-width: 720px) {

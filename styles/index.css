@@ -11,7 +11,7 @@ body .slick-next::before {
 } */
 
 body {
-  background-color: #ffffff;
+  background-color: #c9d2d3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0 !important;
@@ -951,7 +951,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: calc(72vh - 220px);
     width: 30px;
     right: 8px;
-    top: 50%;
+    top: 55%;
     transform: translate(0%, -60%);
   }
   .formCalcSubmit {
