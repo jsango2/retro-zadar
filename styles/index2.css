@@ -192,6 +192,93 @@
   padding: 5px 10px;
   margin: 0;
 }
+.swipeFinger {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  z-index: 100000;
+  top: 50%;
+  left: 47%;
+
+  -webkit-animation: shake-horizontal 2.8s
+      cubic-bezier(0.455, 0.03, 0.515, 0.955) both,
+    shrinker 0.3s ease 1.2s 1 normal forwards;
+  animation: shake-horizontal 2.8s cubic-bezier(0.455, 0.03, 0.515, 0.955) both,
+    shrinker 0.3s ease 1.2s 1 normal forwards;
+}
+
+@-webkit-keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+
+/* .shrinkSwiper {
+  animation: shrinker 2.5s ease 1.5s 1 normal forwards;
+} */
+@keyframes shrinker {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0);
+
+    opacity: 0;
+  }
+}
 
 .map-overlay2 .listing figure {
   position: relative;
@@ -376,6 +463,21 @@
   .mapboxgl-ctrl-top-right {
     top: 20px !important;
     right: 0 !important;
+  }
+  .swipeFinger {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    z-index: 100000;
+    top: 50%;
+    left: 43%;
+
+    -webkit-animation: shake-horizontal 2.8s
+        cubic-bezier(0.455, 0.03, 0.515, 0.955) both,
+      shrinker 0.3s ease 1.2s 1 normal forwards;
+    animation: shake-horizontal 2.8s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+        both,
+      shrinker 0.3s ease 1.2s 1 normal forwards;
   }
   .map-overlay2 input {
     display: block;

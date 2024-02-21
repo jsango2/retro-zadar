@@ -39,7 +39,7 @@ const Login = (props) => {
   // }, []);
 
   useEffect(() => {
-    logedIn && router.push("/mapa2");
+    logedIn && router.push("/mapa3");
   }, [logedIn]);
   //----------------------------------------------------
   const handleLogIn = (e) => {
@@ -55,7 +55,6 @@ const Login = (props) => {
         setFetching(true);
         setEmail("");
         setPassword("");
-        router.push("/mapa3");
       })
       .catch((error) => {
         const errorCode = error.code;

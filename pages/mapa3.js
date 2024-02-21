@@ -34,6 +34,7 @@ import EditFormModal from "../components/modalFormEdit";
 import Upute from "../components/Upute";
 import { dataBackup } from "../dataBackup";
 import Script from "next/script";
+import { MdSwipe } from "react-icons/md";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -574,6 +575,7 @@ function Mapa({ data }) {
                           ? "revealPortrait"
                           : "reveal"
                       }'>
+                      <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
                                <div class='popupTitle'>
                                   <span style="font-weight: bold">${
                                     feature.properties.title_naslov
@@ -586,8 +588,9 @@ function Mapa({ data }) {
                            <img id="img4" class="img4" src=${
                              feature.properties.newPhoto
                            } ></img>
-                        <div id="activator" class="activator"></div>
-                        <div id="divider" class="divider"></div>
+                           
+                           <div id="activator" class="activator"></div>
+                           <div id="divider" class="divider"></div>
                       </div>
                       `
                     )
@@ -646,6 +649,8 @@ function Mapa({ data }) {
                            ${feature.properties.datum_uploada}
                         </div>
                         <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+                        
+
                       </div>
                       `
                     )
@@ -817,6 +822,7 @@ function Mapa({ data }) {
                   ? "revealPortrait"
                   : "reveal"
               }'>
+              <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
 
                        <div class='popupTitle'>
                           <span style="font-weight: bold">${
