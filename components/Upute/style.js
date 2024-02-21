@@ -60,7 +60,7 @@ export const WrapAll = styled.div`
 export const Title = styled.div`
   position: relative;
   cursor: pointer;
-  color: rgb(26, 25, 25);
+  color: #5e5b5b;
 
   z-index: 30;
   margin-left: 30px;

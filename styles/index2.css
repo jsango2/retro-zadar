@@ -42,6 +42,7 @@
 }
 #imgComp {
   position: absolute;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -66,7 +67,7 @@
   border: 2px solid #dbdcda;
   border-radius: 4px;
   overflow: hidden;
-  color: rgb(26, 25, 25);
+  color: #5e5b5b;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -86,7 +87,7 @@
   border: 2px solid #dbdcda;
   border-radius: 4px;
   overflow: hidden;
-  color: rgb(26, 25, 25);
+  color: #5e5b5b;
 
   font-weight: 500;
   display: flex;
@@ -273,7 +274,7 @@
   position: relative;
   min-height: 170px;
   height: auto;
-  width: 95%;
+  width: 99%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   color: rgb(243, 241, 243);
   font-weight: 700;
@@ -291,19 +292,21 @@
 }
 .map-overlay2 .listing figure div {
   box-sizing: border-box;
-  top: 5px;
-  left: 10px;
-  position: relative;
+  bottom: -5px;
+  left: 0px;
+  position: absolute;
   z-index: 10;
   margin-top: 5px;
   width: fit-content;
   height: auto;
-  padding: 5px 14px;
-  background-color: #00000059;
-  border-radius: 8px;
+  padding: 3px 14px;
+  background-color: #faf9f9;
+  border-radius: 0 8px 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #3e3d3d;
+  /* box-shadow: 0px 0px 0px 2px black inset; */
 }
 
 .map-overlay2 .listing figure:last-child {
@@ -339,8 +342,8 @@
   }
   .map-overlay2 .listing figure div {
     box-sizing: border-box;
-    top: 0px;
-    left: 5px;
+    top: -5px;
+    left: 0px;
     position: relative;
     z-index: 10;
     margin-top: 5px;
@@ -350,8 +353,8 @@
     height: auto;
     font-size: 9px;
     padding: 1px 7px;
-    background-color: #00000059;
-    border-radius: 4px;
+    background-color: white;
+    border-radius: 0 0 4px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -447,7 +450,7 @@
     right: 8px;
     /* border: 2px solid #dcd9d9; */
     border-radius: 4px;
-    color: rgb(26, 25, 25);
+    color: #5e5b5b;
   }
   .mapboxgl-ctrl-top-right {
     top: 20px !important;

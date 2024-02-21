@@ -126,12 +126,11 @@ export const Featured = styled.div`
   top: 84px;
 
   background-color: ${(props) =>
-    !props.checked ? "rgb(255 255 255)" : "rgb(26, 25, 25);"};
+    !props.checked ? "rgb(255 255 255)" : "#5e5b5b"};
 
   border: 2px solid #dbdcda;
   border-radius: 4px;
-  color: ${(props) =>
-    props.checked ? "rgb(255 255 255)" : "rgb(26, 25, 25);"};
+  color: ${(props) => (props.checked ? "rgb(255 255 255)" : "#5e5b5b;")};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1133,7 +1132,12 @@ function Mapa({ data }) {
           checked={isChecked}
           onChange={handleCheckbox}
         ></input> */}
-        <GrSplit />
+        <Image
+          src={!isChecked ? "/swiper2.png" : "/swiper2white.png"}
+          width={20}
+          height={20}
+        />
+        {/* <GrSplit /> */}
       </Featured>
       <Upute />
       {/* <NemaFotografije
