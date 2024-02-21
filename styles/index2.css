@@ -300,9 +300,9 @@
   margin-top: 5px;
   width: fit-content;
   height: auto;
-  padding: 3px 14px;
+  padding: 3px 14px 5px;
   background-color: #faf9f9;
-  border: 1px solid black;
+  border: 1px solid #0000005c;
   border-radius: 0 8px 0 0;
   display: flex;
   justify-content: center;
