@@ -881,6 +881,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 @media only screen and (max-width: 850px) {
+  .popupTitle {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+  }
+
   .mapboxgl-canvas {
     position: fixed !important;
     left: 0 !important;
