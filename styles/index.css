@@ -836,7 +836,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-size: contain;
   background-repeat: no-repeat;
   /* border-radius: 50%; */
-  background-image: url(/imgIcon.png);
+  background-image: url(/swiper.png);
 }
 /* .ispisCalcZoneColorAutoHeight:nth-child(1) {
   background-color: #b2ea70;
