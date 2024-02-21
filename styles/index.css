@@ -827,7 +827,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   z-index: 10;
   top: 10px;
-  right: 0;
+  right: 3px;
   padding: 0;
   left: unset !important;
   width: 25px;
@@ -1147,7 +1147,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
 
     top: 2px;
-    right: 6px;
+    right: 3px;
     /* background-image: url("/imgIcon.png"); */
     left: unset !important;
     width: 17px;

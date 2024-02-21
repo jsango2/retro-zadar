@@ -291,7 +291,7 @@
 .lightSlider span {
   color: white;
 }
-.map-overlay2 .listing figure div {
+.map-overlay2 .listing figure div:first-child {
   box-sizing: border-box;
   bottom: -2px;
   left: -1px;
@@ -299,7 +299,7 @@
   z-index: 10;
   margin-top: 5px;
   width: fit-content;
-  height: auto;
+  height: 23px;
   padding: 3px 14px 5px;
   background-color: #faf9f9;
   border: 1px solid #0000005c;
@@ -342,7 +342,7 @@
     align-items: center;
     cursor: pointer;
   }
-  .map-overlay2 .listing figure div {
+  .map-overlay2 .listing figure div:first-child {
     box-sizing: border-box;
     top: -6px;
     left: -1px;
@@ -351,10 +351,12 @@
     margin-top: 5px;
     width: -webkit-fit-content;
     width: -moz-fit-content;
+    max-width: 146px;
+    line-height: 13px;
     width: fit-content;
     height: auto;
     font-size: 9px;
-    padding: 1px 7px;
+    padding: 4px 7px;
     background-color: white;
     border-radius: 0 0 4px;
     display: flex;
