@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+
 // import "../../i18next";
 // import { useTranslation } from "react-i18next";
 // import { GoInfo } from "react-icons/go";
@@ -17,6 +18,7 @@ import { db, auth } from "../components/firebase/firebase";
 import { doc, getDoc, collection, setDoc } from "firebase/firestore";
 // import { Link } from "gatsby";
 import { BsLayersFill } from "react-icons/bs";
+import { GrSplit } from "react-icons/gr";
 import useWindowSize from "../components/helper/usewindowsize";
 import SliderGodina from "../components/SliderGodina";
 import Slikejson from "../components/test.json";
@@ -34,7 +36,6 @@ import EditFormModal from "../components/modalFormEdit";
 import Upute from "../components/Upute";
 import { dataBackup } from "../dataBackup";
 import Script from "next/script";
-import { MdSwipe } from "react-icons/md";
 
 // import Header from "./../components/header";
 // import i18next from "i18next";
@@ -119,29 +120,37 @@ export const CloseSlider = styled.div`
 export const Featured = styled.div`
   position: fixed;
   z-index: 20;
-  width: auto;
-  height: 20px;
-  right: 20px;
+  width: 33px;
+  height: 33px;
+  right: 17px;
   top: 84px;
 
+  background-color: ${(props) =>
+    !props.checked ? "rgb(255 255 255)" : "rgb(26, 25, 25);"};
+
+  border: 2px solid #dbdcda;
+  border-radius: 4px;
+  color: ${(props) =>
+    props.checked ? "rgb(255 255 255)" : "rgb(26, 25, 25);"};
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-image: url("/swiper.png");
+  background-size: contain; */
+  cursor: pointer;
   label {
     margin-right: 5px;
     font-weight: 600;
     color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
   }
   input {
-    cursor: pointer;
     accent-color: #5b5b5b;
   }
 
   @media only screen and (max-width: 600px) {
     left: unset;
-    top: 110px;
-
-    right: 10px;
+    top: 106px;
+    right: 8px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -1112,14 +1121,19 @@ function Mapa({ data }) {
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
-      <Featured mapStyle={mapStyle}>
-        <label for="featured">Zadar nekad i sad</label>
+      <Featured
+        mapStyle={mapStyle}
+        onClick={() => setIsChecked(!isChecked)}
+        checked={isChecked}
+      >
+        {/* <label for="featured">Zadar nekad i sad</label>
         <input
           type="checkbox"
           id="featured"
           checked={isChecked}
           onChange={handleCheckbox}
-        ></input>
+        ></input> */}
+        <GrSplit />
       </Featured>
       <Upute />
       {/* <NemaFotografije
