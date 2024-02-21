@@ -75,7 +75,7 @@
 }
 .admin {
   position: fixed;
-  z-index: 20;
+  z-index: 19;
   width: auto;
   height: 33px;
   top: 9px;
@@ -358,7 +358,7 @@
   }
   .admin {
     position: fixed;
-    z-index: 20;
+    /* z-index: 20; */
     width: auto;
     padding: 0 10px;
     font-weight: 500;
@@ -432,7 +432,7 @@
   }
   .mapToggler {
     position: fixed;
-    z-index: 20;
+    z-index: 19;
 
     overflow: hidden;
     font-weight: 600;
