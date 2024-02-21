@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const WrapAll = styled.div`
   box-sizing: border-box;
   position: fixed;
-  z-index: 22;
+  z-index: 20;
 
   background-color: rgb(255 255 255);
   border: 2px solid #dcd9d9;

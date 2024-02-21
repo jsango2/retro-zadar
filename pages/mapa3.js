@@ -59,7 +59,7 @@ const Naslov = styled.div`
   font-style: bold;
   font-weight: 700;
   text-shadow: 0px 2px 11px #0000006e;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
     left: 10px;
     top: 25px;
 
@@ -72,7 +72,7 @@ const Overlay = styled.div`
   height: 100vh;
   background-color: #0000007a;
   z-index: 21;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
   }
 `;
 export const WrapSlider = styled.div`
@@ -172,7 +172,7 @@ const PodNaslov = styled.div`
   font-style: bold;
   font-weight: 700;
   text-shadow: 0px 2px 11px #0000006e;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 850px) {
     left: 10px;
 
     top: 55px;
@@ -452,6 +452,9 @@ function Mapa({ data }) {
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
     });
+    map.on("idle", function () {
+      map.resize();
+    });
 
     map.on("load", function () {
       map.loadImage(
@@ -462,7 +465,7 @@ function Mapa({ data }) {
         }
       );
 
-      map.resize();
+      // map.resize();
 
       // const filterEl = document.getElementById("feature-filter");
       const listingEl = document.getElementById("feature-listing");
