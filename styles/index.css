@@ -744,10 +744,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  clip: rect(0px, 375px, 450px, 0px);
   /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
   /* clip-path: inset(0px, 225px, 450px, 0px); */
+  /* animation: slide 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal forwards; */
+  clip: rect(0px, 375px, 450px, 0px);
 }
+.revealAnimation .img4 {
+  animation: slide 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal forwards;
+}
+@keyframes slide {
+  0% {
+    clip: rect(0px, 0px, 450px, 0px);
+  }
+
+  99% {
+    clip: rect(0px, 375px, 450px, 0px);
+  }
+  /* 100% {
+    clip: unset;
+  } */
+}
+
 .reveal .activator {
   position: absolute;
   width: 750px;
@@ -782,6 +799,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
   /* clip-path: inset(0px, 225px, 450px, 0px); */
 }
+.revealPortraitAnimation .img4 {
+  animation: slidePortrait 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal
+    forwards;
+}
+@keyframes slidePortrait {
+  0% {
+    clip: rect(0px, 0px, 720px, 0px);
+  }
+
+  99% {
+    clip: rect(0px, 325px, 720px, 0px);
+  }
+  /* 100% {
+    clip: unset;
+  } */
+}
 .revealPortrait .activator {
   position: absolute;
   width: 650px;
@@ -800,6 +833,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: 50%;
   top: 0%;
   cursor: ew-resize;
+  animation: dividerSlide 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal
+    forwards;
+}
+@keyframes dividerSlide {
+  0% {
+    left: 0;
+  }
+
+  99% {
+    left: 50%;
+  }
 }
 .circle {
   width: 13px;
@@ -1253,6 +1297,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
     /* clip-path: inset(0px, 225px, 450px, 0px); */
   }
+  .revealAnimation .img4 {
+    animation: slide 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal forwards;
+  }
+  @keyframes slide {
+    0% {
+      clip: rect(0px, 0vw, 450px, 0px);
+    }
+
+    99% {
+      clip: rect(0px, 45vw, 450px, 0px);
+    }
+  }
   .reveal .activator {
     position: absolute;
     width: 90vw;
@@ -1271,9 +1327,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     object-fit: cover;
     width: 100%;
     height: 100%;
-    clip: rect(0px, 45vw, 450px, 0px);
+    clip: rect(0px, 45vw, 102vw, 0px);
     /* clip-path: inset(0px calc(100% - 225px) calc(100% - 450px) 0px); */
     /* clip-path: inset(0px, 225px, 450px, 0px); */
+  }
+  .revealPortraitAnimation .img4 {
+    animation: slidePortrait 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal
+      forwards;
+  }
+  @keyframes slidePortrait {
+    0% {
+      clip: rect(0px, 0vw, 102vw, 0px);
+    }
+
+    99% {
+      clip: rect(0px, 45vw, 102vw, 0px);
+    }
+    /* 100% {
+      clip: unset;
+    } */
   }
   .revealPortrait .activator {
     position: absolute;
@@ -1293,7 +1365,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     left: 45vw;
     top: 0%;
     cursor: ew-resize;
+    animation: dividerSlide 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.3s 1 normal
+      forwards;
   }
+  @keyframes dividerSlide {
+    0% {
+      left: 0vw;
+    }
+    99% {
+      left: 45vw;
+    }
+  }
+
   .circle {
     width: 13px;
     height: 13px;

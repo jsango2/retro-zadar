@@ -200,57 +200,59 @@
   z-index: 100000;
   top: 50%;
   left: 47%;
-
-  -webkit-animation: shake-horizontal 1.5s
-      cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 2 normal forwards,
+  opacity: 0;
+  -webkit-animation: shake-horizontal 1s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+      1s 1 normal forwards,
     shrinker 0.3s ease 1.6s 1 normal forwards;
-  animation: shake-horizontal 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 2
+  animation: shake-horizontal 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 1s 1
       normal forwards,
-    shrinker 0.3s ease 1.6s 1 normal forwards;
+    shrinker 0.2s ease 2.3s 1 normal forwards;
 }
 
 @-webkit-keyframes shake-horizontal {
-  0%,
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
   100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
+    opacity: 1;
   }
-  20%,
-  60% {
+  33% {
     -webkit-transform: translateX(-10px);
     transform: translateX(-10px);
+    opacity: 1;
   }
 
-  40%,
-  80% {
+  66% {
     -webkit-transform: translateX(10px);
     transform: translateX(10px);
+    opacity: 1;
   }
-  /* 80% {
-    -webkit-transform: translateX(8px);
-    transform: translateX(8px);
-  }
-  90% {
-    -webkit-transform: translateX(-8px);
-    transform: translateX(-8px);
-  } */
 }
 @keyframes shake-horizontal {
-  0%,
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
   100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
+    opacity: 1;
   }
-  20%,
-  60% {
+  33% {
     -webkit-transform: translateX(-10px);
     transform: translateX(-10px);
+    opacity: 1;
   }
 
-  40%,
-  80% {
+  66% {
     -webkit-transform: translateX(10px);
     transform: translateX(10px);
+    opacity: 1;
   }
 }
 
@@ -468,12 +470,12 @@
     top: 46%;
     left: 41vw;
 
-    -webkit-animation: shake-horizontal 1.5s
-        cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s 2 normal forwards,
+    -webkit-animation: shake-horizontal 1s
+        cubic-bezier(0.455, 0.03, 0.515, 0.955) 1s 1 normal forwards,
       shrinker 0.3s ease 1.6s 1 normal forwards;
-    animation: shake-horizontal 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 0s
-        2 normal forwards,
-      shrinker 0.3s ease 1.6s 1 normal forwards;
+    animation: shake-horizontal 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 1s 1
+        normal forwards,
+      shrinker 0.2s ease 2.3s 1 normal forwards;
   }
   .map-overlay2 input {
     display: block;

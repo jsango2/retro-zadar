@@ -583,8 +583,8 @@ function Mapa({ data }) {
                     .setHTML(
                       `<div class='${
                         feature.properties.fotoLayout === "portrait"
-                          ? "revealPortrait"
-                          : "reveal"
+                          ? "revealPortrait revealPortraitAnimation"
+                          : "reveal revealAnimation"
                       }'>
                       <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
                                <div class='popupTitle'>
