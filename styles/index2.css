@@ -271,6 +271,7 @@
 }
 
 .map-overlay2 .listing figure {
+  overflow: hidden;
   position: relative;
   min-height: 170px;
   height: auto;
@@ -283,7 +284,7 @@
   background-position: center;
   background-repeat: no-repeat;
   margin: 1px;
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
 }
@@ -292,8 +293,8 @@
 }
 .map-overlay2 .listing figure div {
   box-sizing: border-box;
-  bottom: -5px;
-  left: 0px;
+  bottom: -2px;
+  left: -1px;
   position: absolute;
   z-index: 10;
   margin-top: 5px;
@@ -301,6 +302,7 @@
   height: auto;
   padding: 3px 14px;
   background-color: #faf9f9;
+  border: 1px solid black;
   border-radius: 0 8px 0 0;
   display: flex;
   justify-content: center;
@@ -342,8 +344,8 @@
   }
   .map-overlay2 .listing figure div {
     box-sizing: border-box;
-    top: -5px;
-    left: 0px;
+    top: -6px;
+    left: -1px;
     position: relative;
     z-index: 10;
     margin-top: 5px;
