@@ -193,7 +193,7 @@
   padding: 5px 10px;
   margin: 0;
 }
-.swipeFinger {
+/* .swipeFinger {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -207,7 +207,7 @@
   animation: shake-horizontal 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 1s 1
       normal forwards,
     shrinker 0.2s ease 2.3s 1 normal forwards;
-}
+} */
 
 @-webkit-keyframes shake-horizontal {
   0% {
@@ -462,7 +462,7 @@
     top: 20px !important;
     right: 0 !important;
   }
-  .swipeFinger {
+  /* .swipeFinger {
     width: 35px;
     height: 35px;
     position: absolute;
@@ -476,7 +476,7 @@
     animation: shake-horizontal 1s cubic-bezier(0.455, 0.03, 0.515, 0.955) 1s 1
         normal forwards,
       shrinker 0.2s ease 2.3s 1 normal forwards;
-  }
+  } */
   .map-overlay2 input {
     display: block;
     border: none;

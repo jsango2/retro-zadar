@@ -587,7 +587,7 @@ function Mapa({ data }) {
                           ? "revealPortrait revealPortraitAnimation"
                           : "reveal revealAnimation"
                       }'>
-                      <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
+                     <img id="imagePopup" class="swipeFinger shrinkSwiper" src="/swiperWhite.svg" ></img>
                                <div class='popupTitle'>
                                   <span style="font-weight: bold">${
                                     feature.properties.title_naslov
@@ -842,7 +842,11 @@ function Mapa({ data }) {
                   ? "revealPortrait revealPortraitAnimation"
                   : "reveal revealAnimation"
               }'>
-              <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
+              <div class='${
+                feature.properties.fotoLayout === "portrait"
+                  ? "revealPortrait revealPortraitAnimation"
+                  : "reveal revealAnimation"
+              }'   ><img id="imagePopup" class="swipeFinger shrinkSwiper" src="/swiperWhite.svg" ></img>
 
                        <div class='popupTitle'>
                           <span style="font-weight: bold">${
@@ -1066,6 +1070,11 @@ function Mapa({ data }) {
     } else {
       document.getElementById("overlay").classList.remove("overlay");
     }
+    // if (isPointerInPopup) {
+    //   document.getElementById("imagePopup").classList.add("invisibleSwiper");
+    // } else {
+    //   document.getElementById("imagePopup").classList.add("visibleSwiper");
+    // }
   }, [popupOn]);
 
   // const reveal = (event) => {
