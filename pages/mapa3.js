@@ -278,6 +278,7 @@ function Mapa({ data }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [logedIn, setlogedIn] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const [isPointerInPopup, setIsPointerInPopup] = useState(false);
 
   const [geoData, setGeoData] = useState([]);
   const [geoData2, setGeoData2] = useState([]);
@@ -311,7 +312,7 @@ function Mapa({ data }) {
   //   const [lang, setLang] = useState(i18next.language);
   // dataBackup.forEach((data) => (data.id = uuid()));
   // console.log("SAUID", dataBackup);
-
+  console.log("JELI POINTER U SLICI?", isPointerInPopup);
   const fetchPost = async () => {
     console.log("FETCHED FROM FIREBASE");
     // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
@@ -613,6 +614,11 @@ function Mapa({ data }) {
                         isTouchDevice ? "touchmove" : "mousemove",
                         (event) => {
                           console.log(event);
+                          if (event !== null) {
+                            setIsPointerInPopup(true);
+                          } else {
+                            setIsPointerInPopup(false);
+                          }
                           const divider = document.getElementById("divider");
 
                           divider.style.left = event.offsetX + "px";
@@ -681,6 +687,9 @@ function Mapa({ data }) {
 
         // airports = features;
         // }
+      });
+      popup2.on("close", function () {
+        setIsPointerInPopup(false);
       });
 
       map.addSource("cities", {
@@ -830,8 +839,8 @@ function Mapa({ data }) {
             .setHTML(
               `<div class='${
                 feature.properties.fotoLayout === "portrait"
-                  ? "revealPortrait"
-                  : "reveal"
+                  ? "revealPortrait revealPortraitAnimation"
+                  : "reveal revealAnimation"
               }'>
               <div  class="swipeFinger shrinkSwiper" ><img src="/swiper.png" ></img></div>
 
