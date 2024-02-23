@@ -421,7 +421,7 @@ function Mapa({ data }) {
     const map = new mapboxgl.Map({
       container: "map",
       style: mapStyle
-        ? "mapbox://styles/jsango2/cjh3aevme24j82rs46qo4x14o"
+        ? "mapbox://styles/jsango2/clsw8o4n4008j01qzh06q5thp"
         : "mapbox://styles/mapbox/satellite-v9",
       center: [lng, lat],
       pitch: 40,
@@ -1087,7 +1087,7 @@ function Mapa({ data }) {
     setIsChecked(!isChecked);
   };
   return (
-    <>
+    <div>
       {" "}
       <div
         id="map"
@@ -1095,6 +1095,7 @@ function Mapa({ data }) {
       ></div>
       {/* {popupOn && <Overlay onClick={() => handleClickOutsidePopup()} />} */}
       <div id="overlay"></div>
+      <div className="grungeStyle"></div>
       {deleted && (
         <WrapLottie>
           <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
@@ -1200,7 +1201,7 @@ function Mapa({ data }) {
       <div className={` ${featuresArray.length > 0 ? "map-overlay2" : ""}`}>
         <div id="feature-listing" className="listing"></div>
       </div>
-    </>
+    </div>
   );
 }
 

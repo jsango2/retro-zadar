@@ -1,3 +1,15 @@
+.grungeStyle {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: #0000007a; */
+  z-index: 21;
+  background-image: url("/grain8.jpeg");
+  background-size: cover;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
 #map {
   position: absolute;
   left: 250px;
