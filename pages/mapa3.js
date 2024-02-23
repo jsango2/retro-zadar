@@ -421,7 +421,7 @@ function Mapa({ data }) {
     const map = new mapboxgl.Map({
       container: "map",
       style: mapStyle
-        ? "mapbox://styles/jsango2/clsw8o4n4008j01qzh06q5thp"
+        ? "mapbox://styles/jsango2/clsyekr3b00ck01me3jvc2fz0"
         : "mapbox://styles/mapbox/satellite-v9",
       center: [lng, lat],
       pitch: 40,
@@ -1095,7 +1095,6 @@ function Mapa({ data }) {
       ></div>
       {/* {popupOn && <Overlay onClick={() => handleClickOutsidePopup()} />} */}
       <div id="overlay"></div>
-      <div className="grungeStyle"></div>
       {deleted && (
         <WrapLottie>
           <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
