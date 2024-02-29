@@ -927,8 +927,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   touch-action: none;
   z-index: 30;
   height: 100%;
-  width: 2px;
-  background-color: black;
+  /* width: 2px;
+  background-color: black; */
   left: 50%;
   top: 0%;
   cursor: ew-resize;
@@ -1489,8 +1489,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     z-index: 30;
     height: 100%;
-    width: 2px;
-    background-color: black;
+    /* width: 2px;
+    background-color: black; */
     left: 45vw;
     top: 0%;
     cursor: ew-resize;
