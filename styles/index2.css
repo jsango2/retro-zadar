@@ -95,6 +95,15 @@
   align-items: center;
   cursor: pointer;
 }
+.visibleModal {
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+.invisibleModal {
+  transition: all 0.2s ease-in-out;
+  opacity: 0;
+  touch-action: none;
+}
 .touch {
   position: fixed;
   z-index: 20;

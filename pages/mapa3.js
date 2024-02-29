@@ -36,7 +36,8 @@ import EditFormModal from "../components/modalFormEdit";
 import Upute from "../components/Upute";
 import { dataBackup } from "../dataBackup";
 import Script from "next/script";
-
+import { IoTimeOutline } from "react-icons/io5";
+import { IoTime } from "react-icons/io5";
 // import Header from "./../components/header";
 // import i18next from "i18next";
 // import SEO from "../components/seo";
@@ -74,6 +75,25 @@ const Overlay = styled.div`
   background-color: #0000007a;
   z-index: 21;
   @media screen and (max-width: 850px) {
+  }
+`;
+const FeaturedModal = styled.div`
+  position: fixed;
+  top: 66px;
+  right: 117px;
+  width: 300px;
+  height: 100px;
+  background-color: #0000007a;
+  z-index: 21;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 500;
+  @media screen and (max-width: 600px) {
+    top: 80px;
+    right: 48px;
   }
 `;
 export const WrapSlider = styled.div`
@@ -149,6 +169,43 @@ export const Featured = styled.div`
   @media only screen and (max-width: 600px) {
     left: unset;
     top: 106px;
+    right: 8px;
+  }
+  @media only screen and (max-width: 420px) {
+  }
+`;
+export const Latest = styled.div`
+  position: fixed;
+  z-index: 20;
+  width: 33px;
+  height: 33px;
+  right: 17px;
+  top: 10px;
+
+  background-color: ${(props) =>
+    !props.checked ? "rgb(255 255 255)" : "#5e5b5b"};
+
+  border: 2px solid #dbdcda;
+  border-radius: 4px;
+  color: ${(props) => (props.checked ? "rgb(255 255 255)" : "#5e5b5b;")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-image: url("/swiper.png");
+  background-size: contain; */
+  cursor: pointer;
+  label {
+    margin-right: 5px;
+    font-weight: 600;
+    color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+  }
+  input {
+    accent-color: #5b5b5b;
+  }
+
+  @media only screen and (max-width: 600px) {
+    left: unset;
+    top: 28px;
     right: 8px;
   }
   @media only screen and (max-width: 420px) {
@@ -278,6 +335,10 @@ function Mapa({ data }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [logedIn, setlogedIn] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const [isFeaturedHovering, setIsFeaturedHovering] = useState(false);
+  const [isLatestHovering, setIsLatestHovering] = useState(false);
+  const [isMapTogglerHovering, setIsMapTogglerHovering] = useState(false);
+  const [isLatest, setIsLatest] = useState(false);
   const [isPointerInPopup, setIsPointerInPopup] = useState(false);
 
   const [geoData, setGeoData] = useState([]);
@@ -312,7 +373,7 @@ function Mapa({ data }) {
   //   const [lang, setLang] = useState(i18next.language);
   // dataBackup.forEach((data) => (data.id = uuid()));
   // console.log("SAUID", dataBackup);
-  console.log("JELI POINTER U SLICI?", isPointerInPopup);
+  // console.log("JELI POINTER U SLICI?", isPointerInPopup);
   const fetchPost = async () => {
     console.log("FETCHED FROM FIREBASE");
     // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
@@ -321,6 +382,16 @@ function Mapa({ data }) {
 
     const allData = docSnap.data().allData;
     console.log(allData);
+    const epochTime = 1708603609636;
+    const date = new Date(epochTime);
+    console.log(date);
+    const currentTimeInMiliSeconds = Date.now();
+    console.log(currentTimeInMiliSeconds);
+    const lessThen30days = allData.filter(
+      (item) => currentTimeInMiliSeconds - item.timestamp > 879200000
+    );
+    console.log("LESS", lessThen30days);
+
     setAllDataFromDB(allData);
     const dataWithDetails = allData.map((doc) => ({
       type: "Feature",
@@ -399,7 +470,7 @@ function Mapa({ data }) {
           razglednica.properties.datum_uploada <= value[1]
       );
     }
-    if (isChecked) {
+    if (isChecked && !isLatest) {
       var filterByOverlay = filtrirano.filter(
         (razglednica) => razglednica.properties.newPhoto
       );
@@ -413,8 +484,40 @@ function Mapa({ data }) {
         features: filtrirano,
       };
     }
+
+    if (isLatest && !isChecked) {
+      const currentTimeInMiliSeconds = Date.now();
+      var filterByLatest = filtrirano.filter(
+        (razglednica) =>
+          currentTimeInMiliSeconds - razglednica.properties.timeStamp <
+          509200000
+      );
+      console.log("time", currentTimeInMiliSeconds);
+      console.log("FIL", filterByLatest);
+      var objectFiltrirano = {
+        type: "FeatureCollection",
+        features: filterByLatest,
+      };
+    }
+    if (isLatest && isChecked) {
+      const currentTimeInMiliSeconds = Date.now();
+
+      var filterByOverlay = filtrirano.filter(
+        (razglednica) => razglednica.properties.newPhoto
+      );
+      var filterByLatest = filterByOverlay.filter(
+        (razglednica) =>
+          currentTimeInMiliSeconds - razglednica.properties.timeStamp <
+          509200000
+      );
+      var objectFiltrirano = {
+        type: "FeatureCollection",
+        features: filterByLatest,
+      };
+    }
+
     setGeoData2(objectFiltrirano);
-  }, [geoData, value, isChecked]);
+  }, [geoData, value, isChecked, isLatest]);
   // "mapbox://styles/jsango2/cjh3aevme24j82rs46qo4x14o"
   // -----
   useEffect(() => {
@@ -702,18 +805,18 @@ function Mapa({ data }) {
       });
 
       //DODAVANJE POSTCARD IKONA:
-      map.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          // When active the map will receive updates to the device's location as it changes.
-          trackUserLocation: true,
-          // Draw an arrow next to the location dot to indicate which direction the device is heading.
-          showUserHeading: true,
-          showAccuracyCircle: false,
-        })
-      );
+      // map.addControl(
+      //   new mapboxgl.GeolocateControl({
+      //     positionOptions: {
+      //       enableHighAccuracy: true,
+      //     },
+      //     // When active the map will receive updates to the device's location as it changes.
+      //     trackUserLocation: true,
+      //     // Draw an arrow next to the location dot to indicate which direction the device is heading.
+      //     showUserHeading: true,
+      //     showAccuracyCircle: false,
+      //   })
+      // );
 
       map.addLayer({
         id: "city",
@@ -1083,9 +1186,7 @@ function Mapa({ data }) {
   //     (event.clientX - event.target.offsetLeft) +
   //     "px,450px,0px)";
   // };
-  const handleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
+
   return (
     <div>
       {" "}
@@ -1138,10 +1239,45 @@ function Mapa({ data }) {
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
+      <Latest
+        mapStyle={mapStyle}
+        onClick={() => setIsLatest(!isLatest)}
+        checked={isLatest}
+        onMouseEnter={() => setIsLatestHovering(true)}
+        onMouseLeave={() => setIsLatestHovering(false)}
+      >
+        {/* <label for="featured">Zadar nekad i sad</label>
+        <input
+          type="checkbox"
+          id="featured"
+          checked={isChecked}
+          onChange={handleCheckbox}
+        ></input> */}
+        {/* <Image
+          src={!isLatest ? "/swiper2.png" : "/swiper2white.png"}
+          width={20}
+          height={20}
+        /> */}
+        {isLatest ? <IoTime /> : <IoTimeOutline />}
+        {/* <GrSplit /> */}
+      </Latest>
+      <FeaturedModal
+        className={` ${
+          isFeaturedHovering || isLatestHovering || isMapTogglerHovering
+            ? "visibleModal"
+            : "invisibleModal"
+        }`}
+      >
+        {isFeaturedHovering ? "Zadar nekad i sad" : ""}
+        {isLatestHovering ? "Novo na RETRO Zadar" : ""}
+        {isMapTogglerHovering ? "Promjeni izgled mape" : ""}
+      </FeaturedModal>
       <Featured
         mapStyle={mapStyle}
         onClick={() => setIsChecked(!isChecked)}
         checked={isChecked}
+        onMouseEnter={() => setIsFeaturedHovering(true)}
+        onMouseLeave={() => setIsFeaturedHovering(false)}
       >
         {/* <label for="featured">Zadar nekad i sad</label>
         <input
@@ -1177,7 +1313,12 @@ function Mapa({ data }) {
           valueLabelDisplay="on"
         />
       </div>
-      <div className="mapToggler" onClick={() => setMapStyle(!mapStyle)}>
+      <div
+        className="mapToggler"
+        onClick={() => setMapStyle(!mapStyle)}
+        onMouseEnter={() => setIsMapTogglerHovering(true)}
+        onMouseLeave={() => setIsMapTogglerHovering(false)}
+      >
         <BsLayersFill />
       </div>
       {logedIn && (

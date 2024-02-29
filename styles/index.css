@@ -924,6 +924,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .divider {
   position: absolute;
+  touch-action: none;
   z-index: 30;
   height: 100%;
   width: 2px;
