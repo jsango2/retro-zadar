@@ -98,11 +98,13 @@
 .visibleModal {
   opacity: 1;
   transition: all 0.2s ease-in-out;
+  visibility: visible;
 }
 .invisibleModal {
   transition: all 0.2s ease-in-out;
   opacity: 0;
   touch-action: none;
+  visibility: hidden;
 }
 .touch {
   position: fixed;
