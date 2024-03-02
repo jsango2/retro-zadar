@@ -1261,7 +1261,7 @@ function Mapa({ data }) {
         {isLatest ? <IoTime /> : <IoTimeOutline />}
         {/* <GrSplit /> */}
       </Latest>
-      <FeaturedModal
+      {/* <FeaturedModal
         className={` ${
           isFeaturedHovering || isLatestHovering || isMapTogglerHovering
             ? "visibleModal"
@@ -1271,7 +1271,7 @@ function Mapa({ data }) {
         {isFeaturedHovering ? "Zadar nekad i sad" : ""}
         {isLatestHovering ? "Novo na RETRO Zadar" : ""}
         {isMapTogglerHovering ? "Promjeni izgled mape" : ""}
-      </FeaturedModal>
+      </FeaturedModal> */}
       <Featured
         mapStyle={mapStyle}
         onClick={() => setIsChecked(!isChecked)}
