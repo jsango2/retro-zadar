@@ -261,7 +261,7 @@ const PodNaslov2 = styled.div`
     left: 10px;
 
     top: 80px;
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 
