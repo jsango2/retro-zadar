@@ -139,7 +139,7 @@ export const CloseSlider = styled.div`
 `;
 export const Featured = styled.div`
   position: fixed;
-  z-index: 20;
+  z-index: 19;
   width: 33px;
   height: 33px;
   right: 17px;
@@ -245,6 +245,25 @@ const PodNaslov = styled.div`
     font-size: 18px;
   }
 `;
+const PodNaslov2 = styled.div`
+  position: fixed;
+  left: 275px;
+  top: 124px;
+  z-index: 2;
+  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+
+  font-size: 18px;
+  font-family: serif;
+  font-style: bold;
+  font-weight: 700;
+  text-shadow: 0px 2px 11px #0000006e;
+  @media screen and (max-width: 850px) {
+    left: 10px;
+
+    top: 80px;
+    font-size: 14px;
+  }
+`;
 
 const FirstScreen = styled.p`
   position: relative;
@@ -328,6 +347,7 @@ function Mapa({ data }) {
   const [firstScreen, setFirstScreen] = useState(false);
   const [firstScreen2, setFirstScreen2] = useState(false);
   const [idKliknuteFotke, setIdKliknuteFotke] = useState(null);
+  const [lastUpdate, setLastUpdate] = useState(null);
   const [featuresKliknuteFotke, setFeaturesKliknuteFotke] = useState([]);
   const [popupOn, setPopupOn] = useState(false);
   const [mapStyle, setMapStyle] = useState(true);
@@ -391,7 +411,9 @@ function Mapa({ data }) {
       (item) => currentTimeInMiliSeconds - item.timestamp > 879200000
     );
     console.log("LESS", lessThen30days);
-
+    let lastItemAdded = allData[allData.length - 1];
+    let lastUpdateDate = new Date(lastItemAdded.timestamp);
+    setLastUpdate(lastUpdateDate.toLocaleDateString("en-US"));
     setAllDataFromDB(allData);
     const dataWithDetails = allData.map((doc) => ({
       type: "Feature",
@@ -1239,6 +1261,9 @@ function Mapa({ data }) {
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
+      <PodNaslov2 mapStyle={mapStyle}>
+        Posljednji update: {lastUpdate}
+      </PodNaslov2>
       <Latest
         mapStyle={mapStyle}
         onClick={() => setIsLatest(!isLatest)}
