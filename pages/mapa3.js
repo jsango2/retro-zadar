@@ -629,9 +629,6 @@ function Mapa({ data }) {
     });
     const popup = new mapboxgl.Popup({
       closeButton: false,
-      // anchor: "center",
-      // className: "moj-popupMapbox",
-      // maxWidth: "100%",
     });
     const popup2 = new mapboxgl.Popup({
       closeButton: true,
@@ -641,18 +638,7 @@ function Mapa({ data }) {
       className: "moj-popupMapbox",
       maxWidth: "100%",
     });
-    // const popup3 = new mapboxgl.Popup({
-    //   closeButton: false,
-    // });
 
-    // popup.on("open", function () {
-    //   setPopupOn(true);
-    // });
-    // popup.on("close", function () {
-    //   setPopupOn(false);
-    // });
-
-    // console.log(map)
     map.on("moveend", () => {
       setLng(map.getCenter().lng.toFixed(15));
       setLat(map.getCenter().lat.toFixed(15));
@@ -768,16 +754,9 @@ function Mapa({ data }) {
                 console.log(feature);
                 setIdKliknuteFotke(feature.properties.id);
                 setFeaturesKliknuteFotke(feature.properties);
-                // if (feature.properties.newPhoto) {
-                //   setHasNewPhoto(true);
-                // } else {
-                //   setHasNewPhoto(false);
-                // }
+
                 setPopupOn(true);
-                // setShow(false);
-                // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                // }
+
                 if (feature.properties.newPhoto) {
                   popup2
                     .setLngLat(feature.geometry.coordinates)
@@ -877,7 +856,7 @@ function Mapa({ data }) {
                         <div  class="imgTest" ><img src=${
                           feature.properties.image_url_200px
                         } ></img></div>
-                        
+
                         <div class="fotoAutor">Autor: ${
                           (feature.properties.autor &&
                             feature.properties.autor !== "") ||
@@ -885,7 +864,7 @@ function Mapa({ data }) {
                             ? feature.properties.autor
                             : "Nepoznat"
                         }</div>
-                      
+
                       </div>
                       `
                     )
@@ -1416,7 +1395,7 @@ function Mapa({ data }) {
           allData={allDataFromDB}
         />
       )}
-      <Naslov mapStyle={mapStyle}>ZADARSKI KANTUN</Naslov>
+      <Naslov mapStyle={mapStyle}>RETRO ZADAR</Naslov>
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
@@ -1479,23 +1458,7 @@ function Mapa({ data }) {
         Retro
         {/* <GrSplit /> */}
       </Featured>
-      {/* {arrayBliskeFotke.length > 0 && (
-        <Bliske>
-          {arrayBliskeFotke.map((item) => (
-            <div className="bliskeFotke">
-              <img src={item.properties.image_url_1000px}></img>
-            </div>
-          ))}
-        </Bliske>
-      )} */}
       <Upute />
-      {/* <NemaFotografije
-        className={`${
-          nemaFotografije ? "nemaFotografijeOut" : "nemaFotografijeIn"
-        }`}
-      >
-        Na ovom dijelu karte nema fotografija
-      </NemaFotografije> */}
       <div className={`slider ${mapStyle ? "darkSlider" : "lightSlider"}`}>
         <Sliderx
           getAriaLabel={() => "Raspon godina"}
