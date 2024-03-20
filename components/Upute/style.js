@@ -103,13 +103,13 @@ export const FirstScreen = styled.p`
   height: 570px;
 
   padding: 70px 70px 70px 70px;
-  text-align: center;
+  text-align: left;
   display: inline;
   margin-left: 20px;
 
   img {
     display: inline-block;
-    margin: 0 3px;
+    margin: 0 5px 0 0;
   }
   @media screen and (max-width: 600px) {
     margin-left: 0px;

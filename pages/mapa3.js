@@ -38,6 +38,7 @@ import { dataBackup } from "../dataBackup";
 import Script from "next/script";
 import { IoTimeOutline } from "react-icons/io5";
 import { IoTime } from "react-icons/io5";
+import { IoBookSharp } from "react-icons/io5";
 // import Header from "./../components/header";
 // import i18next from "i18next";
 // import SEO from "../components/seo";
@@ -137,10 +138,30 @@ export const CloseSlider = styled.div`
   @media only screen and (max-width: 420px) {
   }
 `;
+export const Bliske = styled.div`
+  position: absolute;
+  display: flex;
+  z-index: 23;
+  width: 80%;
+  height: 100px;
+  bottom: 20px;
+  /* right: 20px; */
+  color: black;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: red;
+  cursor: pointer;
+  @media only screen and (max-width: 600px) {
+    top: 10px;
+    right: 10px;
+  }
+  @media only screen and (max-width: 420px) {
+  }
+`;
 export const Featured = styled.div`
   position: fixed;
   z-index: 19;
-  width: 33px;
+  width: 120px;
   height: 33px;
   right: 17px;
   top: 84px;
@@ -152,14 +173,16 @@ export const Featured = styled.div`
   border-radius: 4px;
   color: ${(props) => (props.checked ? "rgb(255 255 255)" : "#5e5b5b;")};
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   /* background-image: url("/swiper.png");
   background-size: contain; */
   cursor: pointer;
+  font-weight: 500;
+
   label {
     margin-right: 5px;
-    font-weight: 600;
+    font-weight: 500;
     color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
   }
   input {
@@ -170,6 +193,7 @@ export const Featured = styled.div`
     left: unset;
     top: 106px;
     right: 8px;
+    width: 90px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -177,7 +201,7 @@ export const Featured = styled.div`
 export const Latest = styled.div`
   position: fixed;
   z-index: 20;
-  width: 33px;
+  width: 120px;
   height: 33px;
   right: 17px;
   top: 10px;
@@ -189,11 +213,13 @@ export const Latest = styled.div`
   border-radius: 4px;
   color: ${(props) => (props.checked ? "rgb(255 255 255)" : "#5e5b5b;")};
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   /* background-image: url("/swiper.png");
   background-size: contain; */
   cursor: pointer;
+  font-weight: 500;
+
   label {
     margin-right: 5px;
     font-weight: 600;
@@ -207,6 +233,7 @@ export const Latest = styled.div`
     left: unset;
     top: 28px;
     right: 8px;
+    width: 90px;
   }
   @media only screen and (max-width: 420px) {
   }
@@ -243,6 +270,25 @@ const PodNaslov = styled.div`
     top: 55px;
 
     font-size: 18px;
+  }
+`;
+const IntroTitle = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+
+  z-index: 100;
+  /* color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")}; */
+
+  font-size: 167px;
+  line-height: 110%;
+  font-family: serif;
+  font-style: bold;
+  font-weight: 700;
+  text-shadow: 0px 2px 11px #0000006e;
+  text-align: center;
+  @media screen and (max-width: 850px) {
+    font-size: 75px;
   }
 `;
 const PodNaslov2 = styled.div`
@@ -340,9 +386,11 @@ function Mapa({ data }) {
   const [hasPoints, setHasPoints] = useState(false);
   const [clickedOutside, setClickedOutside] = useState(false);
   const [isTouchDevice, setisTouchDevice] = useState(false);
+  const [wasVisited, setWasVisited] = useState(false);
 
   const [featuresArray, setFeaturesArray] = useState([]);
   const [allDataFromDB, setAllDataFromDB] = useState([]);
+  const [arrayBliskeFotke, setArrayBliskeFotke] = useState([]);
   const [featuresArr, setFeaturesArr] = useState([]);
   const [firstScreen, setFirstScreen] = useState(false);
   const [firstScreen2, setFirstScreen2] = useState(false);
@@ -365,7 +413,7 @@ function Mapa({ data }) {
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [value, setValue] = React.useState([1839, 2024]);
+  const [value, setValue] = React.useState([1839, 1985]);
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -401,7 +449,7 @@ function Mapa({ data }) {
     const docSnap = await getDoc(docRef);
 
     const allData = docSnap.data().allData;
-    console.log(allData);
+    // console.log(allData);
     const epochTime = 1708603609636;
     const date = new Date(epochTime);
     console.log(date);
@@ -410,7 +458,7 @@ function Mapa({ data }) {
     const lessThen30days = allData.filter(
       (item) => currentTimeInMiliSeconds - item.timestamp > 879200000
     );
-    console.log("LESS", lessThen30days);
+    // console.log("LESS", lessThen30days);
     let lastItemAdded = allData[allData.length - 1];
     let lastUpdateDate = new Date(lastItemAdded.timestamp);
     setLastUpdate(lastUpdateDate.toLocaleDateString("en-US"));
@@ -458,6 +506,28 @@ function Mapa({ data }) {
   //     setGeoData(newData);
   //   });
   // };
+  // Formula za udaljenost neke točke od zadane lng lat
+
+  // useEffect(() => {
+  //   const bliskeFotke = featuresArray.filter((item) => {
+  //     const lat2 = item.properties.latitude;
+  //     const lon2 = item.properties.longitude;
+  //     const R = 6371e3;
+  //     const φ1 = (featuresKliknuteFotke.latitude * Math.PI) / 180; // φ, λ in radians
+  //     const φ2 = (lat2 * Math.PI) / 180;
+  //     const Δφ = ((lat2 - featuresKliknuteFotke.latitude) * Math.PI) / 180;
+  //     const Δλ = ((lon2 - featuresKliknuteFotke.longitude) * Math.PI) / 180;
+  //     const a =
+  //       Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+  //       Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  //     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  //     const d = (R * c).toFixed(1); // in metres
+  //     if (d < 40) return d;
+  //   });
+  //   console.log("Bliske", bliskeFotke);
+  //   setArrayBliskeFotke(bliskeFotke);
+  // }, [featuresKliknuteFotke]);
 
   useEffect(() => {
     fetchPost();
@@ -508,14 +578,14 @@ function Mapa({ data }) {
     }
 
     if (isLatest && !isChecked) {
-      const currentTimeInMiliSeconds = Date.now();
-      var filterByLatest = filtrirano.filter(
-        (razglednica) =>
-          currentTimeInMiliSeconds - razglednica.properties.timeStamp <
-          509200000
-      );
-      console.log("time", currentTimeInMiliSeconds);
-      console.log("FIL", filterByLatest);
+      // const currentTimeInMiliSeconds = Date.now();
+      // var filterByLatest = filtrirano.filter(
+      //   (razglednica) =>
+      //     currentTimeInMiliSeconds - razglednica.properties.timeStamp <
+      //     509200000
+      // );
+      let filterByLatest = filtrirano.slice(-10);
+
       var objectFiltrirano = {
         type: "FeatureCollection",
         features: filterByLatest,
@@ -527,11 +597,13 @@ function Mapa({ data }) {
       var filterByOverlay = filtrirano.filter(
         (razglednica) => razglednica.properties.newPhoto
       );
-      var filterByLatest = filterByOverlay.filter(
-        (razglednica) =>
-          currentTimeInMiliSeconds - razglednica.properties.timeStamp <
-          509200000
-      );
+      // var filterByLatest = filterByOverlay.filter(
+      //   (razglednica) =>
+      //     currentTimeInMiliSeconds - razglednica.properties.timeStamp <
+      //     509200000
+      // );
+      let filterByLatest = filtrirano.slice(-10);
+
       var objectFiltrirano = {
         type: "FeatureCollection",
         features: filterByLatest,
@@ -582,8 +654,8 @@ function Mapa({ data }) {
 
     // console.log(map)
     map.on("moveend", () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
+      setLng(map.getCenter().lng.toFixed(15));
+      setLat(map.getCenter().lat.toFixed(15));
       setZoom(map.getZoom().toFixed(2));
     });
     map.on("idle", function () {
@@ -592,7 +664,7 @@ function Mapa({ data }) {
 
     map.on("load", function () {
       map.loadImage(
-        mapStyle ? "/camera2.png" : "/camera3.png",
+        mapStyle ? "/camera2.png" : "/camera6.png",
         function (error, image) {
           if (error) throw error;
           map.addImage("cat", image);
@@ -606,13 +678,13 @@ function Mapa({ data }) {
 
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
-        console.log(features);
+        // console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
         //   (feature) => feature.properties.newPhoto === ""
         // );
         // console.log("features", filteredFeaturesByOverlay);
         setFeaturesArray(features);
-
+        console.log(features);
         // if (features) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
@@ -634,12 +706,14 @@ function Mapa({ data }) {
               const itemLink = document.createElement("figure");
               itemLink.id = "imageDiv";
               const p = document.createElement("div");
+
               // var foo = document.getElementById("imageDiv");
               // itemLink.appendChild(node);
 
               const label = `${feature.properties.title_naslov},${feature.properties.datum_uploada}  `;
 
               itemLink.appendChild(p);
+
               p.textContent = label;
               var DOM_img = document.createElement("img");
               if (feature.properties.newPhoto) {
@@ -688,8 +762,10 @@ function Mapa({ data }) {
                 // Highlight corresponding feature on the map
                 popup.remove();
               });
+
               itemLink.addEventListener("click", (e) => {
                 var coordinates = feature.geometry.coordinates.slice();
+                console.log(feature);
                 setIdKliknuteFotke(feature.properties.id);
                 setFeaturesKliknuteFotke(feature.properties);
                 // if (feature.properties.newPhoto) {
@@ -725,9 +801,15 @@ function Mapa({ data }) {
                            <img id="img4" class="img4" src=${
                              feature.properties.newPhoto
                            } ></img>
-                           
                            <div id="activator" class="activator"></div>
                            <div id="divider" class="divider"></div>
+                           <div class="fotoAutor">Autor: ${
+                             (feature.properties.autor &&
+                               feature.properties.autor !== "") ||
+                             undefined
+                               ? feature.properties.autor
+                               : "Nepoznat"
+                           }</div>
                       </div>
                       `
                     )
@@ -787,12 +869,23 @@ function Mapa({ data }) {
                     .setHTML(
                       `<div class='wrapPopup'>
                         <div class='popupTitle'>
-                          <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                          <span style="font-weight: bold">${
+                            feature.properties.title_naslov
+                          },</span>
                            ${feature.properties.datum_uploada}
                         </div>
-                        <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+                        <div  class="imgTest" ><img src=${
+                          feature.properties.image_url_200px
+                        } ></img></div>
                         
-
+                        <div class="fotoAutor">Autor: ${
+                          (feature.properties.autor &&
+                            feature.properties.autor !== "") ||
+                          undefined
+                            ? feature.properties.autor
+                            : "Nepoznat"
+                        }</div>
+                      
                       </div>
                       `
                     )
@@ -854,7 +947,7 @@ function Mapa({ data }) {
         // },
         layout: {
           "icon-image": "cat",
-          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.1, 15, 0.15],
+          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.1, 15, 0.19],
           "icon-padding": 0,
           "icon-allow-overlap": true,
           //   "icon-translate": [0, 0],
@@ -941,6 +1034,7 @@ function Mapa({ data }) {
         var coordinates = e.features[0].geometry.coordinates.slice();
         var feature = e.features[0];
         let timestamp = feature.properties.timeStamp;
+
         let now = Date.now();
         const razlika = now - timestamp;
         console.log(feature);
@@ -985,9 +1079,16 @@ function Mapa({ data }) {
                    <img id="img4" class="img4" src=${
                      feature.properties.newPhoto
                    } ></img>
-                <div id="activator" class="activator"></div>
-                <div id="divider" class="divider"></div>
-             
+                   <div id="activator" class="activator"></div>
+                   <div id="divider" class="divider"></div>
+                   <div class="fotoAutor">Autor: ${
+                     (feature.properties.autor &&
+                       feature.properties.autor !== "") ||
+                     undefined
+                       ? feature.properties.autor
+                       : "Nepoznat"
+                   }</div>
+          
               </div>
 
               `
@@ -1041,12 +1142,22 @@ function Mapa({ data }) {
               `<div class='wrapPopup'>
 
                 <div class='popupTitle'>
-                  <span style="font-weight: bold">${feature.properties.title_naslov},</span>
+                  <span style="font-weight: bold">${
+                    feature.properties.title_naslov
+                  },</span>
                    ${feature.properties.datum_uploada}
                 </div>
-                <div  class="imgTest" ><img src=${feature.properties.image_url_200px} ></img></div>
+                <div  class="imgTest" ><img src=${
+                  feature.properties.image_url_200px
+                } ></img></div>
           
-     
+                <div class="fotoAutor">Autor: ${
+                  (feature.properties.autor &&
+                    feature.properties.autor !== "") ||
+                  undefined
+                    ? feature.properties.autor
+                    : "Nepoznat"
+                }</div>
               </div>
 
               `
@@ -1208,7 +1319,46 @@ function Mapa({ data }) {
   //     (event.clientX - event.target.offsetLeft) +
   //     "px,450px,0px)";
   // };
+  // function setCookie(cname, exdays) {
+  //   const d = new Date();
+  //   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  //   let expires = "expires=" + d.toUTCString();
+  //   document.cookie = cname + "=" + expires + ";path=/";
+  // }
 
+  // function getCookie(cname) {
+  //   let name = cname + "=";
+  //   let ca = document.cookie.split(";");
+  //   for (let i = 0; i < ca.length; i++) {
+  //     let c = ca[i];
+  //     while (c.charAt(0) == " ") {
+  //       c = c.substring(1);
+  //     }
+  //     if (c.indexOf(name) == 0) {
+  //       return c.substring(name.length, c.length);
+  //     }
+  //   }
+  //   return "";
+  // }
+
+  // function checkCookie() {
+  //   let user = getCookie("username");
+  //   if (user != "") {
+  //     setWasVisited(true);
+  //   } else {
+  //     setWasVisited(false);
+
+  //     setCookie("username", 365);
+  //   }
+  // }
+  // useEffect(() => {
+  //   checkCookie();
+  //   // setWasVisited(true);
+  //   // setTimeout(() => {
+  //   //   setWasVisited(false);
+  //   // }, 4000);
+  // }, []);
+  console.log(wasVisited);
   return (
     <div>
       {" "}
@@ -1218,6 +1368,15 @@ function Mapa({ data }) {
       ></div>
       {/* {popupOn && <Overlay onClick={() => handleClickOutsidePopup()} />} */}
       <div id="overlay"></div>
+      {/* {!wasVisited && (
+        <IntroTitle
+          className={` ${
+            wasVisited ? "introTitleVisible" : "introTitleInVisible"
+          }`}
+        >
+          RETRO ZADAR
+        </IntroTitle>
+      )} */}
       {deleted && (
         <WrapLottie>
           <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
@@ -1257,7 +1416,7 @@ function Mapa({ data }) {
           allData={allDataFromDB}
         />
       )}
-      <Naslov mapStyle={mapStyle}>RETRO ZADAR</Naslov>
+      <Naslov mapStyle={mapStyle}>ZADARSKI KANTUN</Naslov>
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
@@ -1285,6 +1444,7 @@ function Mapa({ data }) {
         /> */}
         {isLatest ? <IoTime /> : <IoTimeOutline />}
         {/* <GrSplit /> */}
+        Novo
       </Latest>
       {/* <FeaturedModal
         className={` ${
@@ -1316,8 +1476,18 @@ function Mapa({ data }) {
           width={20}
           height={20}
         />
+        Retro
         {/* <GrSplit /> */}
       </Featured>
+      {/* {arrayBliskeFotke.length > 0 && (
+        <Bliske>
+          {arrayBliskeFotke.map((item) => (
+            <div className="bliskeFotke">
+              <img src={item.properties.image_url_1000px}></img>
+            </div>
+          ))}
+        </Bliske>
+      )} */}
       <Upute />
       {/* <NemaFotografije
         className={`${
@@ -1333,7 +1503,7 @@ function Mapa({ data }) {
           onChange={handleChange}
           getAriaValueText={valuetext}
           min={1839}
-          max={2024}
+          max={1985}
           orientation="vertical"
           valueLabelDisplay="on"
         />
@@ -1345,10 +1515,17 @@ function Mapa({ data }) {
         onMouseLeave={() => setIsMapTogglerHovering(false)}
       >
         <BsLayersFill />
+        Mape
       </div>
       {logedIn && (
         <div className="admin" onClick={handleLogOut}>
           Logout
+        </div>
+      )}
+      {idKliknuteFotke !== null && (
+        <div className="viseInfo">
+          <span class="tooltiptext">O slici</span>
+          <IoBookSharp />
         </div>
       )}
       {/* {isDeleting && <div className="deleted">Brišem....</div>}

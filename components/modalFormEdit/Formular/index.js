@@ -81,12 +81,15 @@ function Formular({ toggleModal, id, data, allData }) {
     (allData[objIndex].Title = mjesto),
       (allData[objIndex].DateCreated = godina),
       (allData[objIndex].autor = autor),
-      (allData[objIndex].procjenaGodine = checked);
+      checked === undefined
+        ? (allData[objIndex].procjenaGodine = false)
+        : (allData[objIndex].procjenaGodine = checked);
 
     // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
     const docRef = doc(db, "retroData5", "test");
 
     setDoc(docRef, { allData });
+    console.log(mjesto, godina, autor, checked);
   };
 
   // useEffect(() => {
