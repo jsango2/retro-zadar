@@ -1485,12 +1485,12 @@ function Mapa({ data }) {
           Logout
         </div>
       )}
-      {idKliknuteFotke !== null && (
+      {/* {idKliknuteFotke !== null && (
         <div className="viseInfo">
           <span class="tooltiptext">O slici</span>
           <IoBookSharp />
         </div>
-      )}
+      )} */}
       {/* {isDeleting && <div className="deleted">Brišem....</div>}
       {deleted && <div className="deleted">Obrisano - osvježi stranicu</div>} */}
       {logedIn && idKliknuteFotke !== null && (
