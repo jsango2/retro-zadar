@@ -9,7 +9,13 @@
 body .slick-next::before {
   display: none;
 } */
-
+@font-face {
+  font-family: "Garamond";
+  src: url("../components/assets/fonts/GaramondITCBoldCondensedBT.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 body {
   background-color: #c9d2d3;
   -webkit-font-smoothing: antialiased;

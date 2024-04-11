@@ -58,10 +58,10 @@ const Naslov = styled.div`
   color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
 
   font-size: 55px;
-  font-family: serif;
-  font-style: bold;
-  font-weight: 700;
-  text-shadow: 0px 2px 11px #0000006e;
+  font-family: "Garamond";
+  /* font-style: bold;
+  font-weight: 700; */
+  /* text-shadow: 0px 2px 11px #0000006e; */
   @media screen and (max-width: 850px) {
     left: 10px;
     top: 25px;
@@ -219,7 +219,7 @@ export const Latest = styled.div`
   background-size: contain; */
   cursor: pointer;
   font-weight: 500;
-
+  font-family: "Garamond";
   label {
     margin-right: 5px;
     font-weight: 600;
@@ -260,10 +260,10 @@ const PodNaslov = styled.div`
   color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
 
   font-size: 24px;
-  font-family: serif;
+  font-family: "Garamond";
   font-style: bold;
   font-weight: 700;
-  text-shadow: 0px 2px 11px #0000006e;
+  /* text-shadow: 0px 2px 11px #0000006e; */
   @media screen and (max-width: 850px) {
     left: 10px;
 
@@ -282,7 +282,7 @@ const IntroTitle = styled.div`
 
   font-size: 167px;
   line-height: 110%;
-  font-family: serif;
+  font-family: "Garamond";
   font-style: bold;
   font-weight: 700;
   text-shadow: 0px 2px 11px #0000006e;
@@ -299,10 +299,10 @@ const PodNaslov2 = styled.div`
   color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
 
   font-size: 18px;
-  font-family: serif;
+  font-family: "Garamond";
   font-style: bold;
   font-weight: 700;
-  text-shadow: 0px 2px 11px #0000006e;
+  /* text-shadow: 0px 2px 11px #0000006e; */
   @media screen and (max-width: 850px) {
     left: 10px;
 
@@ -317,7 +317,7 @@ const FirstScreen = styled.p`
   z-index: 1000;
   color: black;
   font-size: 16px;
-  font-family: serif;
+  font-family: "Garamond";
   font-weight: 400;
   width: 600px;
   height: 600px;
