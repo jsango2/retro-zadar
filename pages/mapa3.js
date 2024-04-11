@@ -559,7 +559,8 @@ function Mapa({ data }) {
       var filtrirano = geoData.features.filter(
         (razglednica) =>
           razglednica.properties.datum_uploada >= value[0] &&
-          razglednica.properties.datum_uploada <= value[1]
+          razglednica.properties.datum_uploada <= value[1] &&
+          razglednica.properties.newPhoto
       );
     }
     if (isChecked && !isLatest) {
@@ -650,7 +651,7 @@ function Mapa({ data }) {
 
     map.on("load", function () {
       map.loadImage(
-        mapStyle ? "/camera2.png" : "/camera6.png",
+        mapStyle ? "/darkPoint.png" : "/lightPoint.png",
         function (error, image) {
           if (error) throw error;
           map.addImage("cat", image);
@@ -926,7 +927,7 @@ function Mapa({ data }) {
         // },
         layout: {
           "icon-image": "cat",
-          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.1, 15, 0.19],
+          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.2, 15, 0.29],
           "icon-padding": 0,
           "icon-allow-overlap": true,
           //   "icon-translate": [0, 0],
@@ -1436,28 +1437,21 @@ function Mapa({ data }) {
         {isLatestHovering ? "Novo na RETRO Zadar" : ""}
         {isMapTogglerHovering ? "Promjeni izgled mape" : ""}
       </FeaturedModal> */}
-      <Featured
+      {/* <Featured
         mapStyle={mapStyle}
         onClick={() => setIsChecked(!isChecked)}
         checked={isChecked}
         onMouseEnter={() => setIsFeaturedHovering(true)}
         onMouseLeave={() => setIsFeaturedHovering(false)}
       >
-        {/* <label for="featured">Zadar nekad i sad</label>
-        <input
-          type="checkbox"
-          id="featured"
-          checked={isChecked}
-          onChange={handleCheckbox}
-        ></input> */}
+
         <Image
           src={!isChecked ? "/swiper2.png" : "/swiper2white.png"}
           width={20}
           height={20}
         />
         Retro
-        {/* <GrSplit /> */}
-      </Featured>
+      </Featured> */}
       <Upute />
       <div className={`slider ${mapStyle ? "darkSlider" : "lightSlider"}`}>
         <Sliderx

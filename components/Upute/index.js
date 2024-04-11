@@ -169,14 +169,14 @@ function Upute({ lng, lat, toggleModal }) {
             />
             Klikom na ikonicu listova, odaberite vrstu mape: satelitski prikaz
             ili nacrtanu mapu
-            <br />
+            {/* <br />
             <br />
             <img src="/swiper.png" width="20" height="20"></img>
             Klikom na ikonu klizača, odaberite samo lokacije koje prikazuju
             prošlost i sadašnjost u jedinstvenom prikazu kojeg možete vidjeti
             samo na <strong>Stari Zadar</strong>! <br />
             <br />
-            <br />
+            <br /> */}
             <strong>UŽIVAJTE NA KARTI!</strong>
           </FirstScreen>
         </Slider>
