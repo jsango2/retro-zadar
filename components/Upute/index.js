@@ -53,7 +53,7 @@ function Upute({ lng, lat, toggleModal }) {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
           setUputeOpen(false);
-          console.log("clicked outside");
+          // console.log("clicked outside");
         }
       }
 
@@ -88,7 +88,7 @@ function Upute({ lng, lat, toggleModal }) {
             <strong>Dragi ljubitelji starih fotografija Zadra!</strong>
             <br />
             <br />
-            Dobrodošli na <strong>Stari Zadar</strong>, stranicu posvećenu Zadru
+            Dobrodošli na <strong>Retro Zadar</strong>, stranicu posvećenu Zadru
             i svim onim ljepotama koje su vezane uz naš prekrasan grad!
             <br /> Ovaj projekt je izradila i održava grupa entuzijasta, kojima
             je želja da se ne zaboravi povijest grada Zadra kroz fotografije
@@ -102,12 +102,12 @@ function Upute({ lng, lat, toggleModal }) {
             Nove fotografije grada izradili su autori ove stranice.
             <br />
             <br /> Pročitaj upute za korištenje karte{" "}
-            <strong>Stari Zadar</strong> na sljedećim stranicama
+            <strong>Retro Zadar</strong> na sljedećim stranicama
           </FirstScreen>
           <FirstScreen>
-            <strong>Stari Zadar</strong> je prilagođen za korištenje na
+            <strong>Retro Zadar</strong> je prilagođen za korištenje na
             računalima te na mobilnim uređajima. <br />
-            <strong>Stari Zadar</strong> se sastoji od nekoliko djelova: <br />
+            <strong>Retro Zadar</strong> se sastoji od nekoliko djelova: <br />
             Nakon zumiranja karte pojavljuje se traka sa dijelom fotografija sa
             karte. <br />
             Prelaskom preko fotografije, označiti će se pozicija te fotografije
@@ -127,22 +127,10 @@ function Upute({ lng, lat, toggleModal }) {
             <br />
             Svaka fotografija ima na sebi naziv lokacije, godinu kada je
             fotografirana (ili procjenu) te autora fotografije. Zbog načina
-            prikupljanja fotografija, moguće su sitne pogreške u godini
-            kreiranja fotografije te navoda autora. Nastojati ćemo ove pogreške
+            prikupljanja fotografija, moguće su pogreške u godini kreiranja
+            fotografije te navoda autora. Nastojati ćemo ove pogreške
             ispravljati.
             <br />
-            Poneke fotografije na traci za pregled imaju oznaku{" "}
-            <span style={{ width: "3px" }}></span>
-            <img src="/swiper.png" width="20" height="20"></img>. <br />
-            Ove fotografije prikazuju i današnji izgled na uslikanoj poziciji
-            preklapanjem dviju fotografija. <br />
-            Pomicanjem klizača lijevo-desno, usporedite prošlost i sadašnjost
-            Zadra! <br />
-            <strong>
-              Ovo je jedinstvena karakteristika karte{" "}
-              <strong>Stari Zadar</strong> koju možete vidjeti samo na ovoj
-              stranici!
-            </strong>
           </FirstScreen>
           <FirstScreen>
             U gornjem desnom kutu nalazi se nekoliko ikonica za preciznije
@@ -174,10 +162,13 @@ function Upute({ lng, lat, toggleModal }) {
             <img src="/swiper.png" width="20" height="20"></img>
             Klikom na ikonu klizača, odaberite samo lokacije koje prikazuju
             prošlost i sadašnjost u jedinstvenom prikazu kojeg možete vidjeti
-            samo na <strong>Stari Zadar</strong>! <br />
+            samo na <strong>Retro Zadar</strong>! <br />
             <br />
             <br /> */}
-            <strong>UŽIVAJTE NA KARTI!</strong>
+            <br />
+            <br />
+            <br />
+            <strong>UŽIVAJTE NA RETRO ZADAR KARTI!</strong>
           </FirstScreen>
         </Slider>
       </WrapSlider>

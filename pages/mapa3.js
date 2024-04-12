@@ -452,9 +452,7 @@ function Mapa({ data }) {
     // console.log(allData);
     const epochTime = 1708603609636;
     const date = new Date(epochTime);
-    console.log(date);
     const currentTimeInMiliSeconds = Date.now();
-    console.log(currentTimeInMiliSeconds);
     const lessThen30days = allData.filter(
       (item) => currentTimeInMiliSeconds - item.timestamp > 879200000
     );
@@ -651,7 +649,7 @@ function Mapa({ data }) {
 
     map.on("load", function () {
       map.loadImage(
-        mapStyle ? "/darkPoint.png" : "/lightPoint.png",
+        mapStyle ? "/lightPoint.png" : "/darkPoint.png",
         function (error, image) {
           if (error) throw error;
           map.addImage("cat", image);
@@ -671,7 +669,6 @@ function Mapa({ data }) {
         // );
         // console.log("features", filteredFeaturesByOverlay);
         setFeaturesArray(features);
-        console.log(features);
         // if (features) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
@@ -752,7 +749,6 @@ function Mapa({ data }) {
 
               itemLink.addEventListener("click", (e) => {
                 var coordinates = feature.geometry.coordinates.slice();
-                console.log(feature);
                 setIdKliknuteFotke(feature.properties.id);
                 setFeaturesKliknuteFotke(feature.properties);
 
@@ -800,7 +796,6 @@ function Mapa({ data }) {
                       .addEventListener(
                         isTouchDevice ? "touchmove" : "mousemove",
                         (event) => {
-                          console.log(event);
                           if (event !== null) {
                             setIsPointerInPopup(true);
                           } else {
@@ -824,7 +819,6 @@ function Mapa({ data }) {
                       .addEventListener(
                         isTouchDevice ? "touchmove" : "mousemove",
                         (event) => {
-                          console.log(event);
                           const divider = document.getElementById("divider");
 
                           if (event.touches) {
@@ -1017,7 +1011,6 @@ function Mapa({ data }) {
 
         let now = Date.now();
         const razlika = now - timestamp;
-        console.log(feature);
         setIdKliknuteFotke(e.features[0].properties.id);
         setFeaturesKliknuteFotke(e.features[0].properties);
         // if (e.features[0].properties.newPhoto) {
@@ -1098,7 +1091,6 @@ function Mapa({ data }) {
               .addEventListener(
                 isTouchDevice ? "touchmove" : "mousemove",
                 (event) => {
-                  console.log(event);
                   const divider = document.getElementById("divider");
 
                   if (event.touches) {
@@ -1338,7 +1330,6 @@ function Mapa({ data }) {
   //   //   setWasVisited(false);
   //   // }, 4000);
   // }, []);
-  console.log(wasVisited);
   return (
     <div>
       {" "}
