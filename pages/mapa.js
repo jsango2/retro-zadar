@@ -663,7 +663,7 @@ function Mapa({ data }) {
 
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
-        // console.log(features);
+        console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
         //   (feature) => feature.properties.newPhoto === ""
         // );
@@ -1387,7 +1387,10 @@ function Mapa({ data }) {
           allData={allDataFromDB}
         />
       )}
-      <Naslov mapStyle={mapStyle}>RETRO ZADAR</Naslov>
+      <Naslov mapStyle={mapStyle}>
+        RETRO ZADAR <br />
+        {/* <span className="zadarNekad">Kako je Zadar izgledao nekad</span> */}
+      </Naslov>
       <PodNaslov mapStyle={mapStyle}>
         {value[0]}-{value[1]}
       </PodNaslov>
