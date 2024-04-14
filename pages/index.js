@@ -23,6 +23,8 @@ const Naslov = styled.div`
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
   @media screen and (max-width: 850px) {
+    text-align: center;
+    line-height: 100%;
   }
 `;
 
