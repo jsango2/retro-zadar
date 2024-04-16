@@ -55,7 +55,7 @@ const Naslov = styled.div`
   left: 273px;
   top: 23px;
   z-index: 2;
-  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+  color: ${(props) => (props.mapStyle ? "#3f230f" : "white")};
 
   font-size: 55px;
   font-family: "Garamond";
@@ -257,7 +257,7 @@ const PodNaslov = styled.div`
   left: 275px;
   top: 91px;
   z-index: 2;
-  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+  color: ${(props) => (props.mapStyle ? "#3f230f" : "white")};
 
   font-size: 24px;
   font-family: "Garamond";
@@ -296,7 +296,7 @@ const PodNaslov2 = styled.div`
   left: 275px;
   top: 124px;
   z-index: 2;
-  color: ${(props) => (props.mapStyle ? "#5e5b5b" : "white")};
+  color: ${(props) => (props.mapStyle ? "#3f230f" : "white")};
 
   font-size: 18px;
   font-family: "Garamond";
@@ -413,7 +413,7 @@ function Mapa({ data }) {
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [value, setValue] = React.useState([1839, 1985]);
+  const [value, setValue] = React.useState([1749, 1985]);
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -617,8 +617,8 @@ function Mapa({ data }) {
     const map = new mapboxgl.Map({
       container: "map",
       style: mapStyle
-        ? "mapbox://styles/jsango2/clsyekr3b00ck01me3jvc2fz0"
-        : "mapbox://styles/mapbox/satellite-v9",
+        ? "mapbox://styles/jsango2/clv2rlgnt00dj01pk5iuz4o49"
+        : "mapbox://styles/jsango2/cls61bfsg00k401ql5e0j5yya",
       center: [lng, lat],
       pitch: 40,
       zoom: zoom,
@@ -769,7 +769,14 @@ function Mapa({ data }) {
                                   <span style="font-weight: bold">${
                                     feature.properties.title_naslov
                                   },</span>
-                                  ${feature.properties.datum_uploada}
+                                  ${
+                                    feature.properties.procjenaGodine &&
+                                    feature.properties.procjenaGodine === true
+                                      ? "oko "
+                                      : ""
+                                  }
+                                  ${feature.properties.datum_uploada}.g
+                                
                                 </div>
                          <img class="img3" src=${
                            feature.properties.image_url_200px
@@ -846,7 +853,14 @@ function Mapa({ data }) {
                           <span style="font-weight: bold">${
                             feature.properties.title_naslov
                           },</span>
-                           ${feature.properties.datum_uploada}
+                          ${
+                            feature.properties.procjenaGodine &&
+                            feature.properties.procjenaGodine === true
+                              ? "oko "
+                              : ""
+                          }
+                           ${feature.properties.datum_uploada}.g
+                        
                         </div>
                         <div  class="imgTest" ><img src=${
                           feature.properties.image_url_200px
@@ -921,7 +935,7 @@ function Mapa({ data }) {
         // },
         layout: {
           "icon-image": "cat",
-          "icon-size": ["interpolate", ["linear"], ["zoom"], 10, 0.2, 15, 0.29],
+          "icon-size": ["interpolate", ["linear"], ["zoom"], 12, 0.1, 17, 0.29],
           "icon-padding": 0,
           "icon-allow-overlap": true,
           //   "icon-translate": [0, 0],
@@ -1044,7 +1058,14 @@ function Mapa({ data }) {
                           <span style="font-weight: bold">${
                             feature.properties.title_naslov
                           },</span>
-                          ${feature.properties.datum_uploada}
+                          ${
+                            feature.properties.procjenaGodine &&
+                            feature.properties.procjenaGodine === true
+                              ? "oko "
+                              : ""
+                          }
+                          ${feature.properties.datum_uploada}.g
+                        
                         </div>
                  <img class="img3" src=${
                    feature.properties.image_url_200px
@@ -1117,7 +1138,13 @@ function Mapa({ data }) {
                   <span style="font-weight: bold">${
                     feature.properties.title_naslov
                   },</span>
-                   ${feature.properties.datum_uploada}
+                  ${
+                    feature.properties.procjenaGodine &&
+                    feature.properties.procjenaGodine === true
+                      ? "oko "
+                      : ""
+                  }
+                   ${feature.properties.datum_uploada}.g
                 </div>
                 <div  class="imgTest" ><img src=${
                   feature.properties.image_url_200px
@@ -1453,7 +1480,7 @@ function Mapa({ data }) {
           value={value}
           onChange={handleChange}
           getAriaValueText={valuetext}
-          min={1839}
+          min={1749}
           max={1985}
           orientation="vertical"
           valueLabelDisplay="on"
