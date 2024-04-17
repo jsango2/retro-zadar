@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <Component {...pageProps} />
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+      <GoogleTagManager gtmId={`G-4640T6WR87`} />
     </>
   );
 }
