@@ -661,7 +661,7 @@ function Mapa({ data }) {
       // const filterEl = document.getElementById("feature-filter");
       const listingEl = document.getElementById("feature-listing");
 
-      map.on("render", () => {
+      map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
         console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
