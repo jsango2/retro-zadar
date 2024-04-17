@@ -36,11 +36,41 @@ const Mapa = styled.div`
 `;
 export default function IndexPage() {
   return (
-    <Wrap>
-      <Naslov>RETRO ZADAR</Naslov>
-      <Link href="/mapa">
-        <Mapa>Mapa</Mapa>
-      </Link>
-    </Wrap>
+    <>
+      <Head>
+        <title>Retro Zadar</title>
+        <meta property="og:title" content="Retro Zadar" key="title" />
+        <link
+          rel="canonical"
+          href="https://www.retrozadar.com"
+          key="canonical"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <meta property="og:url" content="https://www.retrozadar.com" />
+
+        <meta property="og:image" content="/profilePicSm.png" />
+        <meta
+          name="description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+          key="desc"
+        />
+        <meta
+          property="og:description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+        />
+        <meta
+          property="twitter:description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+        />
+      </Head>{" "}
+      <Wrap>
+        <Naslov>RETRO ZADAR</Naslov>
+        <Link href="/mapa">
+          <Mapa>Mapa</Mapa>
+        </Link>
+      </Wrap>
+    </>
   );
 }

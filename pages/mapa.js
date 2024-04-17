@@ -1369,13 +1369,13 @@ function Mapa({ data }) {
         <meta property="og:title" content="Retro Zadar" key="title" />
         <link
           rel="canonical"
-          href="https://www.retrozadar.com"
+          href="https://www.retrozadar.com/mapa"
           key="canonical"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
 
-        <meta property="og:url" content="https://www.retrozadar.com" />
+        <meta property="og:url" content="https://www.retrozadar.com/mapa" />
 
         <meta property="og:image" content="/profilePicSm.png" />
         <meta
