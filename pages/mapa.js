@@ -617,8 +617,8 @@ function Mapa({ data }) {
     const map = new mapboxgl.Map({
       container: "map",
       style: mapStyle
-        ? "mapbox://styles/jsango2/clv2rlgnt00dj01pk5iuz4o49"
-        : "mapbox://styles/jsango2/cls61bfsg00k401ql5e0j5yya",
+        ? "mapbox://styles/jsango2/clsyekr3b00ck01me3jvc2fz0"
+        : "mapbox://styles/mapbox/satellite-v9",
       center: [lng, lat],
       pitch: 40,
       zoom: zoom,
