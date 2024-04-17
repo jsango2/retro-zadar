@@ -39,6 +39,7 @@ import Script from "next/script";
 import { IoTimeOutline } from "react-icons/io5";
 import { IoTime } from "react-icons/io5";
 import { IoBookSharp } from "react-icons/io5";
+import Head from "next/head";
 // import Header from "./../components/header";
 // import i18next from "i18next";
 // import SEO from "../components/seo";
@@ -448,7 +449,10 @@ function Mapa({ data }) {
     const docRef = doc(db, "retroData5", "test");
     const docSnap = await getDoc(docRef);
 
+    // ako zelim ograniciti broj slika na mapi::
+    // const allData = docSnap.data().allData.slice(200, 300);
     const allData = docSnap.data().allData;
+    console.log("ALL DATA:", allData);
     // console.log(allData);
     const epochTime = 1708603609636;
     const date = new Date(epochTime);
@@ -575,7 +579,7 @@ function Mapa({ data }) {
         features: filtrirano,
       };
     }
-
+    // iznad nafiltrirano dodaj .slice(-50) za npr samo zadnjih 50 prikazati
     if (isLatest && !isChecked) {
       // const currentTimeInMiliSeconds = Date.now();
       // var filterByLatest = filtrirano.filter(
@@ -613,6 +617,7 @@ function Mapa({ data }) {
   }, [geoData, value, isChecked, isLatest]);
   // "mapbox://styles/jsango2/cjh3aevme24j82rs46qo4x14o"
   // -----
+  console.log("GEODATA2", geoData2);
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
@@ -1359,7 +1364,34 @@ function Mapa({ data }) {
   // }, []);
   return (
     <div>
-      {" "}
+      <Head>
+        <title>Retro Zadar</title>
+        <meta property="og:title" content="Retro Zadar" key="title" />
+        <link
+          rel="canonical"
+          href="https://www.retrozadar.com"
+          key="canonical"
+        />
+
+        <meta name="twitter:card" content="summary_large_image" />
+
+        <meta property="og:url" content="https://www.retrozadar.com" />
+
+        <meta property="og:image" content="/profilePicSm.png" />
+        <meta
+          name="description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+          key="desc"
+        />
+        <meta
+          property="og:description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+        />
+        <meta
+          property="twitter:description"
+          content="Pogledajte kako je nekad izgledao naš Zadar"
+        />
+      </Head>{" "}
       <div
         id="map"
         className={` ${featuresArray.length > 0 ? "map" : ""}`}
