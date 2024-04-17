@@ -1377,7 +1377,7 @@ function Mapa({ data }) {
 
         <meta property="og:url" content="https://www.retrozadar.com/mapa" />
 
-        <meta property="og:image" content="/profilePicSm.png" />
+        <meta property="og:image" content="/og.png" />
         <meta
           name="description"
           content="Pogledajte kako je nekad izgledao naš Zadar"
