@@ -32,6 +32,10 @@ export default class MyDocument extends Document {
     return (
       <Html lang="hr">
         <Head>
+          <meta
+            name="google-site-verification"
+            content="eLkqLpfn_CmLdVYSnCmTeNpMzC4AmlbsTWoQS90HHoI"
+          />
           {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
