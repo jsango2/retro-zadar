@@ -53,16 +53,16 @@ export default function IndexPage() {
         <meta property="og:image" content="/og.png" />
         <meta
           name="description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
           key="desc"
         />
         <meta
           property="og:description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
         />
         <meta
           property="twitter:description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
         />
       </Head>{" "}
       <Wrap>
