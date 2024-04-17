@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
+
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="hr">
         <Head>
-          <Script
+          {/* <Script
             strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
           />
@@ -49,7 +49,7 @@ export default class MyDocument extends Document {
 
 });
          `}
-          </Script>
+          </Script> */}
           {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
