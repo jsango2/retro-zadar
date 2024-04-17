@@ -9,7 +9,7 @@
 // export default MyApp;
 
 import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
-
+import { GoogleTagManager } from "@next/third-parties/google";
 import { useState } from "react";
 
 import { animations } from "../lib/animations";
@@ -40,6 +40,7 @@ function MyApp({ Component, pageProps, router }) {
             transition={animation.transition}
           >
             <Component {...pageProps} />
+            <GoogleTagManager gtmId={`G-4640T6WR87`} />
           </m.div>
         </AnimatePresence>
       </LazyMotion>
