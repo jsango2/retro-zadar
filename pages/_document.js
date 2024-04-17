@@ -33,23 +33,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="hr">
         <Head>
-          {/* <Script
-            strategy="lazyOnload"
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-          />
-
-          <Script strategy="lazyOnload">
-            {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}',{
-          page_path: window.location.pathname,
-          
-
-});
-         `}
-          </Script> */}
           {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
