@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import splitbee from "@splitbee/web";
 // import "../../i18next";
 // import { useTranslation } from "react-i18next";
 // import { GoInfo } from "react-icons/go";
@@ -376,6 +376,8 @@ const settings = {
 };
 
 function Mapa({ data }) {
+  splitbee.init();
+
   //   const { t } = useTranslation();
   const size = useWindowSize();
   const router = useRouter();
@@ -444,7 +446,7 @@ function Mapa({ data }) {
   // console.log("SAUID", dataBackup);
   // console.log("JELI POINTER U SLICI?", isPointerInPopup);
   const fetchPost = async () => {
-    console.log("FETCHED FROM FIREBASE");
+    // console.log("FETCHED FROM FIREBASE");
     // const docRef = doc(db, "retroData", "RJHT2JQsp8yK52ztOn1z");
     const docRef = doc(db, "retroData5", "test");
     const docSnap = await getDoc(docRef);
@@ -452,7 +454,7 @@ function Mapa({ data }) {
     // ako zelim ograniciti broj slika na mapi::
     // const allData = docSnap.data().allData.slice(200, 300);
     const allData = docSnap.data().allData;
-    console.log("ALL DATA:", allData);
+    // console.log("ALL DATA:", allData);
     // console.log(allData);
     const epochTime = 1708603609636;
     const date = new Date(epochTime);
@@ -617,7 +619,7 @@ function Mapa({ data }) {
   }, [geoData, value, isChecked, isLatest]);
   // "mapbox://styles/jsango2/cjh3aevme24j82rs46qo4x14o"
   // -----
-  console.log("GEODATA2", geoData2);
+  // console.log("GEODATA2", geoData2);
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
@@ -668,7 +670,7 @@ function Mapa({ data }) {
 
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
-        console.log(features);
+        // console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
         //   (feature) => feature.properties.newPhoto === ""
         // );

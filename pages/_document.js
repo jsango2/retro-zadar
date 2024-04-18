@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -36,6 +37,7 @@ export default class MyDocument extends Document {
             name="google-site-verification"
             content="eLkqLpfn_CmLdVYSnCmTeNpMzC4AmlbsTWoQS90HHoI"
           />
+
           {/* <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
