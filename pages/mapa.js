@@ -1371,24 +1371,42 @@ function Mapa({ data }) {
           href="https://www.retrozadar.com/mapa"
           key="canonical"
         />
+        <link
+          rel="canonical"
+          href="https://www.retrozadar.com"
+          key="canonical"
+        />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/fav1.svg" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/fav1.svg"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/fav1.svg"
+        />
 
         <meta name="twitter:card" content="summary_large_image" />
 
         <meta property="og:url" content="https://www.retrozadar.com/mapa" />
 
-        <meta property="og:image" content="/og.png" />
+        <meta property="og:image" content="/ogRetro.png" />
         <meta
           name="description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
           key="desc"
         />
         <meta
           property="og:description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
         />
         <meta
           property="twitter:description"
-          content="Pogledajte kako je nekad izgledao naš Zadar"
+          content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
         />
       </Head>{" "}
       <div
