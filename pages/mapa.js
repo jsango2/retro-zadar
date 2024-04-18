@@ -377,11 +377,9 @@ const settings = {
 
 function Mapa({ data }) {
   splitbee.init();
-
   //   const { t } = useTranslation();
   const size = useWindowSize();
   const router = useRouter();
-
   const [lng, setLng] = useState(15.2264);
   const [lat, setLat] = useState(44.1137);
   const [lngLat, setLngLat] = useState(null);
@@ -443,7 +441,6 @@ function Mapa({ data }) {
 
   //   const [lang, setLang] = useState(i18next.language);
   // dataBackup.forEach((data) => (data.id = uuid()));
-  // console.log("SAUID", dataBackup);
   // console.log("JELI POINTER U SLICI?", isPointerInPopup);
   const fetchPost = async () => {
     // console.log("FETCHED FROM FIREBASE");
