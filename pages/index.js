@@ -77,6 +77,8 @@ export default function IndexPage() {
           property="twitter:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Retro Zadar je jedinstvena mapa starih fotografija grada."
         />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="website" />
       </Head>{" "}
       <Wrap>
         <Naslov>RETRO ZADAR</Naslov>
