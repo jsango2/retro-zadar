@@ -62,9 +62,28 @@ export default function IndexPage() {
           href="https://www.retrozadar.com"
           key="canonical"
         />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/fav1.svg" />
-        <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
-        <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff"></meta>
+
         <meta property="og:type" content="website" />
 
         <meta
@@ -90,7 +109,6 @@ export default function IndexPage() {
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
         <meta name="twitter:image" content="https://retrozadar.com/og2.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
 
         <meta name="robots" content="all" />
       </Head>{" "}

@@ -1371,20 +1371,28 @@ function Mapa({ data }) {
           href="https://retrozadar.com/mapa"
           key="canonical"
         />
-
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/fav1.svg" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicon/fav1.svg"
+          href="/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicon/fav1.svg"
+          href="/favicon-16x16.png"
         />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff"></meta>
+
         <meta property="og:type" content="website" />
         <meta name="robots" content="all" />
 
@@ -1409,7 +1417,7 @@ function Mapa({ data }) {
           content="https://www.retrozadar.com/mapa"
         />
         <meta name="twitter:title" content="Retro Zadar" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+
         <meta
           name="twitter:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
