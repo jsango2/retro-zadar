@@ -19,9 +19,26 @@ const Naslov = styled.h1`
 
   font-size: 105px;
   font-family: "Garamond";
+  font-weight: 700;
   /* font-style: bold;
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
+  @media screen and (max-width: 850px) {
+    text-align: center;
+    line-height: 100%;
+  }
+`;
+const Mailto = styled.div`
+  position: absolute;
+
+  font-size: 15px;
+  font-family: "Garamond";
+  font-weight: 500;
+
+  /* font-style: bold;
+  font-weight: 700; */
+  /* text-shadow: 0px 2px 11px #0000006e; */
+  bottom: 30px;
   @media screen and (max-width: 850px) {
     text-align: center;
     line-height: 100%;
@@ -75,6 +92,9 @@ export default function IndexPage() {
         <Link href="/mapa">
           <Mapa>Mapa</Mapa>
         </Link>
+        <Mailto>
+          <Link href="mailto:retrozadar@gmail.com">retrozadar@gmail.com</Link>
+        </Mailto>
       </Wrap>
     </>
   );

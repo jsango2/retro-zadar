@@ -12,7 +12,14 @@ body .slick-next::before {
 @font-face {
   font-family: "Garamond";
   src: url("../components/assets/fonts/GaramondITCBoldCondensedBT.ttf");
-  font-weight: normal;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Garamond";
+  src: url("../components/assets/fonts/GaramondITCBookCondensedBT.ttf");
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
