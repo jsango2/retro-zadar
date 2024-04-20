@@ -57,18 +57,14 @@ export default function IndexPage() {
       <Head>
         <title>Retro Zadar</title>
         <meta property="og:title" content="Retro Zadar" key="title" />
-        <link
-          rel="canonical"
-          href="https://www.retrozadar.com"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://retrozadar.com" key="canonical" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/fav1.svg" />
         <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
         <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
 
         <meta name="twitter:card" content="summary_large_image" />
 
-        <meta property="og:url" content="https://www.retrozadar.com" />
+        <meta property="og:url" content="https://retrozadar.com" />
 
         <meta property="og:image" content="/og2.png" />
         <meta
@@ -84,8 +80,8 @@ export default function IndexPage() {
           property="twitter:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
-        <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
+        <meta name="robots" content="all" />
       </Head>{" "}
       <Wrap>
         <Naslov>RETRO ZADAR</Naslov>
