@@ -28,7 +28,7 @@ import Resizer from "react-image-file-resizer";
 import { storage } from "../../firebase/firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-function Formular({ toggleModal, id, data, allData }) {
+function Formular({ toggleEditModal, id, data, allData }) {
   const [mjesto, setMjesto] = useState(data.title_naslov);
   const [autor, setAutor] = useState(data.autor);
   const [email, setEmail] = useState("");
@@ -90,6 +90,7 @@ function Formular({ toggleModal, id, data, allData }) {
 
     setDoc(docRef, { allData });
     console.log(mjesto, godina, autor, checked);
+    toggleEditModal();
   };
 
   // useEffect(() => {

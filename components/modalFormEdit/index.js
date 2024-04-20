@@ -17,7 +17,7 @@ function EditFormModal({ toggleModal, id, data, allData }) {
       <CloseButton onClick={() => toggleModal()}>x</CloseButton>
       <Container>
         <Formular
-          toggleModal={toggleModal}
+          toggleEditModal={toggleModal}
           id={id}
           data={data}
           allData={allData}
