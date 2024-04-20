@@ -57,30 +57,41 @@ export default function IndexPage() {
       <Head>
         <title>Retro Zadar</title>
         <meta property="og:title" content="Retro Zadar" key="title" />
-        <link rel="canonical" href="https://retrozadar.com" key="canonical" />
+        <link
+          rel="canonical"
+          href="https://www.retrozadar.com"
+          key="canonical"
+        />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/fav1.svg" />
         <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
         <link rel="icon" type="image/png" href="/favicon/fav1.svg" />
+        <meta property="og:type" content="website" />
 
-        <meta name="twitter:card" content="summary_large_image" />
-
-        <meta property="og:url" content="https://retrozadar.com" />
-
-        <meta property="og:image" content="/og2.png" />
         <meta
           name="description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
-          key="desc"
         />
+
+        <meta property="og:url" content="https://www.retrozadar.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Retro Zadar" />
         <meta
           property="og:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
+        <meta property="og:image" content="https://retrozadar.com/og2.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="retrozadar.com" />
+        <meta property="twitter:url" content="https://www.retrozadar.com" />
+        <meta name="twitter:title" content="Retro Zadar" />
         <meta
-          property="twitter:description"
+          name="twitter:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
-        <meta property="og:type" content="website" />
+        <meta name="twitter:image" content="https://retrozadar.com/og2.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+
         <meta name="robots" content="all" />
       </Head>{" "}
       <Wrap>

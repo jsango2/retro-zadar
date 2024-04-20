@@ -1385,27 +1385,36 @@ function Mapa({ data }) {
           sizes="16x16"
           href="/favicon/fav1.svg"
         />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="all" />
 
-        <meta name="twitter:card" content="summary_large_image" />
-
-        <meta property="og:url" content="https://retrozadar.com/mapa" />
-
-        <meta property="og:image" content="/og2.png" />
         <meta
           name="description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
-          key="desc"
         />
+
+        <meta property="og:url" content="https://www.retrozadar.com/mapa" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Retro Zadar" />
         <meta
           property="og:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
+        <meta property="og:image" content="https://retrozadar.com/og2.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="retrozadar.com" />
         <meta
-          property="twitter:description"
+          property="twitter:url"
+          content="https://www.retrozadar.com/mapa"
+        />
+        <meta name="twitter:title" content="Retro Zadar" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta
+          name="twitter:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
         />
-        <meta property="og:type" content="website" />
-        <meta name="robots" content="all" />
+        <meta name="twitter:image" content="https://retrozadar.com/og2.png" />
       </Head>{" "}
       <div
         id="map"
