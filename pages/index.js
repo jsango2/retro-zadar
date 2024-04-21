@@ -57,11 +57,7 @@ export default function IndexPage() {
       <Head>
         <title>Retro Zadar</title>
         <meta property="og:title" content="Retro Zadar" key="title" />
-        <link
-          rel="canonical"
-          href="https://www.retrozadar.com"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://retrozadar.com" key="canonical" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -97,6 +93,10 @@ export default function IndexPage() {
         <meta
           property="og:description"
           content="Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada nekad i sad."
+        />
+        <meta
+          name="keywords"
+          content="stare fotografije zadra, nekad, sad, zadar, razglednice"
         />
         <meta property="og:image" content="https://retrozadar.com/og2.png" />
 
