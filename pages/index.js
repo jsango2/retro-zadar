@@ -46,9 +46,22 @@ const Mailto = styled.div`
 `;
 
 const Mapa = styled.div`
+  margin-top: 30px;
   text-decoration: underline;
   cursor: pointer;
+  font-weight: 700;
   @media screen and (max-width: 850px) {
+  }
+`;
+const Hide = styled.h2`
+  cursor: pointer;
+  width: 600px;
+  font-size: 18px;
+  text-align: center;
+
+  @media screen and (max-width: 650px) {
+    width: 90vw;
+    margin-top: 20px;
   }
 `;
 export default function IndexPage() {
@@ -114,6 +127,11 @@ export default function IndexPage() {
       </Head>{" "}
       <Wrap>
         <Naslov>RETRO ZADAR</Naslov>
+        <Hide>
+          Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada
+          Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada
+          nekad i sad.
+        </Hide>
         <Link href="/mapa">
           <Mapa>Mapa</Mapa>
         </Link>
