@@ -42,9 +42,10 @@ export const WrapAll = styled.div`
   @media only screen and (max-width: 600px) {
     &.open {
       transition: all 0.3s ease-in-out;
-      height: 600px;
+      height: 550px;
       width: 90vw;
-      bottom: 50%;
+      bottom: 47%;
+      z-index: 21;
       right: 50%;
       transform: translate(50%, 45%);
     }

@@ -1398,6 +1398,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 @media only screen and (max-width: 440px) {
+  /* .slick-prev {
+    right: 59px !important;
+    z-index: 10 !important;
+    top: unset !important;
+    bottom: 20px !important;
+    left: unset !important;
+    right: 60px !important;
+    color: black !important;
+  }
+  .slick-next {
+    right: 29px !important;
+    z-index: 10 !important;
+    top: unset !important;
+    bottom: 20px !important;
+    color: black !important;
+  } */
   .reveal {
     width: 90vw;
     height: 62vw;
