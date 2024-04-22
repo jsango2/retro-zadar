@@ -56,6 +56,15 @@
   padding: 10px;
   margin: 0;
 }
+.lottieHero {
+  position: absolute;
+  height: 100vh;
+  width: auto;
+  min-width: 1350px;
+  right: 0;
+  z-index: 1;
+  object-fit: cover;
+}
 .zadarNekad {
   font-size: 18px;
 }
@@ -616,5 +625,16 @@
   }
   #nemaFotografije {
     color: black;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .lottieHero {
+    height: auto;
+    width: 100vw;
+    bottom: 0;
+    z-index: 1;
+    object-fit: cover;
+    min-width: unset;
   }
 }

@@ -2,32 +2,39 @@ import Head from "next/head";
 import FirebaseUpload from "../components/firebaseUpload";
 import styled from "styled-components";
 import Link from "next/link";
+import Lottie, { useLottie } from "lottie-react";
+import animacija from "../components/lottie2/lottie.json";
+import useWindowSize from "../components/helper/usewindowsize";
 
 const Wrap = styled.div`
   position: relative;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   padding-left: 100px;
+
   @media screen and (max-width: 720px) {
-    padding-left: 50px;
-    justify-content: flex-start;
+    padding-top: 70px;
+    padding-left: 30px;
+    justify-content: space-around;
+    padding-bottom: 30px;
   }
 `;
 const WrapText = styled.div`
   position: relative;
   height: 620px;
-  width: 620px;
+  width: 530px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   @media screen and (max-width: 720px) {
     width: 90%;
-    margin-top: 50px;
+    height: auto;
   }
 `;
 const Overlay = styled.div`
@@ -38,7 +45,7 @@ const Overlay = styled.div`
   left: 0;
   z-index: 1;
   @media screen and (max-width: 720px) {
-    height: 40vh;
+    height: 55%;
     width: 100vw;
     background: linear-gradient(0deg, #f0e7db 0%, #e7dac6 100%);
     top: 0;
@@ -57,6 +64,7 @@ const Grain = styled.div`
   z-index: 3;
   pointer-events: none;
   opacity: 0.3;
+  top: 0;
   @media screen and (max-width: 720px) {
   }
 `;
@@ -69,7 +77,7 @@ const Overlay2 = styled.div`
   z-index: 1;
 
   @media screen and (max-width: 720px) {
-    height: 60vh;
+    height: 45%;
     width: 100vw;
     background: linear-gradient(
       180deg,
@@ -77,7 +85,22 @@ const Overlay2 = styled.div`
       #f0e7db 20%,
       #e7dac673 100%
     );
-    top: 40vh;
+    top: 55%;
+    left: 0;
+  }
+`;
+const LeftOverlay = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 40vw;
+  left: 0;
+  z-index: 1;
+  background-image: url("/plan.jpeg");
+  @media screen and (max-width: 720px) {
+    height: 60vh;
+    width: 100vw;
+
+    top: 0;
     left: 0;
   }
 `;
@@ -85,8 +108,8 @@ const BGimage = styled.div`
   position: absolute;
   height: 100vh;
   width: 80vw;
-  background-image: url("/laureana1b.png"); /* The image used */
-
+  /* background-image: url("/laureana1b.png"); The image used */
+  background-color: #f0e7db;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
@@ -103,7 +126,7 @@ const Naslov = styled.h1`
   position: relative;
   z-index: 2;
 
-  font-size: 105px;
+  font-size: 75px;
   font-family: "Garamond";
   font-weight: 700;
   color: #3f230f;
@@ -112,7 +135,7 @@ const Naslov = styled.h1`
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
   @media screen and (max-width: 720px) {
-    font-size: 65px;
+    font-size: 45px;
 
     text-align: left;
     line-height: 100%;
@@ -126,14 +149,20 @@ const Mailto = styled.div`
   font-family: "Garamond";
   font-weight: 500;
   color: #3f230f;
-
+  bottom: 50px;
   /* font-style: bold;
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
-  bottom: 30px;
+  /* margin-top: auto; */
+
   @media screen and (max-width: 850px) {
-    text-align: center;
+    position: relative;
+
+    text-align: left;
     line-height: 100%;
+    margin-top: 30px;
+    height: 20px;
+    bottom: unset;
   }
 `;
 
@@ -149,28 +178,38 @@ const Mapa = styled.div`
   cursor: pointer;
   font-weight: 700;
   z-index: 2;
+  font-size: 16px;
 
   color: #3f230f;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: 0 0 rgba(0, 0, 0, 0);
+  }
   @media screen and (max-width: 850px) {
+    font-size: 14px;
   }
 `;
-const Hide = styled.h2`
+const Text = styled.h2`
   cursor: pointer;
-  width: 600px;
-  font-size: 18px;
+  width: 100%;
+  font-size: 16px;
   text-align: left;
   color: #3f230f;
   z-index: 2;
 
   @media screen and (max-width: 650px) {
-    width: 90%;
+    width: 100%;
     margin-top: 20px;
+    font-size: 14px;
   }
 `;
 export default function IndexPage() {
+  const size = useWindowSize();
+
   return (
     <>
       <Head>
@@ -232,17 +271,33 @@ export default function IndexPage() {
         <meta name="robots" content="all" />
       </Head>{" "}
       <Wrap>
+        {" "}
+        <Lottie className="lottieHero" animationData={animacija} />
         <Overlay />
         <Overlay2 />
+        {/* <LeftOverlay /> */}
         <Grain />
         <BGimage />
         <WrapText>
           <Naslov>RETRO ZADAR</Naslov>
-          <Hide>
-            Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada
-            Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada
-            nekad i sad.
-          </Hide>
+          <Text>
+            Na jedinstvenoj interkativnoj mapi usporedite život Zadra nekad i
+            sad.
+            <div style={{ height: "10px" }}></div>U nastojanju da spojimo
+            njegovu bogatu prošlost i živuću sadašnjost ovo je projekt dvojice
+            Zadrana nastao iz čiste ljubavi prema vlastitom gradu i neizmjernog
+            poštovanja prema njegovoj urbanoj povijesti, a sve u nadi kako će
+            nas upravo ove stare fotografije Zadra potaknuti na promišljanje o
+            njegovoj budućnosti.
+            <div style={{ height: "10px" }}></div>
+            Projekt nije i nikada neće imati komercijalni karakter. Ovo je
+            poklon svim Zadrankama i Zadranima koji ovaj grad žive! Kod svih
+            objavljenih povijesnih fotografija navedeno je ime autora gdje god
+            nam je ono bilo poznato.
+            <div style={{ height: "10px" }}></div>
+            Jer “tko kaže da ovog grada nesta ispod neba, staro mu kamenje samo
+            zazvati treba na stara mjesta, i bit će grad”!
+          </Text>
           <Link href="/mapa">
             <Mapa>OTKRIJTE ZADAR</Mapa>
           </Link>

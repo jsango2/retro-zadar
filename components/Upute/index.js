@@ -84,27 +84,6 @@ function Upute({ lng, lat, toggleModal }) {
       <WrapSlider uputeOpen={uputeOpen}>
         <Slider {...settings}>
           <FirstScreen>
-            {" "}
-            <strong>Dragi ljubitelji starih fotografija Zadra!</strong>
-            <br />
-            <br />
-            Dobrodošli na <strong>Retro Zadar</strong>, stranicu posvećenu Zadru
-            i svim onim ljepotama koje su vezane uz naš prekrasan grad!
-            <br /> Ovaj projekt je izradila i održava grupa entuzijasta, kojima
-            je želja da se ne zaboravi povijest grada Zadra kroz fotografije
-            koje su izradili i prikupljali vrsni fotografi sa ovog područja.
-            <br />
-            Projekt nije komercijalan i to nikada neće biti.
-            <br /> Sve fotografije na ovoj karti prikupljene su preko socijalnih
-            mreža i ostalih izvora na internetu. <br />
-            Zahvaljujemo se svima koji su se potrudili da se ove fotografije ne
-            zaborave. <br />
-            Nove fotografije grada izradili su autori ove stranice.
-            <br />
-            <br /> Pročitaj upute za korištenje karte{" "}
-            <strong>Retro Zadar</strong> na sljedećim stranicama
-          </FirstScreen>
-          <FirstScreen>
             <strong>Retro Zadar</strong> je prilagođen za korištenje na
             računalima te na mobilnim uređajima. <br />
             <strong>Retro Zadar</strong> se sastoji od nekoliko djelova: <br />

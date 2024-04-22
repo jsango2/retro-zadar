@@ -104,7 +104,7 @@ export const FirstScreen = styled.p`
   width: 100%;
   height: 570px;
 
-  padding: 70px 70px 70px 70px;
+  padding: 90px 70px 70px 70px;
   text-align: left;
   display: inline;
   margin-left: 20px;
