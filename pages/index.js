@@ -9,31 +9,123 @@ const Wrap = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
-  @media screen and (max-width: 850px) {
+  padding-left: 100px;
+  @media screen and (max-width: 720px) {
+    padding-left: 50px;
+    justify-content: flex-start;
+  }
+`;
+const WrapText = styled.div`
+  position: relative;
+  height: 620px;
+  width: 620px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  @media screen and (max-width: 720px) {
+    width: 90%;
+    margin-top: 50px;
+  }
+`;
+const Overlay = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 40vw;
+  background: linear-gradient(270deg, #f0e7db 0%, #e7dac6 100%);
+  left: 0;
+  z-index: 1;
+  @media screen and (max-width: 720px) {
+    height: 40vh;
+    width: 100vw;
+    background: linear-gradient(0deg, #f0e7db 0%, #e7dac6 100%);
+    top: 0;
+  }
+`;
+const Grain = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(https://grainy-gradients.vercel.app/noise.svg); /* The image used */
+  /* background-color: #cccccc; Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.3;
+  @media screen and (max-width: 720px) {
+  }
+`;
+const Overlay2 = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 40vw;
+  background: linear-gradient(90deg, #f0e7db 0%, rgba(240, 231, 219, 0) 100%);
+  left: 40vw;
+  z-index: 1;
+
+  @media screen and (max-width: 720px) {
+    height: 60vh;
+    width: 100vw;
+    background: linear-gradient(
+      180deg,
+      #f0e7db 0%,
+      #f0e7db 20%,
+      #e7dac673 100%
+    );
+    top: 40vh;
+    left: 0;
+  }
+`;
+const BGimage = styled.div`
+  position: absolute;
+  height: 100vh;
+  width: 80vw;
+  background-image: url("/laureana1b.png"); /* The image used */
+
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  right: 0;
+  z-index: 0;
+
+  @media screen and (max-width: 720px) {
+    top: 50vh;
+    height: 50vh;
+    width: 100vw;
   }
 `;
 const Naslov = styled.h1`
   position: relative;
+  z-index: 2;
 
   font-size: 105px;
   font-family: "Garamond";
   font-weight: 700;
+  color: #3f230f;
+
   /* font-style: bold;
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
-  @media screen and (max-width: 850px) {
-    text-align: center;
+  @media screen and (max-width: 720px) {
+    font-size: 65px;
+
+    text-align: left;
     line-height: 100%;
   }
 `;
 const Mailto = styled.div`
   position: absolute;
+  z-index: 2;
 
   font-size: 15px;
   font-family: "Garamond";
   font-weight: 500;
+  color: #3f230f;
 
   /* font-style: bold;
   font-weight: 700; */
@@ -46,10 +138,22 @@ const Mailto = styled.div`
 `;
 
 const Mapa = styled.div`
+  position: relative;
   margin-top: 30px;
-  text-decoration: underline;
+  width: 203px;
+  height: 56px;
+  flex-shrink: 0;
+  border: 3px solid #bda593;
+  background: #f7f2ed;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   font-weight: 700;
+  z-index: 2;
+
+  color: #3f230f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 850px) {
   }
 `;
@@ -57,10 +161,12 @@ const Hide = styled.h2`
   cursor: pointer;
   width: 600px;
   font-size: 18px;
-  text-align: center;
+  text-align: left;
+  color: #3f230f;
+  z-index: 2;
 
   @media screen and (max-width: 650px) {
-    width: 90vw;
+    width: 90%;
     margin-top: 20px;
   }
 `;
@@ -126,15 +232,21 @@ export default function IndexPage() {
         <meta name="robots" content="all" />
       </Head>{" "}
       <Wrap>
-        <Naslov>RETRO ZADAR</Naslov>
-        <Hide>
-          Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada
-          Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada
-          nekad i sad.
-        </Hide>
-        <Link href="/mapa">
-          <Mapa>Mapa</Mapa>
-        </Link>
+        <Overlay />
+        <Overlay2 />
+        <Grain />
+        <BGimage />
+        <WrapText>
+          <Naslov>RETRO ZADAR</Naslov>
+          <Hide>
+            Pogledajte kako je nekad izgledao naš Zadar. Stare fotografije grada
+            Zadra na jedinstvenoj interaktivnoj mapi. Usporedite izgled grada
+            nekad i sad.
+          </Hide>
+          <Link href="/mapa">
+            <Mapa>OTKRIJTE ZADAR</Mapa>
+          </Link>
+        </WrapText>
         <Mailto>
           <Link href="mailto:retrozadar@gmail.com">retrozadar@gmail.com</Link>
         </Mailto>
