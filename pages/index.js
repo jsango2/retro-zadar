@@ -281,7 +281,7 @@ export default function IndexPage() {
         <WrapText>
           <Naslov>RETRO ZADAR</Naslov>
           <Text>
-            Na jedinstvenoj interkativnoj mapi usporedite život Zadra nekad i
+            Na jedinstvenoj interaktivnoj mapi usporedite život Zadra nekad i
             sad.
             <div style={{ height: "10px" }}></div>U nastojanju da spojimo
             njegovu bogatu prošlost i živuću sadašnjost ovo je projekt dvojice
@@ -296,8 +296,8 @@ export default function IndexPage() {
             nam je ono bilo poznato.
             <div style={{ height: "10px" }}></div>
             Retro Zadar je mapa koja nije konačna već nam je želja da se uporno
-            obogaćuje fotografijama iz svakog kutka našeg grada. Nadamo se da će
-            te nam u tome i vi pomoći.
+            obogaćuje fotografijama iz svakog kutka našeg grada. Nadamo se da
+            ćete nam u tome i vi pomoći.
             <div style={{ height: "10px" }}></div>
             Jer “tko kaže da ovog grada nesta ispod neba, staro mu kamenje samo
             zazvati treba na stara mjesta, i bit će grad”!
