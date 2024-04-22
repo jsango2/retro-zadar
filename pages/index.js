@@ -193,7 +193,7 @@ const Mapa = styled.div`
     font-size: 14px;
   }
 `;
-const Text = styled.h2`
+const Text = styled.h1`
   cursor: pointer;
   width: 100%;
   font-size: 16px;
