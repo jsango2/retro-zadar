@@ -203,7 +203,7 @@ export const Featured = styled.div`
 export const Latest = styled.div`
   position: fixed;
   z-index: 20;
-  width: 120px;
+  width: 80px;
   height: 33px;
   right: 17px;
   top: 10px;
@@ -221,7 +221,7 @@ export const Latest = styled.div`
   background-size: contain; */
   cursor: pointer;
   font-weight: 500;
-  font-family: "Garamond";
+  font-family: sans-serif;
   label {
     margin-right: 5px;
     font-weight: 600;

@@ -74,7 +74,7 @@
 .mapToggler {
   position: fixed;
   z-index: 20;
-  width: 120px;
+  width: 80px;
   height: 33px;
   top: 46px;
   right: 17px;
@@ -83,7 +83,7 @@
   border-radius: 4px;
   overflow: hidden;
   color: #5e5b5b;
-  font-family: "Garamond";
+  font-family: sans-serif;
 
   font-weight: 500;
   display: flex;
@@ -553,7 +553,7 @@
     z-index: 19;
     width: 90px;
     overflow: hidden;
-    font-weight: 600;
+    font-weight: 500;
     display: flex;
     /* justify-content: center; */
     align-items: center;
