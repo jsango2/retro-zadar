@@ -60,6 +60,7 @@ const Naslov = styled.div`
 
   font-size: 55px;
   font-family: "Garamond";
+  font-weight: 700;
   /* font-style: bold;
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
@@ -704,11 +705,11 @@ function Mapa({ data }) {
 
               p.textContent = label;
               var DOM_img = document.createElement("img");
-              if (feature.properties.newPhoto) {
-                var hasNewPhotoDiv = document.createElement("div");
-                hasNewPhotoDiv.id = "hasNewPhotoDiv";
-                itemLink.appendChild(hasNewPhotoDiv);
-              }
+              // if (feature.properties.newPhoto) {
+              //   var hasNewPhotoDiv = document.createElement("div");
+              //   hasNewPhotoDiv.id = "hasNewPhotoDiv";
+              //   itemLink.appendChild(hasNewPhotoDiv);
+              // }
               DOM_img.src = feature.properties.image_url_1000px;
               DOM_img.id = "imgComp";
               DOM_img.setAttribute("loading", "lazy");

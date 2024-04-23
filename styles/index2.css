@@ -24,8 +24,11 @@
   top: 0px !important;
   right: 10px !important;
 }
+.MuiSlider-valueLabelOpen {
+  background-color: #4e2f04 !important;
+}
 .MuiSlider-root {
-  color: #545454 !important;
+  color: #4e2f04 !important;
   animation: myAnim 4s ease 0s infinite normal forwards;
 }
 @keyframes myAnim {
