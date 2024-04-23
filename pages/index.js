@@ -5,6 +5,7 @@ import Link from "next/link";
 import Lottie, { useLottie } from "lottie-react";
 import animacija from "../components/lottie2/lottie.json";
 import useWindowSize from "../components/helper/usewindowsize";
+import Hotjar from "@hotjar/browser";
 
 const Wrap = styled.div`
   position: relative;
@@ -209,6 +210,9 @@ const Text = styled.h1`
 `;
 export default function IndexPage() {
   const size = useWindowSize();
+  const siteId = 4956547;
+  const hotjarVersion = 6;
+  Hotjar.init(siteId, hotjarVersion);
 
   return (
     <>
