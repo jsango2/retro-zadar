@@ -84,14 +84,14 @@ function Upute({ lng, lat, toggleModal }) {
       <WrapSlider uputeOpen={uputeOpen}>
         <Slider {...settings}>
           <FirstScreen>
-            <strong>Retro Zadar</strong> je prilagođen za korištenje na
+            <strong>Retro Zadar</strong> prilagođen je za korištenje na
             računalima te na mobilnim uređajima. <br />
-            <strong>Retro Zadar</strong> se sastoji od nekoliko djelova: <br />
-            Nakon zumiranja karte pojavljuje se traka sa dijelom fotografija sa
+            <strong>Retro Zadar</strong> sastoji se od nekoliko dijelova: <br />
+            Nakon zumiranja karte pojavljuje se traka s dijelom fotografija s
             karte. <br />
-            Prelaskom preko fotografije, označiti će se pozicija te fotografije
-            na karti.
-            <br /> Na fotografiju na traci se može kliknuti za pregled
+            Prelaskom preko fotografije označit će se pozicija te fotografije na
+            karti.
+            <br /> Na fotografiju na traci može se kliknuti za pregled
             fotografije u većem formatu. <br />
             Fotografiju zatvarate klikom na X oznaku na fotografiji (gornji
             desni kut). <br />
@@ -101,13 +101,13 @@ function Upute({ lng, lat, toggleModal }) {
           <FirstScreen>
             Na desnoj strani karte nalazi se klizni odabir intervala godina u
             kojem želite pogledati karte. <br />
-            Primjerice da želite vidjeti samo fotografije netom poslije
-            bombardiranja grada, odaberite interval od 1943- 1945 godine.
+            Primjerice, da želite vidjeti samo fotografije netom poslije
+            bombardiranja grada, odaberite interval od 1943. do 1945. godine.
             <br />
             Svaka fotografija ima na sebi naziv lokacije, godinu kada je
             fotografirana (ili procjenu) te autora fotografije. Zbog načina
             prikupljanja fotografija, moguće su pogreške u godini kreiranja
-            fotografije te navoda autora. Nastojati ćemo ove pogreške
+            fotografije te navoda autora. Nastojat ćemo ove pogreške
             ispravljati.
             <br />
           </FirstScreen>

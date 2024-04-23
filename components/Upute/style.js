@@ -42,7 +42,7 @@ export const WrapAll = styled.div`
   @media only screen and (max-width: 600px) {
     &.open {
       transition: all 0.3s ease-in-out;
-      height: 550px;
+      height: 580px;
       width: 90vw;
       bottom: 47%;
       z-index: 21;
