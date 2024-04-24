@@ -2,10 +2,11 @@ import Head from "next/head";
 import FirebaseUpload from "../components/firebaseUpload";
 import styled from "styled-components";
 import Link from "next/link";
-import Lottie, { useLottie } from "lottie-react";
+// import Lottie, { useLottie } from "lottie-react";
 import animacija from "../components/lottie2/lottie.json";
 import useWindowSize from "../components/helper/usewindowsize";
 import Hotjar from "@hotjar/browser";
+import Lottie from "react-lottie";
 
 const Wrap = styled.div`
   position: relative;
@@ -17,10 +18,10 @@ const Wrap = styled.div`
   align-items: flex-start;
   flex-direction: column;
   padding-left: 100px;
-
+  overflow: hidden;
   @media screen and (max-width: 720px) {
     padding-top: 70px;
-    padding-left: 30px;
+    padding-left: 0px;
     justify-content: space-around;
     padding-bottom: 30px;
   }
@@ -36,18 +37,21 @@ const WrapText = styled.div`
   @media screen and (max-width: 720px) {
     width: 90%;
     height: auto;
+    margin-left: 30px;
   }
 `;
 const Overlay = styled.div`
   position: absolute;
-  height: 100vh;
-  width: 40vw;
+  height: 100%;
+  width: 400px;
+  min-width: 500px;
   background: linear-gradient(270deg, #f0e7db 0%, #e7dac6 100%);
   left: 0;
   z-index: 1;
   @media screen and (max-width: 720px) {
+    min-width: unset;
     height: 55%;
-    width: 100vw;
+    width: 100%;
     background: linear-gradient(0deg, #f0e7db 0%, #e7dac6 100%);
     top: 0;
   }
@@ -67,19 +71,22 @@ const Grain = styled.div`
   opacity: 0.3;
   top: 0;
   @media screen and (max-width: 720px) {
+    width: 100%;
   }
 `;
 const Overlay2 = styled.div`
   position: absolute;
-  height: 100vh;
-  width: 40vw;
+  height: 100%;
+  width: 60vw;
   background: linear-gradient(90deg, #f0e7db 0%, rgba(240, 231, 219, 0) 100%);
-  left: 40vw;
+
+  margin-left: 400px;
   z-index: 1;
 
   @media screen and (max-width: 720px) {
+    margin-left: unset;
     height: 45%;
-    width: 100vw;
+    width: 100%;
     background: linear-gradient(
       180deg,
       #f0e7db 0%,
@@ -93,12 +100,14 @@ const Overlay2 = styled.div`
 const LeftOverlay = styled.div`
   position: absolute;
   height: 100vh;
-  width: 40vw;
+  width: 697px;
   left: 0;
   z-index: 1;
-  background-image: url("/plan.jpeg");
+  background-image: url("/plan2.png");
   @media screen and (max-width: 720px) {
-    height: 60vh;
+    background-image: url("/plan3.png");
+
+    height: 697px;
     width: 100vw;
 
     top: 0;
@@ -143,14 +152,13 @@ const Naslov = styled.h1`
   }
 `;
 const Mailto = styled.div`
-  position: absolute;
+  position: relative;
   z-index: 2;
 
   font-size: 15px;
   font-family: "Garamond";
   font-weight: 500;
   color: #3f230f;
-  bottom: 50px;
   /* font-style: bold;
   font-weight: 700; */
   /* text-shadow: 0px 2px 11px #0000006e; */
@@ -161,9 +169,34 @@ const Mailto = styled.div`
 
     text-align: left;
     line-height: 100%;
+    height: 20px;
+    bottom: unset;
+    left: 30px;
+  }
+`;
+const Insta = styled.div`
+  position: relative;
+  z-index: 2;
+
+  font-size: 15px;
+  font-family: "Garamond";
+  font-weight: 500;
+  color: #3f230f;
+  /* font-style: bold;
+  font-weight: 700; */
+  /* text-shadow: 0px 2px 11px #0000006e; */
+  /* margin-top: auto; */
+
+  @media screen and (max-width: 850px) {
+    position: relative;
+    left: 0;
+    text-align: left;
+    line-height: 100%;
+
     margin-top: 30px;
     height: 20px;
     bottom: unset;
+    left: 30px;
   }
 `;
 
@@ -197,7 +230,7 @@ const Mapa = styled.div`
 const Text = styled.h1`
   cursor: pointer;
   width: 100%;
-  font-size: 16px;
+  font-size: 15px;
   text-align: left;
   color: #3f230f;
   z-index: 2;
@@ -213,6 +246,16 @@ export default function IndexPage() {
   const siteId = 4956547;
   const hotjarVersion = 6;
   Hotjar.init(siteId, hotjarVersion);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animacija,
+    rendererSettings: {
+      className: "lottieHero",
+      preserveAspectRatio: "xMaxYMax slice",
+    },
+  };
 
   return (
     <>
@@ -275,10 +318,28 @@ export default function IndexPage() {
       </Head>{" "}
       <Wrap>
         {" "}
-        <Lottie className="lottieHero" animationData={animacija} />
+        <Lottie
+          options={defaultOptions}
+          style={{ position: "absolute" }}
+          // height={size.height}
+          // width={size.width}
+          // style={{
+          //   position: "absolute",
+          //   height: "100%",
+          //   width: "auto",
+          //   minWidth: "1350px",
+          //   right: "0",
+          //   zIndex: "1",
+          //   objectFit: "cover",
+          // }}
+          //   interactivity={interactivity}
+          //   autoPlay={false}
+          //   loop={false}
+        />
+        {/* <Lottie className="lottieHero" animationData={animacija} /> */}
         <Overlay />
         <Overlay2 />
-        {/* <LeftOverlay /> */}
+        <LeftOverlay />
         <Grain />
         <BGimage />
         <WrapText>
@@ -287,7 +348,7 @@ export default function IndexPage() {
             Na jedinstvenoj interaktivnoj mapi usporedite život Zadra nekad i
             sad.
             <div style={{ height: "10px" }}></div>U nastojanju da spojimo
-            njegovu bogatu prošlost i živuću sadašnjost ovo je projekt dvojice
+            njegovu bogatu prošlost i živuću sadašnjost ovo je projekt grupe
             Zadrana nastao iz čiste ljubavi prema vlastitom gradu i neizmjernog
             poštovanja prema njegovoj urbanoj povijesti, a sve u nadi kako će
             nas upravo ove stare fotografije Zadra potaknuti na promišljanje o
@@ -309,9 +370,14 @@ export default function IndexPage() {
             <Mapa>OTKRIJTE ZADAR</Mapa>
           </Link>
         </WrapText>
-        <Mailto>
-          <Link href="mailto:retrozadar@gmail.com">retrozadar@gmail.com</Link>
-        </Mailto>
+        <div>
+          <Insta>
+            <a href="https://www.instagram.com/retro_zadar">@retro_zadar</a>
+          </Insta>
+          <Mailto>
+            <Link href="mailto:retrozadar@gmail.com">retrozadar@gmail.com</Link>
+          </Mailto>
+        </div>
       </Wrap>
     </>
   );
