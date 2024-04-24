@@ -732,7 +732,10 @@ function Mapa({ data }) {
               //   hasNewPhotoDiv.id = "hasNewPhotoDiv";
               //   itemLink.appendChild(hasNewPhotoDiv);
               // }
-              DOM_img.src = feature.properties.image_url_1000px;
+              DOM_img.src = feature.properties.image_url_1000px.replace(
+                "http",
+                "https"
+              );
               DOM_img.id = "imgComp";
               DOM_img.setAttribute("loading", "lazy");
               itemLink.appendChild(DOM_img);
@@ -759,9 +762,10 @@ function Mapa({ data }) {
                               feature.properties.newPhoto
                                 ? "imgThumbNew"
                                 : "imgThumb"
-                            }><img class="imgPopup" src=${
-                      feature.properties.image_url_1000px
-                    } ></img></div>
+                            }><img class="imgPopup" src=${feature.properties.image_url_1000px.replace(
+                      "http",
+                      "https"
+                    )} ></img></div>
                           </div>
           
                           `
@@ -805,12 +809,14 @@ function Mapa({ data }) {
                                   ${feature.properties.datum_uploada}.g
                                 
                                 </div>
-                         <img class="img3" src=${
-                           feature.properties.image_url_200px
-                         } ></img>
-                           <img id="img4" class="img4" src=${
-                             feature.properties.newPhoto
-                           } ></img>
+                         <img class="img3" src=${feature.properties.image_url_200px.replace(
+                           "http",
+                           "https"
+                         )} ></img>
+                           <img id="img4" class="img4" src=${feature.properties.newPhoto.replace(
+                             "http",
+                             "https"
+                           )} ></img>
                            <div id="activator" class="activator"></div>
                            <div id="divider" class="divider"></div>
                            <div class="fotoAutor">Autor: ${

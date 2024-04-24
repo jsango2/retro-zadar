@@ -16,6 +16,7 @@ body .slick-next::before {
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: "Garamond";
   src: url("../components/assets/fonts/GaramondITCBookCondensedBT.ttf");
