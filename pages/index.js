@@ -348,18 +348,18 @@ export default function IndexPage() {
             Na jedinstvenoj interaktivnoj mapi usporedite život Zadra nekad i
             sad.
             <div style={{ height: "10px" }}></div>U nastojanju da spojimo
-            njegovu bogatu prošlost i živuću sadašnjost ovo je projekt grupe
-            Zadrana nastao iz čiste ljubavi prema vlastitom gradu i neizmjernog
-            poštovanja prema njegovoj urbanoj povijesti, a sve u nadi kako će
-            nas upravo ove stare fotografije Zadra potaknuti na promišljanje o
-            njegovoj budućnosti.
+            njegovu bogatu prošlost i živuću sadašnjost, predstavljamo vam ovaj
+            projekt grupe Zadrana nastao iz čiste ljubavi prema svom gradu i
+            neizmjernog poštovanja prema njegovoj urbanoj povijesti, a sve u
+            nadi kako će nas upravo ove stare fotografije Zadra potaknuti na
+            promišljanje o njegovoj budućnosti.
             <div style={{ height: "10px" }}></div>
             Projekt nije i nikada neće imati komercijalni karakter. Ovo je
             poklon svim Zadrankama i Zadranima koji ovaj grad žive! Kod svih
             objavljenih povijesnih fotografija navedeno je ime autora gdje god
             nam je ono bilo poznato.
             <div style={{ height: "10px" }}></div>
-            Retro Zadar je mapa koja nije konačna već nam je želja da se uporno
+            Retro Zadar je mapa koja nije konačna, već nam je želja da se uporno
             obogaćuje fotografijama iz svakog kutka našeg grada. Nadamo se da
             ćete nam u tome i vi pomoći.
             <div style={{ height: "10px" }}></div>
