@@ -49,7 +49,9 @@ import Head from "next/head";
 // import { useOnClickOutside } from "../components/useClickOutside";
 // import animation1152En from "../animations/popoutrazglednice/poputrazgledniceEn";
 mapboxgl.workerClass = MapboxWorker;
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+// mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+// ako gornji premaši quotu aktiviraj ovog:
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN2;
 
 const Naslov = styled.div`
   position: fixed;
@@ -644,8 +646,12 @@ function Mapa({ data }) {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: "map",
+      // style: mapStyle
+      //   ? "mapbox://styles/jsango2/clsyekr3b00ck01me3jvc2fz0"
+      //   : "mapbox://styles/mapbox/satellite-v9",
+      // drugi account ako ovaj iznad premaši quotu ga aktiviraj
       style: mapStyle
-        ? "mapbox://styles/jsango2/clsyekr3b00ck01me3jvc2fz0"
+        ? "mapbox://styles/sutra2/clvm50rlf01hl01qvglj16d59"
         : "mapbox://styles/mapbox/satellite-v9",
       center: [lng, lat],
       pitch: 40,
