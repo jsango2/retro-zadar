@@ -423,6 +423,13 @@ function Mapa({ data }) {
       setFirstScreen(true);
       setFirstScreen2(true);
     }, 3000);
+    document.addEventListener(
+      "contextmenu",
+      function (e) {
+        e.preventDefault();
+      },
+      false
+    );
   }, []);
 
   const bounds = {
