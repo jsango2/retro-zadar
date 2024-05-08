@@ -430,6 +430,7 @@ function Mapa({ data }) {
       },
       false
     );
+    document.body.style.webkitTouchCallout = "none";
   }, []);
 
   const bounds = {
