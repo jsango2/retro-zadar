@@ -1417,7 +1417,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   } */
   .reveal {
     width: 90vw;
-    height: 62vw;
+    height: 57vw;
   }
   .reveal .img4 {
     position: absolute;
@@ -1473,7 +1473,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .reveal .activator {
     position: absolute;
     width: 90vw;
-    height: 62vw;
+    height: 57vw;
 
     opacity: 0;
     cursor: ew-resize;
