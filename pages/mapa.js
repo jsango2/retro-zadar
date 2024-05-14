@@ -417,7 +417,7 @@ function Mapa({ data }) {
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [value, setValue] = React.useState([1749, 1985]);
+  const [value, setValue] = React.useState([1611, 1985]);
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -705,7 +705,7 @@ function Mapa({ data }) {
 
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
-        // console.log(features);
+        console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
         //   (feature) => feature.properties.newPhoto === ""
         // );
@@ -1278,6 +1278,17 @@ function Mapa({ data }) {
     //   setLoader(e.isSourceLoaded);
     //   // console.log(e)
     // });
+    // const handleEsc = (event) => {
+    //   if (event.key === "Escape") {
+    //     setPopupOn(false);
+    //     popup2.remove();
+    //   }
+    // };
+    // window.addEventListener("keydown", handleEsc);
+
+    // return () => {
+    //   window.removeEventListener("keydown", handleEsc);
+    // };
 
     return () => map.remove();
   }, [geoData2, mapStyle]);
@@ -1358,6 +1369,7 @@ function Mapa({ data }) {
     } else {
       document.getElementById("overlay").classList.remove("overlay");
     }
+
     // if (isPointerInPopup) {
     //   document.getElementById("imagePopup").classList.add("invisibleSwiper");
     // } else {
@@ -1589,7 +1601,7 @@ function Mapa({ data }) {
           value={value}
           onChange={handleChange}
           getAriaValueText={valuetext}
-          min={1749}
+          min={1611}
           max={1985}
           orientation="vertical"
           valueLabelDisplay="on"
