@@ -1278,17 +1278,18 @@ function Mapa({ data }) {
     //   setLoader(e.isSourceLoaded);
     //   // console.log(e)
     // });
-    // const handleEsc = (event) => {
-    //   if (event.key === "Escape") {
-    //     setPopupOn(false);
-    //     popup2.remove();
-    //   }
-    // };
-    // window.addEventListener("keydown", handleEsc);
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        setPopupOn(false);
+        popup2.remove();
+        popup.remove();
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
 
-    // return () => {
-    //   window.removeEventListener("keydown", handleEsc);
-    // };
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
 
     return () => map.remove();
   }, [geoData2, mapStyle]);
