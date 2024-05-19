@@ -620,7 +620,7 @@ function Mapa({ data }) {
       //     currentTimeInMiliSeconds - razglednica.properties.timeStamp <
       //     509200000
       // );
-      let filterByLatest = filtrirano.slice(-10);
+      let filterByLatest = filtrirano.slice(-15);
 
       var objectFiltrirano = {
         type: "FeatureCollection",
@@ -638,7 +638,7 @@ function Mapa({ data }) {
       //     currentTimeInMiliSeconds - razglednica.properties.timeStamp <
       //     509200000
       // );
-      let filterByLatest = filtrirano.slice(-10);
+      let filterByLatest = filtrirano.slice(-15);
 
       var objectFiltrirano = {
         type: "FeatureCollection",
@@ -705,7 +705,7 @@ function Mapa({ data }) {
 
       map.on("moveend", () => {
         const features = map.queryRenderedFeatures({ layers: ["city"] });
-        console.log(features);
+        // console.log(features);
         // const filteredFeaturesByOverlay = features.filter(
         //   (feature) => feature.properties.newPhoto === ""
         // );
@@ -715,7 +715,7 @@ function Mapa({ data }) {
         //   const uniqueFeatures = getUniqueFeatures(features, "iata_code");
         // Populate features for the listing overlay.
 
-        RenderListings(features.slice(0, 10));
+        RenderListings(features.slice(0, 15));
 
         function RenderListings(features) {
           const featuresWithoutClusters = features.filter(
