@@ -133,6 +133,7 @@
   padding: 3px 6px;
   border-radius: 6px !important;
   font-style: italic;
+  font-size: 15px;
 }
 .viseInfo {
   position: absolute;
@@ -438,6 +439,9 @@
     left: 24px;
     bottom: unset;
     font-size: 23px;
+  }
+  .fotoAutor {
+    font-size: 11px;
   }
   .edit {
     position: fixed;
