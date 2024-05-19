@@ -123,7 +123,7 @@ function Upute({ lng, lat, toggleModal }) {
               }}
             />
             Klikom na ikonicu sata, na karti će vam se prikazati samo
-            posljednjih 10 fotografija stavljenih na mapu.
+            posljednjih 15 fotografija stavljenih na mapu.
             <br />
             <br />
             <BsLayersFill
