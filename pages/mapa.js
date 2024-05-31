@@ -417,7 +417,7 @@ function Mapa({ data }) {
   const [geoData2, setGeoData2] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [value, setValue] = React.useState([1611, 1985]);
+  const [value, setValue] = React.useState([1611, 2010]);
   useEffect(() => {
     setTimeout(() => {
       setFirstScreen(true);
@@ -1603,7 +1603,7 @@ function Mapa({ data }) {
           onChange={handleChange}
           getAriaValueText={valuetext}
           min={1611}
-          max={1985}
+          max={2010}
           orientation="vertical"
           valueLabelDisplay="on"
         />
